@@ -1,0 +1,49 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "FileSearch",
+"language": "GDScript",
+"path": "res://core/file_search.gd"
+} ]
+_global_script_class_icons={
+"FileSearch": ""
+}
+
+[application]
+
+config/name="Project Manga"
+run/main_scene="res://Main.tscn"
+boot_splash/image="res://icon.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.266667, 0.0627451, 0.0627451, 1 )
+config/icon="res://icon.png"
+
+[autoload]
+
+global="*res://global/global.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/resizable=false
+window/size/test_width=1920
+window/size/test_height=1080
+window/dpi/allow_hidpi=true
+
+[gui]
+
+theme/use_hidpi=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

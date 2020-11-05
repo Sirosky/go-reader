@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://core/Tex.gd" type="Script" id=1]
+
+[node name="Tex" type="TextureRect"]
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

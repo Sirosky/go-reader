@@ -15,3 +15,5 @@ func _process(delta):
 	
 	if Streamer.tex_obj.size() > 0:
 		Lab[3].text = str(Streamer.tex_obj[Streamer.page_cur].texture)
+
+	Lab[4].text = str(Streamer.thread_processing)

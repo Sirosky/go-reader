@@ -1,6 +1,7 @@
-extends VBoxContainer
+extends MarginContainer
 
-onready var ButLoad = get_node("ButLoad")
+onready var ButLoad = get_node("VBox/ButLoad")
+onready var ButImport = get_node("VBox/ButImport")
 onready var FileDiag = get_node("../FileDialog")
 onready var Core = get_node("/root/Main/Core")
 onready var SourceLoader = get_node("/root/Main/Core/SourceLoader")
@@ -8,20 +9,42 @@ onready var Streamer = get_node("/root/Main/Core/Streamer")
 onready var Popup = get_node("../")
 onready var Camera2D = get_node("/root/Main/Camera2D")
 onready var TexAll = get_node("/root/Main/TexAll")
-onready var DebugOverlay = get_node("/root/Main/DebugOverlay")
+onready var Panel = get_node("Panel")
 
-var Streamer_path = "res://core/Streamer.tscn"
+var FileDiag_mode = 0 #0 = Load, 1 = Import select import source, 2 = Import select import location
+var import_source = "" #Path that is to be imported
+var import_timer = 0
+var Dir = Directory.new()
 
 func _ready():
 	ButLoad.connect("pressed",self,"_on_ButLoad_pressed")
+	ButImport.connect("pressed",self,"_on_ButImport_pressed")
 	
 	FileDiag.connect("confirmed",self,"_on_confirmed")
 	FileDiag.connect("file_selected",self,"_on_file_selected")
 	FileDiag.mode = 2 #Open directory mode
-	FileDiag.access = 2
-	FileDiag.current_dir = ProjectSettings.globalize_path("user://")
-	FileDiag.rect_position.x = global.window_width/2 - FileDiag.rect_size.x/2
-	FileDiag.rect_position.y = global.window_height/2 - FileDiag.rect_size.y/2
+	FileDiag.access = 2 #Can access all directories
+	
+
+func _process(delta):
+	Panel.rect_size.x = rect_size.x
+	Panel.rect_size.y = rect_size.y
+	Panel.rect_position.x = 0
+	Panel.rect_position.y = 0
+	
+	if import_timer > 0: #Begin stage 2 of importing
+		import_timer -= 1
+		if import_timer == 0:
+			FileDiag_show()
+			FileDiag.access = 1 #Only user data
+			FileDiag_mode = 2
+			
+			var tar = ProjectSettings.globalize_path("user://library")
+			if !Dir.dir_exists(tar): #Making sure library exists
+				Dir.make_dir(tar)
+			
+			FileDiag.current_dir = tar
+			FileDiag.window_title = "Select the import target location"
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -37,22 +60,41 @@ func _input(event):
 			visible = false
 
 
-func _on_ButLoad_pressed():
+func _on_ButLoad_pressed(): #Prepare to load a manga from our library
 	hide()
-	FileDiag.popup()
-	FileDiag.rect_position.x = global.window_width/2 - FileDiag.rect_size.x/2
-	FileDiag.rect_position.y = global.window_height/2 - FileDiag.rect_size.y/2
+	FileDiag_show()
+	FileDiag.mode = 2 #Open directory mode
+	FileDiag.access = 1
+	FileDiag_mode = 0
+	FileDiag.current_dir = ProjectSettings.globalize_path("user://")
+	FileDiag.window_title = "Load from library"
 
-func _on_confirmed(): #Load new manga
-	#If there's anything loaded prior, reset everything
-	if TexAll.get_child_count() > 0:
-		Camera2D.position.x = 0
-		Camera2D.position.y = global.window_height/2
-		Camera2D.set_zoom(Vector2(1,1))
-		global.children_delete(TexAll)
-		Streamer_reset()
+func _on_ButImport_pressed(): #Import a manga
+	hide()
+	FileDiag_show()
+	FileDiag.access = 2 #Filesystem
+	FileDiag_mode = 1
+	FileDiag.window_title = "Load an import source"
+
+func _on_confirmed():
+	if FileDiag_mode == 0: #Load new manga from library
+		if TexAll.get_child_count() > 0: #If there's anything loaded prior, reset everything
+			Camera2D.position.x = 0
+			Camera2D.position.y = global.window_height/2
+			Camera2D.set_zoom(Vector2(1,1))
+			global.children_delete(TexAll)
+			Streamer_reset()
+		
+		SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))
 	
-	SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))
+	if FileDiag_mode == 1: #Import source
+		import_source = ProjectSettings.globalize_path(FileDiag.current_dir)
+		import_timer = 20 #Slight delay before showing FileDiag again
+	
+	if FileDiag_mode == 2: #Select import target
+		SourceLoader.source_import_start(import_source, ProjectSettings.globalize_path(FileDiag.current_dir))
+	
+	
 
 func hide(): #Hides context menu
 	visible = false
@@ -85,3 +127,8 @@ func Streamer_reset():
 	Streamer.thread_status = [] #values = 1 for active, 0 for inactive
 	Streamer.thread_queue = [] #value = index. Array of stuff the thread needs to load
 	Streamer.thread_processing = [] #Array of indices
+
+func FileDiag_show():
+	FileDiag.popup()
+	FileDiag.rect_position.x = global.window_width/2 - FileDiag.rect_size.x/2
+	FileDiag.rect_position.y = global.window_height/2 - FileDiag.rect_size.y/2

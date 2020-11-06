@@ -21,7 +21,7 @@ func _process(delta):
 	#Fallback in case a page failed to load. Emergency loading!
 	if Vis.is_on_screen() and texture == null and !Streamer.thread_queue.has(page):
 		Streamer.tex_thread_start(page)
-		print("emergency load: " + str(page))
+#		print("emergency load: " + str(page))
 
 func _on_screen_exited():
 	pass

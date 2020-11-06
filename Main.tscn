@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/MenuContext/MenuContext.gd" type="Script" id=3]
 [ext_resource path="res://ui/Camera2D/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://core/SourceLoader.gd" type="Script" id=5]
-[ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://ui/DebugOverlay/DebugOverlay.gd" type="Script" id=7]
 
 [node name="Main" type="Control"]
@@ -28,21 +27,46 @@ script = ExtResource( 5 )
 
 [node name="Popup" type="CanvasLayer" parent="."]
 
-[node name="MenuContext" type="VBoxContainer" parent="Popup"]
+[node name="MenuContext" type="MarginContainer" parent="Popup"]
 visible = false
-margin_right = 128.0
-margin_bottom = 37.0
+margin_right = 228.0
+margin_bottom = 90.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ButLoad" type="Button" parent="Popup/MenuContext"]
-margin_right = 128.0
+[node name="Panel" type="Panel" parent="Popup/MenuContext"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 226.0
+margin_bottom = 86.0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="Popup/MenuContext"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 226.0
+margin_bottom = 86.0
+
+[node name="ButLoad" type="Button" parent="Popup/MenuContext/VBox"]
+margin_right = 222.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Load"
+text = "Load from Library"
+
+[node name="ButImport" type="Button" parent="Popup/MenuContext/VBox"]
+margin_top = 45.0
+margin_right = 222.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Import to library"
 
 [node name="FileDialog" type="FileDialog" parent="Popup"]
 margin_left = 540.812
@@ -51,7 +75,18 @@ margin_right = 1340.81
 margin_bottom = 799.271
 window_title = "Open a Directory"
 resizable = true
+mode_overrides_title = false
 mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ProgressBar" type="ProgressBar" parent="Popup"]
+margin_left = -957.503
+margin_top = 1048.66
+margin_right = -717.503
+margin_bottom = 1072.66
+percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -62,68 +97,65 @@ current = true
 limit_smoothed = true
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 6 )
-
-[node name="DebugOverlay" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
-[node name="Debug" type="VBoxContainer" parent="DebugOverlay"]
+[node name="Debug" type="VBoxContainer" parent="UI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label" type="Label" parent="UI/Debug"]
 margin_right = 40.0
 margin_bottom = 25.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label2" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label2" type="Label" parent="UI/Debug"]
 margin_top = 33.0
 margin_right = 40.0
 margin_bottom = 58.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label3" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label3" type="Label" parent="UI/Debug"]
 margin_top = 66.0
 margin_right = 40.0
 margin_bottom = 91.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label4" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label4" type="Label" parent="UI/Debug"]
 margin_top = 99.0
 margin_right = 40.0
 margin_bottom = 124.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label5" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label5" type="Label" parent="UI/Debug"]
 margin_top = 132.0
 margin_right = 40.0
 margin_bottom = 157.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label6" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label6" type="Label" parent="UI/Debug"]
 margin_top = 165.0
 margin_right = 40.0
 margin_bottom = 190.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label7" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label7" type="Label" parent="UI/Debug"]
 margin_top = 198.0
 margin_right = 40.0
 margin_bottom = 223.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label8" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label8" type="Label" parent="UI/Debug"]
 margin_top = 231.0
 margin_right = 40.0
 margin_bottom = 256.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label9" type="Label" parent="DebugOverlay/Debug"]
+[node name="Label9" type="Label" parent="UI/Debug"]
 margin_top = 264.0
 margin_right = 40.0
 margin_bottom = 289.0

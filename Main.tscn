@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/MenuContext/MenuContext.gd" type="Script" id=3]
 [ext_resource path="res://ui/Camera2D/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://core/SourceLoader.gd" type="Script" id=5]
 [ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://ui/DebugOverlay/DebugOverlay.gd" type="Script" id=7]
-[ext_resource path="res://core/Streamer.gd" type="Script" id=8]
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -20,8 +20,7 @@ __meta__ = {
 [node name="SourceLoader" type="Node" parent="Core"]
 script = ExtResource( 5 )
 
-[node name="Streamer" type="Node" parent="Core"]
-script = ExtResource( 8 )
+[node name="Streamer" parent="Core" instance=ExtResource( 2 )]
 
 [node name="Tween" type="Tween" parent="Core"]
 
@@ -70,53 +69,62 @@ texture = ExtResource( 6 )
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugOverlay"]
+[node name="Debug" type="VBoxContainer" parent="DebugOverlay"]
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label" type="Label" parent="DebugOverlay/Debug"]
 margin_right = 40.0
 margin_bottom = 25.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label2" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label2" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 33.0
 margin_right = 40.0
 margin_bottom = 58.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label3" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label3" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 66.0
 margin_right = 40.0
 margin_bottom = 91.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label4" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label4" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 99.0
 margin_right = 40.0
 margin_bottom = 124.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label5" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label5" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 132.0
 margin_right = 40.0
 margin_bottom = 157.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label6" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label6" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 165.0
 margin_right = 40.0
 margin_bottom = 190.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label7" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label7" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 198.0
 margin_right = 40.0
 margin_bottom = 223.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label8" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label8" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 231.0
 margin_right = 40.0
 margin_bottom = 256.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
-[node name="Label9" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label9" type="Label" parent="DebugOverlay/Debug"]
 margin_top = 264.0
 margin_right = 40.0
 margin_bottom = 289.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )

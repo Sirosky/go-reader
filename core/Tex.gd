@@ -10,9 +10,6 @@ var page = 0 #The page this texture is loaded for
 func _ready():
 	Vis.connect("screen_exited", self, "_on_screen_exited")
 	Vis.connect("screen_entered", self, "_on_screen_entered")
-	
-	
-	
 
 func _process(delta):
 	Vis.rect = Rect2( 0, 0, rect_size.x, rect_size.y)

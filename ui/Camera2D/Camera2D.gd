@@ -66,6 +66,8 @@ func _ready():
 	set_v_drag_enabled(false)
 	set_enable_follow_smoothing(true)
 	set_follow_smoothing(10)
+	position.x = 0
+	position.y = global.window_height/2
 	
 func _physics_process(delta):
 	if active == true:

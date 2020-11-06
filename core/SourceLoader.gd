@@ -37,11 +37,12 @@ func source_load(dir): #Loads and sorts all the source images
 #				#print(Dir.copy(dir, str("user://temp/" + str(n))))
 #	else:
 	#OR 2b- Search library
-	search = file_search.search_regex_full_path("", dir, 1)
+	search = file_search.search_regex_full_path(filter_regex, dir, 1)
 	if search.size() > 0:
 		var keys = search.keys()
 		keys.sort()
 		tex_sorted = keys #Sorted in order
+	
 		
 	Streamer.tex_thread_start(0)
 	Streamer.tex_thread_start(1)

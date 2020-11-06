@@ -40,21 +40,10 @@ func _process(delta):
 			thread_status.append(int(thread[i].is_active()))
 			
 		if thread_status.has(0): #Have at least one free thread
-			print("Starting from queue")
+#			print("Starting from queue")
 			tex_thread_start(thread_queue[0])
 			thread_queue.remove(0) #Remove from queue
-#	if queue_loading.size() > 0:
-#		var index_remove = [] #Array of indices to remove from queue_loading and queue_index
-#
-#		for i in range(queue_loading.size()):
-#			if queue.is_ready(queue_loading[i]): #done
-#				tex_thread_start_fancy_2(queue.get_resource(queue_loading[i]), queue_index[i])
-#				index_remove.append(i)
-#
-#		if index_remove.size() > 0:
-#			for i in index_remove:
-#				queue_loading.remove(i)
-#				queue_index.remove(i)
+
 
 func _input(event):
 	#Next page
@@ -63,7 +52,6 @@ func _input(event):
 			print("MMB emergency loading: " + str(page_cur))
 			print(tex_obj[page_cur].texture)
 			tex_obj[page_cur].texture = null
-			print(tex_obj[page_cur].texture)
 			tex_load(page_cur)
 		
 func tex_load(index): #Loads from tex_sorted. Does not use thread, unlike tex_thread_start.
@@ -126,7 +114,7 @@ func page_new(pg): #New page showed up
 				i += 1
 		elif pg.page + page_buffer <= SourceLoader.tex_sorted.size(): #New pages
 			var i = page_max
-			while i < pg.page + page_buffer + 1:
+			while i < pg.page + page_buffer:
 				if i > tex_coord.size() - 1: #This prevents double loading pages on startup
 					tex_thread_start(i)
 				i += 1
@@ -174,7 +162,7 @@ func _on_camera_moved():
 func tex_thread_start(index):
 	#Make sure this isn't already being processed
 	if thread_processing.has(index):
-		print("A thread is already processing this page: " + str(index))
+#		print("A thread is already processing this page: " + str(index))
 		return
 	
 	thread_status = []
@@ -185,8 +173,9 @@ func tex_thread_start(index):
 	#Pick a thread if one is available.
 	for i in range(thread_status.size()): 
 		if thread_status[i] == 0: #Not busy
-			print("thread selected: " + str(i))
+#			print("thread selected: " + str(i))
 #			print("thread processing page: " + str(index))
+			print(str(index) + " " + str(SourceLoader.tex_sorted[index]))
 			thread[i].start( self, "tex_thread_load", [index, i])
 			thread_processing.append(index)
 			return
@@ -195,7 +184,7 @@ func tex_thread_start(index):
 	#No eligible threads? Add into queue. Thank you, come again
 	if !thread_queue.has(index):
 		thread_queue.append(index)
-		print(thread_queue)
+#		print(thread_queue)
 		
 
 func tex_thread_load(arr): #value 0 = index, 1 = thread ID

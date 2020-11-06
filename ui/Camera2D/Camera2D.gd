@@ -16,7 +16,7 @@ export (bool) var edge = false
 export (bool) var wheel = true
 export (bool) var active = true
 
-export (int) var zoom_out_limit = 3
+export (int) var zoom_out_limit = 4
 export (int) var zoom_in_limit = .8
 
 # Camera speed in px/s.

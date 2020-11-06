@@ -13,6 +13,8 @@ func _ready():
 	FileDiag.mode = 2 #Open directory mode
 	FileDiag.access = 2
 	FileDiag.current_dir = ProjectSettings.globalize_path("user://")
+	FileDiag.rect_position.x = global.window_width/2 - FileDiag.rect_size.x/2
+	FileDiag.rect_position.y = global.window_height/2 - FileDiag.rect_size.y/2
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -31,6 +33,8 @@ func _input(event):
 func _on_ButLoad_pressed():
 	hide()
 	FileDiag.popup()
+	FileDiag.rect_position.x = global.window_width/2 - FileDiag.rect_size.x/2
+	FileDiag.rect_position.y = global.window_height/2 - FileDiag.rect_size.y/2
 
 func _on_confirmed():
 	SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))

@@ -12,6 +12,7 @@ var rng = RandomNumberGenerator.new()
 onready var root = get_node("/root")
 onready var Camera = get_node("/root/Main/Camera2D")
 onready var Main = get_node("/root/Main")
+onready var Tween = get_node("/root/Main/Core/Tween")
 
 func _ready():
 	rng.randomize()

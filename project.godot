@@ -30,12 +30,14 @@ config/icon="res://icon.png"
 [autoload]
 
 global="*res://global/global.gd"
+ResolutionManager="*res://core/resolution_manager.gd"
 
 [display]
 
 window/size/width=1920
 window/size/height=1080
 window/size/resizable=false
+window/size/fullscreen=true
 window/size/test_width=1920
 window/size/test_height=1080
 window/dpi/allow_hidpi=true
@@ -74,8 +76,14 @@ ui_down={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
  ]
 }
+ui_fullscreen={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [rendering]
 
 environment/default_clear_color=Color( 0.105882, 0.113725, 0.160784, 1 )
+quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"

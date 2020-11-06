@@ -43,10 +43,10 @@ func source_load(dir): #Loads and sorts all the source images
 		keys.sort()
 		tex_sorted = keys #Sorted in order
 		
-	Streamer.tex_load(0)
-	Streamer.tex_load(1)
-	Streamer.tex_load(2)
-	Streamer.tex_load(3)
-	Streamer.tex_load(4)
+	Streamer.tex_thread_start(0)
+	Streamer.tex_thread_start(1)
+	Streamer.tex_thread_start(2)
+	Streamer.tex_thread_start(3)
+	Streamer.tex_thread_start(4)
 
 

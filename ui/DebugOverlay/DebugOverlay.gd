@@ -12,4 +12,6 @@ func _process(delta):
 	Lab[0].text = str(Cam.position)
 	Lab[1].text = str(Streamer.page_cur)
 	Lab[2].text = str(Streamer.page_max)
-	Lab[3].text = str(Streamer.pages_tracking)
+	
+	if Streamer.tex_obj.size() > 0:
+		Lab[3].text = str(Streamer.tex_obj[Streamer.page_cur].texture)

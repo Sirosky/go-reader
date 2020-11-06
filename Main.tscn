@@ -23,6 +23,8 @@ script = ExtResource( 5 )
 [node name="Streamer" type="Node" parent="Core"]
 script = ExtResource( 8 )
 
+[node name="Tween" type="Tween" parent="Core"]
+
 [node name="TexAll" type="Node" parent="."]
 
 [node name="Popup" type="CanvasLayer" parent="."]
@@ -44,10 +46,10 @@ size_flags_vertical = 3
 text = "Load"
 
 [node name="FileDialog" type="FileDialog" parent="Popup"]
-margin_left = 154.0
-margin_top = 95.0
-margin_right = 943.0
-margin_bottom = 702.0
+margin_left = 540.812
+margin_top = 199.271
+margin_right = 1340.81
+margin_bottom = 799.271
 window_title = "Open a Directory"
 resizable = true
 mode = 2

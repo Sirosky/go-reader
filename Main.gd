@@ -21,4 +21,7 @@ func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		get_tree().quit() 
 
-
+	if event.is_action_pressed("ui_fullscreen"):
+		var a = OS.is_window_fullscreen()
+		a = !a
+		OS.set_window_fullscreen(a)

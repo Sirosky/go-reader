@@ -17,11 +17,32 @@ var page_buffer_unload = 10 #How many pages before we start unloading their text
 var pages_tracking = [] #Current 
 var tex_y_buffer = 24 #Space to leave between pages
 
+#ResourceLoader
+var queue = preload("res://core/resource_queue.gd").new()
+var queue_active = 0
+var queue_loading = [] #Array of stuff we're loading, value = path
+var queue_index = [] #Array of indices we're in the middle of loading. Assigned to variable page of tex.
+
+
 func _ready():
 	Camera2D.connect("camera_moved", self, "_on_camera_moved")
+	queue.start()
 
 func _process(delta):
-	pass
+	#Background loading
+
+	if queue_loading.size > 0:
+		var index_remove = [] #Array of indices to remove from queue_loading and queue_index
+		
+		for i in range(queue_loading.size()):
+			if queue.is_ready(queue_loading[i]): #done
+				tex_load_fancy_2(queue.get_resource(queue_loading[i]), queue_index[i])
+				index_remove.append(i)
+		
+		if index_remove.size() > 0:
+			for i in index_remove:
+				queue_loading.remove(i)
+				queue_index.remove(i)
 
 func _input(event):
 	#Next page
@@ -124,3 +145,46 @@ func _on_camera_moved():
 		for i in range(pages_tracking_temp.size() - 1):
 			if abs(page_cur - pages_tracking_temp[i].page) > Camera2D.camera_scroll_speed/15:
 				pages_tracking.remove(i)
+
+func tex_load_fancy_1(index): #tex_load, except background loading. This stage 1.
+	if index >= SourceLoader.tex_sorted.size() or index < 0:
+		return #Cancel, this exceeds array size
+	if SourceLoader.tex_sorted[index].get_extension() == "jpg" or SourceLoader.tex_sorted[index].get_extension() == "png": #Make sure we have the right file
+		#print(SourceLoader.tex_sorted[index])
+		
+		queue.queue_resource(SourceLoader.tex_sorted[index])
+		queue_loading.append(SourceLoader.tex_sorted[index])
+		queue_index.append(index)
+		
+func tex_load_fancy_2(tex, index): #stage 2, called by _process after tex_load_fancy_1
+		var image = Image.new()
+		var image_w = image.get_width()
+		var image_h = image.get_height()
+		var texture = ImageTexture.new()
+		texture.create_from_image(tex, 7)
+		
+		#Check if a Tex for this page exists already
+		page_max = tex_coord.size() - 1
+		if index >= page_max: #Loading a new page
+			
+			var t = global.scene_load(Tex, TexAll)
+			t.texture = texture
+			t.page = tex_coord.size()
+			
+			if tex_coord.size() == 0: #Completely new stream, page 0
+				t.rect_position.y = 0
+				t.rect_position.x = (texture.get_width()/2) * -1
+				tex_coord.append(0)
+			else: #Stream already exists
+				t.rect_position.y = tex_obj[tex_coord.size()-1].rect_position.y + tex_obj[tex_coord.size()-1].rect_size.y + tex_y_buffer
+				t.rect_position.x = (texture.get_width()/2) * -1
+				tex_coord.append(t.rect_position.y)
+			page_max = tex_coord.size() - 1
+			
+#			print(index)
+			tex_obj.append(t)
+			tex_path.append(SourceLoader.tex_sorted[index])
+		else: #page already exists
+			tex_obj[index].texture = texture
+			tex_obj[index].rect_position.x = (texture.get_width()/2) * -1
+#			print("loading old page " + str(index))

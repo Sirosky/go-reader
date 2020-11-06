@@ -16,7 +16,7 @@ export (bool) var edge = false
 export (bool) var wheel = true
 export (bool) var active = true
 
-export (int) var zoom_out_limit = 2
+export (int) var zoom_out_limit = 3
 export (int) var zoom_in_limit = .8
 
 # Camera speed in px/s.
@@ -47,9 +47,9 @@ var _zoom
 
 var camera_origin = Vector2() #Top left of camera
 #Limits of camera
-var camera_limit_x1 = -2000
+var camera_limit_x1 = -4000
 var camera_limit_y1 = -64
-var camera_limit_x2 = 2000
+var camera_limit_x2 = 4000
 var camera_limit_y2 = 999999
 
 signal camera_moved
@@ -89,7 +89,7 @@ func _physics_process(delta):
 		if drag and __rmbk:
 			camera_movement = _prev_mouse_pos - get_local_mouse_position()
 		
-		#Bind camera to limits
+		#Bind camera to limits. Not 100% perfect but good enough here.
 		if camera_origin.x - camera_movement.x < camera_limit_x1 and camera_movement.x < 0:
 			camera_movement.x = 0
 		if camera_origin.y - camera_movement.y < camera_limit_y1 and camera_movement.y < 0:

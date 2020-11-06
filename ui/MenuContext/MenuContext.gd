@@ -16,10 +16,12 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseButton:
+		#Show context menu
 		if event.button_index == BUTTON_RIGHT and event.pressed and not event.is_echo():
 			visible = true
 			rect_position.x = get_viewport().get_mouse_position().x
 			rect_position.y = get_viewport().get_mouse_position().y
+		#Hide context menu
 		if event.button_index == BUTTON_LEFT and event.pressed and not event.is_echo() and\
 		mouse_in_rect(rect_position.x, rect_position.y, rect_position.x + rect_size.x, rect_position.y + rect_size.y) == false:
 			
@@ -31,7 +33,7 @@ func _on_ButLoad_pressed():
 	FileDiag.popup()
 
 func _on_confirmed():
-	SourceLoader.source_load(FileDiag.current_path)
+	SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))
 
 func hide(): #Hides context menu
 	visible = false

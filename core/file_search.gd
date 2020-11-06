@@ -113,7 +113,7 @@ class FilesThatExtendResource:
 
 ##### CONSTANTS #####
 
-const SELF_PATH: String = "res://utility/file_search.gd"
+const SELF_PATH: String = "res://core/file_search.gd"
 
 ##### NOTIFICATIONS #####
 

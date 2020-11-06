@@ -104,7 +104,6 @@ func page_new(pg): #New page showed up
 	if pg.page > page_cur: 
 		if !pages_tracking.has(pg): #Check if this page is now current page
 			pages_tracking.append(pg)
-			
 		
 		if pg.page + page_buffer <= page_max: #This is for previously loaded pages (scrolling up, then scrolling down)
 			var i = pg.page
@@ -126,8 +125,12 @@ func page_new(pg): #New page showed up
 		
 		#Load previously unloaded pages
 		if pg.page - page_buffer >= 0:
-			if tex_obj[pg.page - page_buffer].texture == null:
-				tex_thread_start(pg.page - page_buffer)
+			var i = pg.page - 1
+			
+			while i > pg.page - page_buffer:
+				if tex_obj[i].texture == null:
+					tex_thread_start(i)
+				i -= 1
 
 func _on_camera_moved():
 	#Current page detection
@@ -175,7 +178,7 @@ func tex_thread_start(index):
 		if thread_status[i] == 0: #Not busy
 #			print("thread selected: " + str(i))
 #			print("thread processing page: " + str(index))
-			print(str(index) + " " + str(SourceLoader.tex_sorted[index]))
+#			print(str(index) + " " + str(SourceLoader.tex_sorted[index]))
 			thread[i].start( self, "tex_thread_load", [index, i])
 			thread_processing.append(index)
 			return

@@ -20,11 +20,11 @@ func _process(delta):
 #		print(str(page) + " unloaded")
 
 	#Fallback in case a page failed to load. Emergency loading!
-	if Vis.is_on_screen() and texture == null and !Streamer.thread_queue.has(page):
+	if Vis.is_on_screen() and texture == null and !Streamer.thread_queue.has(page) and !Streamer.thread_processing.has(page):
 		Streamer.tex_thread_start(page)
 #		print("emergency load: " + str(page))
 	
-	if !Vis.is_on_screen() and Streamer.pages_tracking.has(page):
+	if !Vis.is_on_screen() and Streamer.pages_tracking.has(page): #Remove us from tracking
 		if abs(Streamer.page_cur - page) > Camera2D.camera_scroll_speed/10:
 			Streamer.pages_tracking.remove(Streamer.pages_tracking.find(page))
 

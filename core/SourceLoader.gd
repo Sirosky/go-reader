@@ -25,8 +25,9 @@ func source_load(dir): #Loads and sorts all the source images
 		keys.sort()
 		tex_sorted = keys #Sorted in order
 	
-	Streamer.page_first_load = 1
+	
 	Streamer.tex_thread_start(0)
+	Streamer.page_first_load = 1
 #	Streamer.tex_thread_start(1)
 #	Streamer.tex_thread_start(2)
 #	Streamer.tex_thread_start(3)

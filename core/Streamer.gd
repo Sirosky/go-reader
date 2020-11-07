@@ -13,14 +13,18 @@ var tex_obj = [] #objects
 var tex_path = [] #path to texture.
 var tex_coord = [] #y coordinate
 
-var page_max = 0 #Most recently loaded page
+var page_max = 0 #Most recently loaded page. Pretty much irrelevant if there's a page jump.
 var page_cur = 0 #Current page we're looking at
 var page_buffer = 5 # How many extra pages to have loaded
 var page_buffer_unload = 10 #How many pages before we start unloading their textures. Should be greater than page_buffer
 var pages_tracking = [] #Current 
 var pages_tracking_temp = []
+var page_first_load = 0 #First time loading something a stream
 var tex_y_buffer = 24 #Space to leave between pages
 var just_jumped = 0 #Temporarily disables auto-loading new pages with page_new after a jump
+var jump_buffer_lesser = [] #Order of pages to load less than jumped page
+var jump_buffer_greater = [] #Order of pages to load greater than jumped page
+var jump_buffer_removed = [] #Pages that have been sent to processing
 
 #Threading
 var thread = []
@@ -34,6 +38,60 @@ func _ready():
 	thread.append(Thread.new())
 
 func _process(delta):
+	#---- STREAMING LOGIC
+	
+	if just_jumped == 0 and tex_obj.size() > 0:
+		
+		#Check down
+		var i = page_max + 1 
+		if i < page_cur + page_buffer and !thread_processing.has(i) and i <= SourceLoader.tex_sorted.size() - 1:
+			if tex_obj.has(i):
+				while i < page_cur + page_buffer:
+					var skip = 0 #Stop iterating if we encounter an unloaded page
+					if tex_obj[i] == Core: #If we jumped and this page had never been initiated
+						tex_thread_start(i) #Properly load it now
+	#					print("page down: " + str(i))
+						skip = 1
+
+					if skip == 0:
+						if tex_obj[i].texture == null:
+							tex_thread_start(i)
+	#						print("page down: " + str(i))
+							skip = 1
+
+					if skip ==0:
+						i -= 1
+					else:
+						i = page_cur - page_buffer
+			else:
+				tex_thread_start(i)
+		
+		#Check up
+		if page_cur - page_buffer >= 0: #Don't drop below 0
+			i = page_cur
+			while i > page_cur - page_buffer:
+				var skip = 0 #Stop iterating if we encounter an unloaded page
+				if tex_obj[i] == Core: #If we jumped and this page had never been initiated
+					tex_thread_start(i) #Properly load it now
+#					print("page down: " + str(i))
+					skip = 1
+	
+				if skip == 0:
+					if tex_obj[i].texture == null:
+						tex_thread_start(i)
+#						print("page down: " + str(i))
+						skip = 1
+				
+				if skip ==0:
+					i -= 1
+				else:
+					i = page_cur - page_buffer
+		
+		#First load
+		if page_max == 0 and page_first_load == 1:
+			tex_thread_start(page_cur + 1)
+			page_max = 1
+	
 	#Background loading
 	#Check if thread has more work to do
 	if thread_queue.size() > 0:
@@ -47,16 +105,49 @@ func _process(delta):
 #			print("Starting from queue")
 			tex_thread_start(thread_queue[0])
 			thread_queue.remove(0) #Remove from queue
+	
+	#---- POST BUFFER JUMP LOADING
+	var remove = -1
+	
+	if just_jumped == 1:
+		
+		#Buffer prior to page
+		for i in range(jump_buffer_lesser.size()):
+			if thread_queue.has(jump_buffer_lesser[i]):
+				remove = i
+#				print("jump_buffer_lesser[i]: " + str(jump_buffer_lesser[i]))
+#				print("Already processing lesser")
+				break
+			thread_queue.append(jump_buffer_lesser[i]) #Put in queue if it's not already there
+			
+		
+		#Buffer after page
+		remove = -1
+		
+		for i in range(jump_buffer_greater.size()):
+			if thread_queue.has(jump_buffer_greater[i]):
+				remove = i
+#				print("jump_buffer_greater[i]: " + str(jump_buffer_greater[i]))
+#				print("Already processing greater")
+				break
+			thread_queue.append(jump_buffer_greater[i]) #Put in queue if it's not already there
+
+		#Exit just_jumped mode once we can
+		if jump_buffer_greater.size() + jump_buffer_lesser.size() == 0 and jump_buffer_removed.size() > 1:
+			just_jumped = 0
+#			print("Exiting just_jumped mode")
+	
 
 
 func _input(event):
+	pass
 	#Next page
-	if event is InputEventMouseButton and event.button_index == BUTTON_MIDDLE and event.pressed and not event.is_echo():
-		if tex_obj[page_cur].texture == null: #Extra emergency loading
-			print("MMB emergency loading: " + str(page_cur))
-			print(tex_obj[page_cur].texture)
-			tex_obj[page_cur].texture = null
-			tex_load(page_cur)
+#	if event is InputEventMouseButton and event.button_index == BUTTON_MIDDLE and event.pressed and not event.is_echo():
+#		if tex_obj[page_cur].texture == null: #Extra emergency loading
+#			print("MMB emergency loading: " + str(page_cur))
+#			print(tex_obj[page_cur].texture)
+#			tex_obj[page_cur].texture = null
+#			tex_load(page_cur)
 		
 func tex_load(index): #Loads from tex_sorted. Does not use thread, unlike tex_thread_start.
 	#More reliable but greatly impacts fps
@@ -103,74 +194,33 @@ func tex_load(index): #Loads from tex_sorted. Does not use thread, unlike tex_th
 #			print("loading old page " + str(index))
 
 func page_new(pg): #New page showed up
-#	print("new pg: " + str(pg.page))
-	#Scrolling down
-	if pg.page > page_cur and just_jumped == 0:
-		
-		if !pages_tracking.has(pg): #Check if this page is now current page
-			pages_tracking.append(pg)
-		
-		if pg.page + page_buffer <= page_max: #This is for previously loaded pages (scrolling up, then scrolling down)
-			var i = pg.page
-			while i < pg.page + page_buffer:
-				if tex_obj[i] == Core: #If we jumped and this page had never been initiated
-					tex_thread_start(i) #Properly load it now
-					continue #Next if statement would cause an error
-				if tex_obj[i].texture == null: #Load previously seen pages as needed
-					tex_thread_start(i)
-				i += 1
-		elif pg.page + page_buffer <= SourceLoader.tex_sorted.size(): #New pages
-			var i = page_max
-			while i < pg.page + page_buffer:
-				if i > tex_coord.size() - 1: #This prevents double loading pages on startup
-					tex_thread_start(i)
-				i += 1
-	
-	#Scrolling up
-	if pg.page < page_cur and just_jumped == 0: 
-		if !pages_tracking.has(pg): #Check if this page is now current page
-			pages_tracking.append(pg)
-		
-		#Load previously unloaded pages
-		if pg.page - page_buffer >= 0:
-			var i = pg.page - 1
-			
-			while i > pg.page - page_buffer:
-				if tex_obj[i] == Core: #If we jumped and this page had never been initiated
-					tex_thread_start(i) #Properly load it now
-					continue #Next if statement would cause an error
-				if tex_obj[i].texture == null:
-					tex_thread_start(i)
-				i -= 1
+	pass
+
 
 func _on_camera_moved():
 	#Current page detection
+#	pass
 	if pages_tracking.size() > 0: 
-		
+
 		var lowest_diff: float = 99999
 		var result = 0
 		for i in pages_tracking: #Check which page is closest to the center
 			var check_1 = float(abs(i.rect_position.y - Camera2D.position.y))
 			var check_2 = float(abs(i.rect_position.y + (i.rect_size.y) - Camera2D.position.y))
 			var res = min(check_1, check_2)
-			
+
 			if res < lowest_diff:
 				lowest_diff = res
 				result = i.page
-		
+
 		page_cur = result
-		
-		pages_tracking_temp = pages_tracking #For purging old pages
-		
-		if pages_tracking_temp.size() > 0:
-			for i in range(pages_tracking_temp.size() - 2):
-				if abs(page_cur - pages_tracking_temp[i].page) > Camera2D.camera_scroll_speed/10:
-					pages_tracking.remove(i)
+
+
 	
 func tex_jump(page): #Used to jump to a specific page
 	Main.reset()
-	reset()
-	Camera2D.camera_limit_y1 = -999999
+	Camera2D.camera_limit_y1 = -9999999
+	
 	if page >= 0 and page <= SourceLoader.tex_sorted.size() - 1:
 		var i = 0
 		while i < page + 1:
@@ -183,19 +233,26 @@ func tex_jump(page): #Used to jump to a specific page
 		tex_thread_start(page)
 		
 		#Load some buffer too
+		yield(get_tree().create_timer(.5), "timeout")
 		
-		if page - 1 >= 0:
-			tex_thread_start(page - 1)
+		just_jumped = 1
+		i = page - 1
+		while i > page - 3:
+			if i >= 0:
+#				print(i)
+				jump_buffer_lesser.append(i)
+#				tex_thread_start(i)
+			i -= 1
 
 		i = page + 1
 		while i < page + 3:
 			if i <= SourceLoader.tex_sorted.size() - 1:
-				tex_thread_start(i)
-				print(i)
+				jump_buffer_greater.append(i)
+#				tex_thread_start(i)
 			i += 1
 		
-		yield(get_tree().create_timer(2), "timeout") 
-		just_jumped = 0
+		#Next stage is under _process
+
 
 #---------- THREADING
 
@@ -214,10 +271,13 @@ func tex_thread_start(index):
 	for i in range(thread_status.size()): 
 		if thread_status[i] == 0: #Not busy
 #			print("thread selected: " + str(i))
-#			print("thread processing page: " + str(index))
+#			print("thread start processing page: " + str(index))
 #			print(str(index) + " " + str(SourceLoader.tex_sorted[index]))
 			thread[i].start( self, "tex_thread_load", [index, i])
 			thread_processing.append(index)
+			var loc = thread_queue.find(index)
+			if loc != -1:
+				thread_queue.remove(loc)
 			return
 			
 	
@@ -283,27 +343,29 @@ func tex_thread_finish(arr): #This takes place on the main thread
 		if tex_status > 0: #New texture, or not propery initiated
 			var t = global.scene_load(Tex, TexAll)
 			t.texture = texture
-			t.page = tex_coord.size()
-		
+			t.page = arr[0]
+#			print("t.page: " + str(t.page))
+			
 			
 			#Figure out what Tex we should base our y coordinate on
 			var tex_next = tex_obj_is_valid(arr[0] + 1)
 			var tex_prev = tex_obj_is_valid(arr[0] - 1)
-			print("index: " + str(arr[0]))
+			
 #			print("tex_next: " + str(tex_next))
 #			print("tex_prev: " + str(tex_prev))
+#			print("tex_status: " + str(tex_status))
 			t.rect_position.y = 2500
 			
 			if tex_coord.size() - 1 == page_cur: #First load after jumping
 				t.rect_position.y = 0
-			if tex_next == 0:
-				t.rect_position.y = tex_obj[arr[0] + 1].rect_position.y + tex_obj[arr[0] + 1].rect_size.y + tex_y_buffer
-			if tex_prev == 0:
+			if tex_next == 0: #scrolling up
+				t.rect_position.y = tex_obj[arr[0] + 1].rect_position.y - t.rect_size.y - tex_y_buffer
+			if tex_prev == 0: #scrolling down
 				t.rect_position.y = tex_obj[arr[0] - 1].rect_position.y + tex_obj[arr[0] - 1].rect_size.y + tex_y_buffer
 			
 			
 			t.rect_position.x = (texture.get_width()/2) * -1
-			print("y pos: " + str(t.rect_position.y))
+#			print("y pos: " + str(t.rect_position.y))
 			
 			page_max = tex_coord.size() - 1
 			
@@ -321,11 +383,29 @@ func tex_thread_finish(arr): #This takes place on the main thread
 			tex_obj[arr[0]].rect_position.x = (texture.get_width()/2) * -1
 	#		print("loading old page " + str(arr[0]))
 	
-	#Clear from processing array
+	#Handle arrays
 	var loc = thread_processing.find(arr[0])
-	if loc != -1:
-		thread_processing.remove(loc)
+	if loc != -1: thread_processing.remove(loc)
 		#print("thread_processing removed: " + str(loc))
+	loc = jump_buffer_greater.find(arr[0])
+	
+	#If we just_jumped
+	if loc != -1:
+#		print("jump_buffer_greater: " + str(loc))
+		jump_buffer_greater.remove(loc)
+		jump_buffer_removed.append(loc)
+	loc = jump_buffer_lesser.find(arr[0])
+	if loc != -1:
+#		print("jump_buffer_lesser: " + str(loc))
+		jump_buffer_lesser.remove(loc)
+		jump_buffer_removed.append(loc)
+	
+	#If this is a first load
+	if page_first_load == 1:
+		page_first_load = 0
+	
+#	print("Finished pg: " + str(arr[0]))
+
 
 func tex_obj_is_valid(index): #Checks if an entry in tex_obj is a properly initiated Tex
 	var tex_status = 0 # 0 = everything is good, 1 = completely new, 2 = exists but not initiated
@@ -354,8 +434,12 @@ func reset():
 	page_cur = 0 #Current page we're looking at	
 	pages_tracking = [] #Current 
 	pages_tracking_temp = []
+	page_first_load = 0
 	
 	#Threading
 	thread_status = [] #values = 1 for active, 0 for inactive
 	thread_queue = [] #value = index. Array of stuff the thread needs to load
 	thread_processing = [] #Array of indices
+	jump_buffer_lesser = [] #Order of pages to load less than jumped page
+	jump_buffer_greater = [] #Order of pages to load greater than jumped page
+	jump_buffer_removed = [] #Pages that have been sent to processing

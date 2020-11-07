@@ -38,6 +38,6 @@ func reset():
 		Camera2D.position.x = 0
 		Camera2D.position.y = global.window_height/2
 		Camera2D.camera_limit_y1 = -24
-		Camera2D.set_zoom(Vector2(1,1))
+#		Camera2D.set_zoom(Vector2(1,1))
 		global.children_delete(TexAll)
 		Streamer.reset()

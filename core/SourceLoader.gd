@@ -25,11 +25,12 @@ func source_load(dir): #Loads and sorts all the source images
 		keys.sort()
 		tex_sorted = keys #Sorted in order
 	
+	Streamer.page_first_load = 1
 	Streamer.tex_thread_start(0)
-	Streamer.tex_thread_start(1)
-	Streamer.tex_thread_start(2)
-	Streamer.tex_thread_start(3)
-	Streamer.tex_thread_start(4)
+#	Streamer.tex_thread_start(1)
+#	Streamer.tex_thread_start(2)
+#	Streamer.tex_thread_start(3)
+#	Streamer.tex_thread_start(4)
 
 func source_import_start(source, target): #Beginning of thread for importing
 #	dir = str("C:" + dir) #For some reason, the result from FileDiag doesn't include the Drive

@@ -48,7 +48,7 @@ var _zoom
 var camera_origin = Vector2() #Top left of camera
 #Limits of camera
 var camera_limit_x1 = -4000
-var camera_limit_y1 = -64
+var camera_limit_y1 = -24
 var camera_limit_x2 = 4000
 var camera_limit_y2 = 999999
 

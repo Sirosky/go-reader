@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://ui/MenuContext/MenuContext.gd" type="Script" id=3]
 [ext_resource path="res://ui/Camera2D/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://core/SourceLoader.gd" type="Script" id=5]
+[ext_resource path="res://ui/Jump.gd" type="Script" id=6]
 [ext_resource path="res://ui/DebugOverlay/DebugOverlay.gd" type="Script" id=7]
 
 [node name="Main" type="Control"]
@@ -43,14 +44,14 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="Popup/MenuContext"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 226.0
+margin_right = 224.0
 margin_bottom = 86.0
 mouse_filter = 2
 
 [node name="VBox" type="VBoxContainer" parent="Popup/MenuContext"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 226.0
+margin_right = 224.0
 margin_bottom = 86.0
 
 [node name="ButLoad" type="Button" parent="Popup/MenuContext/VBox"]
@@ -59,6 +60,7 @@ margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Load from Library"
+align = 0
 
 [node name="ButImport" type="Button" parent="Popup/MenuContext/VBox"]
 margin_top = 45.0
@@ -67,6 +69,7 @@ margin_bottom = 82.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Import to library"
+align = 0
 
 [node name="FileDialog" type="FileDialog" parent="Popup"]
 margin_left = 540.812
@@ -77,16 +80,6 @@ window_title = "Open a Directory"
 resizable = true
 mode_overrides_title = false
 mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ProgressBar" type="ProgressBar" parent="Popup"]
-margin_left = -957.503
-margin_top = 1048.66
-margin_right = -717.503
-margin_bottom = 1072.66
-percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -160,3 +153,72 @@ margin_top = 264.0
 margin_right = 40.0
 margin_bottom = 289.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+visible = false
+margin_left = -957.503
+margin_top = 1048.66
+margin_right = -717.503
+margin_bottom = 1096.66
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Jump" type="Control" parent="UI"]
+visible = false
+margin_right = 400.0
+margin_bottom = 120.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/Jump"]
+margin_right = 400.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="UI/Jump"]
+margin_right = 400.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Jump/Margin"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 388.0
+margin_bottom = 108.0
+
+[node name="SpinBox" type="SpinBox" parent="UI/Jump/Margin/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 45.0
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Jump/Margin/VBoxContainer"]
+margin_top = 53.0
+margin_right = 376.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+
+[node name="ButJump" type="Button" parent="UI/Jump/Margin/VBoxContainer/HBoxContainer"]
+margin_right = 184.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Jump"
+
+[node name="ButCancel" type="Button" parent="UI/Jump/Margin/VBoxContainer/HBoxContainer"]
+margin_left = 192.0
+margin_right = 376.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Cancel"

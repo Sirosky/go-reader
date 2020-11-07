@@ -10,6 +10,7 @@ onready var Popup = get_node("../")
 onready var Camera2D = get_node("/root/Main/Camera2D")
 onready var TexAll = get_node("/root/Main/TexAll")
 onready var Panel = get_node("Panel")
+onready var Main = get_node("/root/Main")
 
 var FileDiag_mode = 0 #0 = Load, 1 = Import select import source, 2 = Import select import location
 var import_source = "" #Path that is to be imported
@@ -78,13 +79,8 @@ func _on_ButImport_pressed(): #Import a manga
 
 func _on_confirmed():
 	if FileDiag_mode == 0: #Load new manga from library
-		if TexAll.get_child_count() > 0: #If there's anything loaded prior, reset everything
-			Camera2D.position.x = 0
-			Camera2D.position.y = global.window_height/2
-			Camera2D.set_zoom(Vector2(1,1))
-			global.children_delete(TexAll)
-			Streamer_reset()
-		
+		Main.reset()
+		Main.cur_dir = ProjectSettings.globalize_path(FileDiag.current_dir)
 		SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))
 	
 	if FileDiag_mode == 1: #Import source
@@ -108,25 +104,6 @@ func mouse_in_rect(x1, y1, x2, y2):
 		return true
 	else:
 		return false
-
-func Streamer_reset():
-	#Reset all the relevant variables for Streamer
-	for i in Streamer.thread:
-		i.wait_to_finish()
-	
-	Streamer.tex_obj = [] #objects
-	Streamer.tex_path = [] #path to texture.
-	Streamer.tex_coord = [] #y coordinate
-	
-	Streamer.page_max = 0 #Most recently loaded page
-	Streamer.page_cur = 0 #Current page we're looking at	
-	Streamer.pages_tracking = [] #Current 
-	Streamer.pages_tracking_temp = []
-	
-	#Threading
-	Streamer.thread_status = [] #values = 1 for active, 0 for inactive
-	Streamer.thread_queue = [] #value = index. Array of stuff the thread needs to load
-	Streamer.thread_processing = [] #Array of indices
 
 func FileDiag_show():
 	FileDiag.popup()

@@ -14,9 +14,11 @@ onready var UI = get_node("/root/Main/UI")
 var thread = Thread.new()
 
 
-func source_load(dir): #Loads and sorts all the source images
+func source_load(dir): #Loads and sorts all the source images. Page = page to start on
 	#dir = str("C:/" + dir) For some reason, the result from FileDiag doesn't include the Drive
 #	print(dir)
+	Main.cur_dir = dir
+
 	var search
 	
 	search = file_search.search_regex_full_path(filter_regex, dir, 1)
@@ -25,9 +27,17 @@ func source_load(dir): #Loads and sorts all the source images
 		keys.sort()
 		tex_sorted = keys #Sorted in order
 	
+	var start = 0
+	if global.settings["History"].has(Main.cur_dir):
+		start = global.settings["History"][Main.cur_dir]
 	
-	Streamer.tex_thread_start(0)
-	Streamer.page_first_load = 1
+	
+	if start == 0:
+		Streamer.tex_thread_start(0)
+		Streamer.page_first_load = 1
+	else:
+		Streamer.tex_jump(start)
+		
 #	Streamer.tex_thread_start(1)
 #	Streamer.tex_thread_start(2)
 #	Streamer.tex_thread_start(3)

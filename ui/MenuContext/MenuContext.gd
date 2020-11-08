@@ -79,6 +79,7 @@ func _on_ButImport_pressed(): #Import a manga
 
 func _on_confirmed():
 	if FileDiag_mode == 0: #Load new manga from library
+		Main.settings_save_page()
 		Main.reset()
 		Main.cur_dir = ProjectSettings.globalize_path(FileDiag.current_dir)
 		SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))

@@ -68,24 +68,26 @@ func _process(delta):
 		
 		#Check up
 		if page_cur - page_buffer >= 0: #Don't drop below 0
-			i = page_cur
-			while i > page_cur - page_buffer:
+			i = max(page_cur - 1, 0)
+			
+			while i >= page_cur - page_buffer:
 				var skip = 0 #Stop iterating if we encounter an unloaded page
+			
 				if tex_obj[i] == Core: #If we jumped and this page had never been initiated
 					tex_thread_start(i) #Properly load it now
-#					print("page down: " + str(i))
+#					print("page up: " + str(i))
 					skip = 1
 	
 				if skip == 0:
 					if tex_obj[i].texture == null:
 						tex_thread_start(i)
-#						print("page down: " + str(i))
+#						print("page up: " + str(i))
 						skip = 1
 				
 				if skip ==0:
 					i -= 1
 				else:
-					i = page_cur - page_buffer
+					i = page_cur - page_buffer - 1
 		
 		#First load
 		if page_max == 0 and page_first_load == 1:
@@ -362,6 +364,9 @@ func tex_thread_finish(arr): #This takes place on the main thread
 				t.rect_position.y = tex_obj[arr[0] + 1].rect_position.y - t.rect_size.y - tex_y_buffer
 			if tex_prev == 0: #scrolling down
 				t.rect_position.y = tex_obj[arr[0] - 1].rect_position.y + tex_obj[arr[0] - 1].rect_size.y + tex_y_buffer
+			if arr[0] == 0: #Very first page
+#				print("t.rect_position.y- page 0: " + str(t.rect_position.y))
+
 			
 			
 			t.rect_position.x = (texture.get_width()/2) * -1
@@ -408,7 +413,7 @@ func tex_thread_finish(arr): #This takes place on the main thread
 
 
 func tex_obj_is_valid(index): #Checks if an entry in tex_obj is a properly initiated Tex
-	var tex_status = 0 # 0 = everything is good, 1 = completely new, 2 = exists but not initiated
+	var tex_status = 0 # 0 = everything is good, 1 = completely new, 2 = exists but not initiated, 3 = invalid [ie negative number]
 		
 	if !tex_obj.size() - 1 >= index: #New
 		tex_status = 1
@@ -416,6 +421,8 @@ func tex_obj_is_valid(index): #Checks if an entry in tex_obj is a properly initi
 		if tex_obj[index] == Core: #Existing, but only made for jump
 			tex_status = 2
 #	
+	if index < 0:
+		tex_status = 3
 ##	
 #print("index: " + str(index))
 #	print("tex_status: " + str(tex_status))

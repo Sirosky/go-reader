@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
@@ -16,7 +16,6 @@
 [ext_resource path="res://ui/themes/theme_context.tres" type="Theme" id=14]
 [ext_resource path="res://ui/themes/theme_general.tres" type="Theme" id=15]
 [ext_resource path="res://ui/themes/LLPage.tres" type="DynamicFont" id=16]
-[ext_resource path="res://ui/themes/LL16.tres" type="DynamicFont" id=17]
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -54,64 +53,64 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="UI/Debug"]
 margin_right = 40.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label2" type="Label" parent="UI/Debug"]
-margin_top = 28.0
+margin_top = 38.0
 margin_right = 40.0
-margin_bottom = 48.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label3" type="Label" parent="UI/Debug"]
-margin_top = 56.0
+margin_top = 76.0
 margin_right = 40.0
-margin_bottom = 76.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 106.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label4" type="Label" parent="UI/Debug"]
-margin_top = 84.0
+margin_top = 114.0
 margin_right = 40.0
-margin_bottom = 104.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 144.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label5" type="Label" parent="UI/Debug"]
-margin_top = 112.0
+margin_top = 152.0
 margin_right = 40.0
-margin_bottom = 132.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 182.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label6" type="Label" parent="UI/Debug"]
-margin_top = 140.0
+margin_top = 190.0
 margin_right = 40.0
-margin_bottom = 160.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 220.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label7" type="Label" parent="UI/Debug"]
-margin_top = 168.0
+margin_top = 228.0
 margin_right = 40.0
-margin_bottom = 188.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 258.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label8" type="Label" parent="UI/Debug"]
-margin_top = 196.0
+margin_top = 266.0
 margin_right = 40.0
-margin_bottom = 216.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 296.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="Label9" type="Label" parent="UI/Debug"]
-margin_top = 224.0
+margin_top = 304.0
 margin_right = 40.0
-margin_bottom = 244.0
-custom_fonts/font = ExtResource( 17 )
+margin_bottom = 334.0
+custom_fonts/font = ExtResource( 13 )
 custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
 [node name="ProgressBar" type="ProgressBar" parent="UI"]

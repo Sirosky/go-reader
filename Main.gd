@@ -7,6 +7,7 @@ onready var Debug = get_node("/root/Main/UI/Debug")
 onready var UI = get_node("UI")
 onready var TexAll = get_node("TexAll")
 onready var Camera2D = get_node("Camera2D")
+onready var Starter = get_node("UI/Starter")
 
 var cur_dir = "" #Current directory manga is loaded from
 
@@ -74,7 +75,7 @@ func settings_load():
 		
 		if global.settings["General"]["autoload"] == 1 and !global.settings["General"]["autoload_source"] == "":
 			var page
-			
+			Starter.queue_free()
 			SourceLoader.source_load(global.settings["General"]["autoload_source"])
 		
 	else: #new start

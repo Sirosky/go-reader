@@ -2,6 +2,7 @@ extends MarginContainer
 
 onready var ButLoad = get_node("Margin/VBox/ButLoad")
 onready var ButImport = get_node("Margin/VBox/ButImport")
+onready var ButImportZIP = get_node("Margin/VBox/ButImportZIP")
 onready var ButDirectory = get_node("Margin/VBox/ButDirectory")
 onready var ButSettings = get_node("Margin/VBox/ButSettings")
 onready var ButJump = get_node("Margin/VBox/ButJump")
@@ -27,6 +28,7 @@ func _ready():
 	ButImport.connect("pressed",self,"_on_ButImport_pressed")
 	ButDirectory.connect("pressed",self,"_on_ButDirectory_pressed")
 	ButSettings.connect("pressed",self,"_on_ButSettings_pressed")
+	ButImportZIP.connect("pressed",self,"_on_ButImportZIP_pressed")
 	ButJump.connect("pressed",self,"_on_ButJump_pressed")
 	
 	FileDiag.connect("confirmed",self,"_on_confirmed")
@@ -44,9 +46,14 @@ func _process(delta):
 	if import_timer > 0: #Begin stage 2 of importing
 		import_timer -= 1
 		if import_timer == 0:
+			if FileDiag_mode == 1: #Importing loose
+				FileDiag_mode = 2
+			if FileDiag_mode == 4: #Importing zip
+				FileDiag_mode = 5
+			
 			FileDiag_show()
 			FileDiag.access = 1 #Only user data
-			FileDiag_mode = 2
+			
 			
 			var tar = ProjectSettings.globalize_path("user://library")
 			if !Dir.dir_exists(tar): #Making sure library exists
@@ -54,6 +61,7 @@ func _process(delta):
 			
 			FileDiag.current_dir = tar
 			FileDiag.window_title = "Select the import target location"
+
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -85,9 +93,17 @@ func _on_ButImport_pressed(): #Import a manga
 	FileDiag_mode = 1
 	FileDiag.window_title = "Load an import source"
 
+func _on_ButImportZIP_pressed():
+	FileDiag_show()
+	FileDiag.access = 2 #Filesystem
+	FileDiag_mode = 4
+	FileDiag.window_title = "Load the folder with .CBRs, .CBZs,. ZIPs, etc."
+	hide()
+
 func _on_ButDirectory_pressed():
 	hide()
 	OS.shell_open(ProjectSettings.globalize_path("user://library"))
+
 
 func _on_ButJump_pressed():
 	hide()
@@ -104,12 +120,19 @@ func _on_confirmed():
 		Main.cur_dir = ProjectSettings.globalize_path(FileDiag.current_dir)
 		SourceLoader.source_load(ProjectSettings.globalize_path(FileDiag.current_dir))
 	
-	if FileDiag_mode == 1: #Import source
+	if FileDiag_mode == 1: #Import loose source
+		import_source = ProjectSettings.globalize_path(FileDiag.current_dir)
+		import_timer = 20 #Slight delay before showing FileDiag again
+		
+	if FileDiag_mode == 4: #Import in zip form
 		import_source = ProjectSettings.globalize_path(FileDiag.current_dir)
 		import_timer = 20 #Slight delay before showing FileDiag again
 	
-	if FileDiag_mode == 2: #Select import target
+	if FileDiag_mode == 2: #Select loose import target, begin importing
 		SourceLoader.source_import_start(import_source, ProjectSettings.globalize_path(FileDiag.current_dir))
+
+	if FileDiag_mode == 5: #Select zip import target, begin importing
+		SourceLoader.source_import_zip_start(import_source, ProjectSettings.globalize_path(FileDiag.current_dir), 1)
 	
 
 func hide(): #Hides context menu

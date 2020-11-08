@@ -24,7 +24,7 @@ config/name="go·reader"
 config/description="A minimalistic comic & manga reader."
 run/main_scene="res://Main.tscn"
 boot_splash/fullsize=false
-boot_splash/bg_color=Color( 0.105882, 0.137255, 0.14902, 1 )
+boot_splash/bg_color=Color( 0.2, 0.0784314, 0.0784314, 1 )
 
 [autoload]
 
@@ -92,6 +92,6 @@ ui_jump={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.105882, 0.137255, 0.14902, 1 )
+environment/default_clear_color=Color( 0.2, 0.0784314, 0.0784314, 1 )
 quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"

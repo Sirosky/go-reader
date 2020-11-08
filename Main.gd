@@ -9,6 +9,7 @@ onready var TexAll = get_node("TexAll")
 onready var Camera2D = get_node("Camera2D")
 onready var Starter = get_node("UI/Starter")
 
+var Dir = Directory.new()
 var cur_dir = "" #Current directory manga is loaded from
 
 #Options
@@ -73,16 +74,14 @@ func settings_load():
 		else:
 			OS.set_window_fullscreen(true)
 		
-		if global.settings["General"]["autoload"] == 1 and !global.settings["General"]["autoload_source"] == "":
+		if global.settings["General"]["autoload"] == 1 and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
 			var page
 			Starter.queue_free()
 			SourceLoader.source_load(global.settings["General"]["autoload_source"])
 		
 	else: #new start
 		settings_reset()
-		
 		settings_save()
-		print("CE: settings file not found")
 
 func settings_save():
 	global.json_write(global.settings_path, global.settings)

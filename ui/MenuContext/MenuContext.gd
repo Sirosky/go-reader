@@ -72,7 +72,7 @@ func _on_ButLoad_pressed(): #Prepare to load a manga from our library
 	FileDiag.mode = 2 #Open directory mode
 	FileDiag.access = 1
 	FileDiag_mode = 0
-	FileDiag.current_dir = ProjectSettings.globalize_path("user://")
+	FileDiag.current_dir = ProjectSettings.globalize_path("user://library")
 	FileDiag.window_title = "Load from library"
 
 func _on_ButImport_pressed(): #Import a manga

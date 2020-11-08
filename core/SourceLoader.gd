@@ -13,6 +13,8 @@ onready var UI = get_node("/root/Main/UI")
 
 var thread = Thread.new()
 
+func _ready():
+	pass
 
 func source_load(dir): #Loads and sorts all the source images. Page = page to start on
 	#dir = str("C:/" + dir) For some reason, the result from FileDiag doesn't include the Drive
@@ -45,22 +47,35 @@ func source_load(dir): #Loads and sorts all the source images. Page = page to st
 
 func source_import_start(source, target): #Beginning of thread for importing
 #	dir = str("C:" + dir) #For some reason, the result from FileDiag doesn't include the Drive
-		
 	target = str(target + "/" + source.get_file())
+	source = ProjectSettings.globalize_path(source)
 	
-	if !Dir.dir_exists(target): #Create a new folder for this
+	if !Dir.dir_exists(target): #Create a new folder for the base library
 		Dir.make_dir(target)
 	
+	var folders = file_search.search_iterate_folder(source, 1)
+#	print(source)
+#	print(target)
+	
+	#Make directories for all subfolders
+	for i in folders:
+		var source_length = source.length()
+		var remove_length = i.find(source) + source_length
+		i.erase(0, remove_length)
+		i = target + i
+		if !Dir.dir_exists(i):
+			Dir.make_dir(i)
+	
+	yield(get_tree().create_timer(1), "timeout") 
 	if !thread.is_active():
-		thread.start( self, "source_import_load", [source, target])
+		thread.start( self, "source_import_load", [source, target, folders])
 		UI.ProgressBar_toggle()
 	else:
 		print("Can't start import. Thread occupied.")
 
 
-func source_import_load(arr):
-	var search = file_search.search_regex_full_path("", arr[0], 1)
-
+func source_import_load(arr): #arr = [source, target, folders]
+	var search = file_search.search_regex_full_path(filter_regex, arr[0], 1)
 	if search.size()>0:
 		#Visual progress
 		UI.ProgressBar.max_value = search.size() - 1
@@ -68,22 +83,17 @@ func source_import_load(arr):
 		var keys = search.keys()
 		
 		for i in keys: #Put them into target
-			var n = i.get_file()
-			var sub
+			var tar
+			var source_length = arr[0].length()
+			var remove_length = i.find(arr[0]) + source_length
+			var base = i
+			base.erase(0, remove_length) #Get subfolders
+			tar = arr[1] + base #Create the full target directory
 			
+#			print("i: " + str(i))
+#			print("tar: " + str(tar))
 			
-			if i.get_base_dir().get_file() == arr[0].get_file(): #No subfolders present at all
-				sub = arr[1]
-			else: #Subfolder present
-				# 2-depth subfolder, ie subfolder within subfolder
-				if i.get_base_dir().get_base_dir().get_file() != arr[0].get_file():
-					sub = str(arr[1] + "/" + i.get_base_dir().get_base_dir().get_file() + "/" + i.get_base_dir().get_file())
-				else: #Only 1-depth subfolder
-					sub = str(arr[1] + "/" + i.get_base_dir().get_file())
-#				print(i.get_base_dir().get_file()) #Subfolder
-#				print(i.get_base_dir().get_base_dir().get_file()) #Subfolder's parent folder
-#				print(sub)
-			Dir.copy(i, str(str(sub) + "/" + str(n)))
+			Dir.copy(i, tar)
 			UI.ProgressBar.value += 1
 	
 	call_deferred("source_import_finished", arr)

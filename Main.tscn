@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
@@ -7,6 +7,12 @@
 [ext_resource path="res://core/SourceLoader.gd" type="Script" id=5]
 [ext_resource path="res://ui/Jump.gd" type="Script" id=6]
 [ext_resource path="res://ui/DebugOverlay/DebugOverlay.gd" type="Script" id=7]
+[ext_resource path="res://ui/themes/LL48.tres" type="DynamicFont" id=8]
+[ext_resource path="res://ui/themes/LL20.tres" type="DynamicFont" id=9]
+[ext_resource path="res://ui/Starter/Starter.gd" type="Script" id=10]
+[ext_resource path="res://ui/themes/icons/ico_load.png" type="Texture" id=11]
+[ext_resource path="res://ui/themes/icons/ico_import.png" type="Texture" id=12]
+[ext_resource path="res://ui/themes/LLPage.tres" type="DynamicFont" id=13]
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -25,64 +31,6 @@ script = ExtResource( 5 )
 [node name="Tween" type="Tween" parent="Core"]
 
 [node name="TexAll" type="Node" parent="."]
-
-[node name="Popup" type="CanvasLayer" parent="."]
-
-[node name="MenuContext" type="MarginContainer" parent="Popup"]
-visible = false
-margin_right = 228.0
-margin_bottom = 90.0
-custom_constants/margin_right = 4
-custom_constants/margin_top = 4
-custom_constants/margin_left = 4
-custom_constants/margin_bottom = 4
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="Popup/MenuContext"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 224.0
-margin_bottom = 86.0
-mouse_filter = 2
-
-[node name="VBox" type="VBoxContainer" parent="Popup/MenuContext"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 224.0
-margin_bottom = 86.0
-
-[node name="ButLoad" type="Button" parent="Popup/MenuContext/VBox"]
-margin_right = 222.0
-margin_bottom = 37.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Load from Library"
-align = 0
-
-[node name="ButImport" type="Button" parent="Popup/MenuContext/VBox"]
-margin_top = 45.0
-margin_right = 222.0
-margin_bottom = 82.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Import to library"
-align = 0
-
-[node name="FileDialog" type="FileDialog" parent="Popup"]
-margin_left = 540.812
-margin_top = 199.271
-margin_right = 1340.81
-margin_bottom = 799.271
-window_title = "Open a Directory"
-resizable = true
-mode_overrides_title = false
-mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, 540 )
@@ -221,3 +169,177 @@ margin_right = 376.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 text = "Cancel"
+
+[node name="Starter" type="Control" parent="UI"]
+margin_right = 640.0
+margin_bottom = 272.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/Starter"]
+margin_right = 640.0
+margin_bottom = 272.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="UI/Starter"]
+margin_right = 640.0
+margin_bottom = 264.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="UI/Starter/Margin"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 628.0
+margin_bottom = 260.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/separation = 16
+
+[node name="LabelTitle" type="Label" parent="UI/Starter/Margin/VBox"]
+modulate = Color( 1, 1, 1, 0.490196 )
+margin_right = 616.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 8 )
+text = "get started"
+align = 1
+
+[node name="HBox" type="HBoxContainer" parent="UI/Starter/Margin/VBox"]
+margin_top = 75.0
+margin_right = 616.0
+margin_bottom = 248.0
+custom_constants/separation = 12
+alignment = 1
+
+[node name="VBox1" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 150.0
+margin_right = 302.0
+margin_bottom = 173.0
+
+[node name="ButLoad" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox1"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+icon = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox1"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "load from library"
+align = 1
+valign = 1
+
+[node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 314.0
+margin_right = 466.0
+margin_bottom = 173.0
+
+[node name="ButImport" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+icon = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "import to library"
+align = 1
+valign = 1
+
+[node name="LabelPage" type="Label" parent="UI"]
+margin_left = 747.135
+margin_top = 1039.0
+margin_right = 960.135
+margin_bottom = 1078.0
+custom_fonts/font = ExtResource( 13 )
+text = "24 | 4934"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="CanvasLayer" parent="."]
+
+[node name="MenuContext" type="MarginContainer" parent="Popup"]
+visible = false
+margin_right = 228.0
+margin_bottom = 90.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Popup/MenuContext"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 300.0
+margin_bottom = 131.0
+mouse_filter = 2
+
+[node name="VBox" type="VBoxContainer" parent="Popup/MenuContext"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 300.0
+margin_bottom = 131.0
+
+[node name="ButLoad" type="Button" parent="Popup/MenuContext/VBox"]
+margin_right = 222.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Load from Library"
+align = 0
+
+[node name="ButImport" type="Button" parent="Popup/MenuContext/VBox"]
+margin_top = 45.0
+margin_right = 222.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Import to Library"
+align = 0
+
+[node name="ButDirectory" type="Button" parent="Popup/MenuContext/VBox"]
+margin_top = 45.0
+margin_right = 222.0
+margin_bottom = 82.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Open Library in Windows"
+align = 0
+
+[node name="FileDialog" type="FileDialog" parent="Popup"]
+margin_left = 540.812
+margin_top = 199.271
+margin_right = 1340.81
+margin_bottom = 799.271
+window_title = "Open a Directory"
+resizable = true
+mode_overrides_title = false
+mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}

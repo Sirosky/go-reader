@@ -3,7 +3,7 @@ extends Node
 
 var file_search = FileSearch.new() #Launch file search class
 var Dir = Directory.new()
-var filter_regex = "(.jpg|.png|.jpeg)"
+var filter_regex = "(.jpg|.png|.jpeg|.gif|.bmp)"
 var tex_sorted = []
 
 onready var Tex = get_node("/root/Main/Tex")
@@ -82,8 +82,7 @@ func source_import_load(arr):
 					sub = str(arr[1] + "/" + i.get_base_dir().get_file())
 #				print(i.get_base_dir().get_file()) #Subfolder
 #				print(i.get_base_dir().get_base_dir().get_file()) #Subfolder's parent folder
-				print(sub)
-
+#				print(sub)
 			Dir.copy(i, str(str(sub) + "/" + str(n)))
 			UI.ProgressBar.value += 1
 	

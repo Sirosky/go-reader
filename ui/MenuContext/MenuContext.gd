@@ -2,6 +2,7 @@ extends MarginContainer
 
 onready var ButLoad = get_node("VBox/ButLoad")
 onready var ButImport = get_node("VBox/ButImport")
+onready var ButDirectory = get_node("VBox/ButDirectory")
 onready var FileDiag = get_node("../FileDialog")
 onready var Core = get_node("/root/Main/Core")
 onready var SourceLoader = get_node("/root/Main/Core/SourceLoader")
@@ -20,6 +21,7 @@ var Dir = Directory.new()
 func _ready():
 	ButLoad.connect("pressed",self,"_on_ButLoad_pressed")
 	ButImport.connect("pressed",self,"_on_ButImport_pressed")
+	ButDirectory.connect("pressed",self,"_on_ButDirectory_pressed")
 	
 	FileDiag.connect("confirmed",self,"_on_confirmed")
 	FileDiag.connect("file_selected",self,"_on_file_selected")
@@ -77,6 +79,10 @@ func _on_ButImport_pressed(): #Import a manga
 	FileDiag_mode = 1
 	FileDiag.window_title = "Load an import source"
 
+func _on_ButDirectory_pressed():
+	hide()
+	OS.shell_open(ProjectSettings.globalize_path("user://library"))
+
 func _on_confirmed():
 	if FileDiag_mode == 0: #Load new manga from library
 		Main.settings_save_page()
@@ -90,7 +96,6 @@ func _on_confirmed():
 	
 	if FileDiag_mode == 2: #Select import target
 		SourceLoader.source_import_start(import_source, ProjectSettings.globalize_path(FileDiag.current_dir))
-	
 	
 
 func hide(): #Hides context menu

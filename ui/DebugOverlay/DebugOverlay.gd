@@ -2,11 +2,13 @@ extends CanvasLayer
 
 var Lab = []
 onready var Cam = get_node("../Camera2D")
+onready var Main = get_node("/root/Main")
 onready var SourceLoader = get_node("/root/Main/Core/SourceLoader")
 onready var Streamer = get_node("/root/Main/Core/Streamer")
 onready var Debug = get_node("Debug") 
 onready var ProgressBar = get_node("ProgressBar")
 onready var Jump = get_node("Jump")
+onready var LabelPage = get_node("LabelPage")
 
 func _ready():
 	#Set up debug
@@ -14,6 +16,10 @@ func _ready():
 		Lab.append(i)
 	ProgressBar.rect_position.x = 0
 	ProgressBar.rect_position.y = global.window_height - ProgressBar.rect_size.y
+	LabelPage.rect_position.x = global.window_width - LabelPage.rect_size.x - 8
+	LabelPage.rect_position.y = global.window_height - LabelPage.rect_size.y - 8
+	global.Tween.interpolate_property(LabelPage, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .8), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
+	global.Tween.start()
 	
 func _process(delta):
 	#Update debugger
@@ -37,6 +43,13 @@ func _process(delta):
 	
 	if Jump.modulate == Color(1, 1, 1, 0): #Make it invisible
 		Jump.visible = false
+	
+	LabelPage.rect_position.x = global.window_width - LabelPage.rect_size.x - 8
+	if Main.cur_dir != "":
+		LabelPage.text = str(str(Streamer.page_cur + 1) + " of " + str(SourceLoader.tex_sorted.size()))
+	else:
+		LabelPage.text = "n/a"
+	
 
 func ProgressBar_toggle():
 	var vis = !ProgressBar.visible

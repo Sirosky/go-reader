@@ -364,10 +364,6 @@ func tex_thread_finish(arr): #This takes place on the main thread
 				t.rect_position.y = tex_obj[arr[0] + 1].rect_position.y - t.rect_size.y - tex_y_buffer
 			if tex_prev == 0: #scrolling down
 				t.rect_position.y = tex_obj[arr[0] - 1].rect_position.y + tex_obj[arr[0] - 1].rect_size.y + tex_y_buffer
-			if arr[0] == 0: #Very first page
-#				print("t.rect_position.y- page 0: " + str(t.rect_position.y))
-
-			
 			
 			t.rect_position.x = (texture.get_width()/2) * -1
 #			print("y pos: " + str(t.rect_position.y))

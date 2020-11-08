@@ -1,8 +1,9 @@
 extends MarginContainer
 
-onready var ButLoad = get_node("VBox/ButLoad")
-onready var ButImport = get_node("VBox/ButImport")
-onready var ButDirectory = get_node("VBox/ButDirectory")
+onready var ButLoad = get_node("Margin/VBox/ButLoad")
+onready var ButImport = get_node("Margin/VBox/ButImport")
+onready var ButDirectory = get_node("Margin/VBox/ButDirectory")
+onready var ButJump = get_node("Margin/VBox/ButJump")
 onready var FileDiag = get_node("../FileDialog")
 onready var Core = get_node("/root/Main/Core")
 onready var SourceLoader = get_node("/root/Main/Core/SourceLoader")
@@ -12,6 +13,7 @@ onready var Camera2D = get_node("/root/Main/Camera2D")
 onready var TexAll = get_node("/root/Main/TexAll")
 onready var Panel = get_node("Panel")
 onready var Main = get_node("/root/Main")
+onready var UI = get_node("/root/Main/UI")
 
 var FileDiag_mode = 0 #0 = Load, 1 = Import select import source, 2 = Import select import location
 var import_source = "" #Path that is to be imported
@@ -22,6 +24,7 @@ func _ready():
 	ButLoad.connect("pressed",self,"_on_ButLoad_pressed")
 	ButImport.connect("pressed",self,"_on_ButImport_pressed")
 	ButDirectory.connect("pressed",self,"_on_ButDirectory_pressed")
+	ButJump.connect("pressed",self,"_on_ButJump_pressed")
 	
 	FileDiag.connect("confirmed",self,"_on_confirmed")
 	FileDiag.connect("file_selected",self,"_on_file_selected")
@@ -82,6 +85,10 @@ func _on_ButImport_pressed(): #Import a manga
 func _on_ButDirectory_pressed():
 	hide()
 	OS.shell_open(ProjectSettings.globalize_path("user://library"))
+
+func _on_ButJump_pressed():
+	hide()
+	UI.Jump_toggle()
 
 func _on_confirmed():
 	if FileDiag_mode == 0: #Load new manga from library

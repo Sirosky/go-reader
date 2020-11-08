@@ -92,15 +92,19 @@ func _physics_process(delta):
 			camera_movement = _prev_mouse_pos - get_local_mouse_position()
 		
 		#Bind camera to limits. Not 100% perfect but good enough here.
-		if camera_origin.x - camera_movement.x < camera_limit_x1 and camera_movement.x < 0:
+		if position.x - global.window_width/2 - camera_movement.x < camera_limit_x1 and camera_movement.x < 0:
+#			print(position.x - global.window_width/2 - camera_movement.x)
+#			print("stop")
 			camera_movement.x = 0
-		if camera_origin.y - camera_movement.y < camera_limit_y1 and camera_movement.y < 0:
+		if position.y - global.window_height/2 - camera_movement.y < camera_limit_y1 and camera_movement.y < 0:
 			camera_movement.y = 0
 		if position.x + global.window_width/2 + camera_movement.x > camera_limit_x2 and camera_movement.x > 0:
 			camera_movement.x = 0
 		if position.y + global.window_height/2 + camera_movement.y > camera_limit_y2 and camera_movement.y > 0:
 			camera_movement.y = 0
-		
+			
+#		print("camera_movement.x: " + str(camera_movement.x))
+
 		# Update position of the camera.
 		if camera_movement.y != 0 or camera_movement.x != 0: #Only checking y, because X doesn't matter for infinite scroll
 			position += camera_movement * get_zoom()

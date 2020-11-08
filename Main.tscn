@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
@@ -16,6 +16,10 @@
 [ext_resource path="res://ui/themes/theme_context.tres" type="Theme" id=14]
 [ext_resource path="res://ui/themes/theme_general.tres" type="Theme" id=15]
 [ext_resource path="res://ui/themes/LLPage.tres" type="DynamicFont" id=16]
+[ext_resource path="res://ui/themes/LL32.tres" type="DynamicFont" id=17]
+[ext_resource path="res://ui/themes/LL18.tres" type="DynamicFont" id=18]
+[ext_resource path="res://ui/Settings/Settings.gd" type="Script" id=19]
+[ext_resource path="res://ui/themes/icons/ico_settings.png" type="Texture" id=20]
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -241,8 +245,8 @@ custom_constants/separation = 12
 alignment = 1
 
 [node name="VBox1" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
-margin_left = 150.0
-margin_right = 302.0
+margin_left = 68.0
+margin_right = 220.0
 margin_bottom = 173.0
 
 [node name="ButLoad" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox1"]
@@ -262,8 +266,8 @@ align = 1
 valign = 1
 
 [node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
-margin_left = 314.0
-margin_right = 466.0
+margin_left = 232.0
+margin_right = 384.0
 margin_bottom = 173.0
 
 [node name="ButImport" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
@@ -279,6 +283,27 @@ margin_right = 152.0
 margin_bottom = 173.0
 custom_fonts/font = ExtResource( 9 )
 text = "import to library"
+align = 1
+valign = 1
+
+[node name="VBox3" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 396.0
+margin_right = 548.0
+margin_bottom = 173.0
+
+[node name="ButSettings" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+icon = ExtResource( 20 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "change settings"
 align = 1
 valign = 1
 
@@ -314,7 +339,7 @@ __meta__ = {
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 232.0
-margin_bottom = 144.0
+margin_bottom = 175.0
 mouse_filter = 2
 theme = ExtResource( 15 )
 
@@ -322,7 +347,7 @@ theme = ExtResource( 15 )
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 232.0
-margin_bottom = 144.0
+margin_bottom = 175.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -332,7 +357,7 @@ custom_constants/margin_bottom = 4
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 224.0
-margin_bottom = 136.0
+margin_bottom = 167.0
 custom_constants/separation = 6
 
 [node name="ButLoad" type="Button" parent="Popup/MenuContext/Margin/VBox"]
@@ -364,15 +389,25 @@ theme = ExtResource( 14 )
 text = "Open Library in Windows"
 align = 0
 
-[node name="HSeparator" type="HSeparator" parent="Popup/MenuContext/Margin/VBox"]
+[node name="ButSettings" type="Button" parent="Popup/MenuContext/Margin/VBox"]
 margin_top = 93.0
 margin_right = 220.0
-margin_bottom = 101.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Settings"
+align = 0
 
-[node name="ButJump" type="Button" parent="Popup/MenuContext/Margin/VBox"]
-margin_top = 107.0
+[node name="HSeparator" type="HSeparator" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 124.0
 margin_right = 220.0
 margin_bottom = 132.0
+
+[node name="ButJump" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 138.0
+margin_right = 220.0
+margin_bottom = 163.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 14 )
@@ -391,3 +426,246 @@ mode = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Settings" type="Control" parent="Popup"]
+visible = false
+margin_right = 800.0
+margin_bottom = 360.0
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Popup/Settings"]
+margin_right = 800.0
+margin_bottom = 360.0
+theme = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="Popup/Settings"]
+margin_right = 800.0
+margin_bottom = 360.0
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Popup/Settings/Margin"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 1160.0
+margin_bottom = 348.0
+
+[node name="Title" type="Label" parent="Popup/Settings/Margin/VBox"]
+margin_right = 1148.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 17 )
+text = "Settings"
+
+[node name="HSeparator" type="HSeparator" parent="Popup/Settings/Margin/VBox"]
+modulate = Color( 1, 1, 1, 0.392157 )
+margin_top = 47.0
+margin_right = 1148.0
+margin_bottom = 55.0
+
+[node name="Body" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
+margin_top = 63.0
+margin_right = 1148.0
+margin_bottom = 291.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+
+[node name="Left" type="VBoxContainer" parent="Popup/Settings/Margin/VBox/Body"]
+margin_right = 160.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_vertical = 3
+
+[node name="ButGeneral" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_right = 160.0
+margin_bottom = 25.0
+theme = ExtResource( 14 )
+text = "General"
+align = 0
+
+[node name="ButBG" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_top = 33.0
+margin_right = 160.0
+margin_bottom = 58.0
+theme = ExtResource( 14 )
+text = "Background"
+align = 0
+
+[node name="Right" type="MarginContainer" parent="Popup/Settings/Margin/VBox/Body"]
+margin_left = 172.0
+margin_right = 1148.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="General" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
+margin_right = 976.0
+margin_bottom = 228.0
+custom_constants/vseparation = -8
+columns = 2
+
+[node name="Autoload" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 13.0
+margin_right = 266.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 18 )
+text = "autoload last read series on startup"
+
+[node name="CheckAuto" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 274.0
+margin_right = 322.0
+margin_bottom = 48.0
+
+[node name="Full" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 53.0
+margin_right = 266.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 18 )
+text = "fullscreen mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 274.0
+margin_top = 40.0
+margin_right = 322.0
+margin_bottom = 88.0
+
+[node name="Debug" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 93.0
+margin_right = 266.0
+margin_bottom = 115.0
+custom_fonts/font = ExtResource( 18 )
+text = "debug overlay"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckDebug" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 274.0
+margin_top = 80.0
+margin_right = 322.0
+margin_bottom = 128.0
+
+[node name="Background" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
+margin_right = 976.0
+margin_bottom = 228.0
+columns = 3
+
+[node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_top = 5.0
+margin_right = 83.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "hue:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 91.0
+margin_right = 411.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="H3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 419.0
+margin_top = 5.0
+margin_right = 429.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_top = 45.0
+margin_right = 83.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "saturation:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 91.0
+margin_top = 40.0
+margin_right = 411.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="S3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 419.0
+margin_top = 45.0
+margin_right = 429.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_top = 85.0
+margin_right = 83.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 18 )
+text = "value:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 91.0
+margin_top = 80.0
+margin_right = 411.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="V3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 419.0
+margin_top = 85.0
+margin_right = 429.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
+margin_top = 299.0
+margin_right = 1148.0
+margin_bottom = 336.0
+alignment = 2
+
+[node name="ButClose" type="Button" parent="Popup/Settings/Margin/VBox/Accept"]
+margin_left = 1075.0
+margin_right = 1148.0
+margin_bottom = 37.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 9 )
+text = "Close"

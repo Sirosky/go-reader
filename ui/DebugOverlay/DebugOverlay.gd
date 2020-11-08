@@ -71,7 +71,7 @@ func Jump_toggle():
 		Jump.visible = true
 		Jump.rect_position.x = global.window_width/2 - Jump.rect_size.x/2
 		Jump.rect_position.y = global.window_height/2 - Jump.rect_size.y/2
-		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .8), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
+		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .9), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 		global.Tween.start()
 		
 		if SourceLoader.tex_sorted.size() > 0:

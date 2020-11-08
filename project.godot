@@ -20,12 +20,11 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Project Manga"
+config/name="go·reader"
+config/description="A minimalistic comic & manga reader."
 run/main_scene="res://Main.tscn"
-boot_splash/image="res://icon.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.105882, 0.137255, 0.14902, 1 )
-config/icon="res://icon.png"
 
 [autoload]
 
@@ -36,7 +35,6 @@ ResolutionManager="*res://core/resolution_manager.gd"
 
 window/size/width=1920
 window/size/height=1080
-window/size/resizable=false
 window/size/fullscreen=true
 window/size/test_width=1920
 window/size/test_height=1080

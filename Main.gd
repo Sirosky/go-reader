@@ -51,12 +51,17 @@ func reset():
 
 func settings_reset():
 	global.settings["General"] = {}
-	global.settings["General"]["first_start"] = 0
-	global.settings["General"]["autoload"] = 1
+	global.settings["General"]["first_start"] = false
+	global.settings["General"]["autoload"] = true
 	global.settings["General"]["autoload_source"] = ""
-	global.settings["General"]["fullscreen"] = 1
-	global.settings["General"]["debug_overlay"] = 0
+	global.settings["General"]["fullscreen"] = true
+	global.settings["General"]["debug_overlay"] = false
 	global.settings["History"] = {}
+	global.settings["BG"] = {}
+	global.settings["BG"]["color"] = {}
+	global.settings["BG"]["color"]["h"] = 0
+	global.settings["BG"]["color"]["s"] = 0
+	global.settings["BG"]["color"]["v"] = 0
 
 func settings_load():
 	var file_temp = File.new()
@@ -64,17 +69,11 @@ func settings_load():
 	if file_temp.file_exists(global.settings_path): #Existing setting
 		global.settings = global.json_read(global.settings_path)
 		
-		if global.settings["General"]["debug_overlay"] == 0:
-			Debug.visible = false
-		else:
-			Debug.visible = true
+		set_debug_overlay()
+		set_fullscreen()
+		set_bg_color(global.settings["BG"]["color"]["h"], global.settings["BG"]["color"]["s"], global.settings["BG"]["color"]["v"])
 		
-		if global.settings["General"]["fullscreen"] == 0:
-			OS.set_window_fullscreen(false)
-		else:
-			OS.set_window_fullscreen(true)
-		
-		if global.settings["General"]["autoload"] == 1 and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
+		if global.settings["General"]["autoload"] == true and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
 			var page
 			Starter.queue_free()
 			SourceLoader.source_load(global.settings["General"]["autoload_source"])
@@ -84,6 +83,7 @@ func settings_load():
 		settings_save()
 
 func settings_save():
+	
 	global.json_write(global.settings_path, global.settings)
 	
 func settings_save_page():
@@ -91,3 +91,15 @@ func settings_save_page():
 		global.settings["History"][cur_dir] = Streamer.page_cur
 		global.settings["General"]["autoload_source"] = cur_dir
 		settings_save()
+
+#set settings
+
+func set_debug_overlay():
+	Debug.visible = global.settings["General"]["debug_overlay"]
+
+func set_fullscreen():
+	OS.set_window_fullscreen(global.settings["General"]["fullscreen"])
+
+func set_bg_color(h, s, v):
+	VisualServer.set_default_clear_color(Color.from_hsv(h, s, v, 1))
+#	ProjectSettings.set_setting("rendering/environment/default_clear_color", color)

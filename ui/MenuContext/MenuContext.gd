@@ -3,6 +3,7 @@ extends MarginContainer
 onready var ButLoad = get_node("Margin/VBox/ButLoad")
 onready var ButImport = get_node("Margin/VBox/ButImport")
 onready var ButDirectory = get_node("Margin/VBox/ButDirectory")
+onready var ButSettings = get_node("Margin/VBox/ButSettings")
 onready var ButJump = get_node("Margin/VBox/ButJump")
 onready var FileDiag = get_node("../FileDialog")
 onready var Core = get_node("/root/Main/Core")
@@ -14,6 +15,7 @@ onready var TexAll = get_node("/root/Main/TexAll")
 onready var Panel = get_node("Panel")
 onready var Main = get_node("/root/Main")
 onready var UI = get_node("/root/Main/UI")
+onready var Settings = get_node("/root/Main/Popup/Settings")
 
 var FileDiag_mode = 0 #0 = Load, 1 = Import select import source, 2 = Import select import location
 var import_source = "" #Path that is to be imported
@@ -24,6 +26,7 @@ func _ready():
 	ButLoad.connect("pressed",self,"_on_ButLoad_pressed")
 	ButImport.connect("pressed",self,"_on_ButImport_pressed")
 	ButDirectory.connect("pressed",self,"_on_ButDirectory_pressed")
+	ButSettings.connect("pressed",self,"_on_ButSettings_pressed")
 	ButJump.connect("pressed",self,"_on_ButJump_pressed")
 	
 	FileDiag.connect("confirmed",self,"_on_confirmed")
@@ -89,6 +92,10 @@ func _on_ButDirectory_pressed():
 func _on_ButJump_pressed():
 	hide()
 	UI.Jump_toggle()
+
+func _on_ButSettings_pressed():
+	hide()
+	Settings.show()
 
 func _on_confirmed():
 	if FileDiag_mode == 0: #Load new manga from library

@@ -1,7 +1,7 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
-[ext_resource path="res://core/Streamer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://core/Streamer.gd" type="Script" id=2]
 [ext_resource path="res://ui/MenuContext/MenuContext.gd" type="Script" id=3]
 [ext_resource path="res://ui/Camera2D/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://core/SourceLoader.gd" type="Script" id=5]
@@ -20,6 +20,7 @@
 [ext_resource path="res://ui/themes/LL18.tres" type="DynamicFont" id=18]
 [ext_resource path="res://ui/Settings/Settings.gd" type="Script" id=19]
 [ext_resource path="res://ui/themes/icons/ico_settings.png" type="Texture" id=20]
+[ext_resource path="res://ui/Messenger/Messenger.gd" type="Script" id=21]
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -33,7 +34,8 @@ __meta__ = {
 [node name="SourceLoader" type="Node" parent="Core"]
 script = ExtResource( 5 )
 
-[node name="Streamer" parent="Core" instance=ExtResource( 2 )]
+[node name="Streamer" type="Node" parent="Core"]
+script = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="Core"]
 
@@ -47,6 +49,9 @@ script = ExtResource( 4 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
+
+[node name="Messenger" type="Node" parent="UI"]
+script = ExtResource( 21 )
 
 [node name="Debug" type="VBoxContainer" parent="UI"]
 margin_right = 40.0
@@ -471,11 +476,11 @@ __meta__ = {
 [node name="VBox" type="VBoxContainer" parent="Popup/Settings/Margin"]
 margin_left = 12.0
 margin_top = 12.0
-margin_right = 1160.0
+margin_right = 788.0
 margin_bottom = 348.0
 
 [node name="Title" type="Label" parent="Popup/Settings/Margin/VBox"]
-margin_right = 1148.0
+margin_right = 776.0
 margin_bottom = 39.0
 custom_fonts/font = ExtResource( 17 )
 text = "Settings"
@@ -483,12 +488,12 @@ text = "Settings"
 [node name="HSeparator" type="HSeparator" parent="Popup/Settings/Margin/VBox"]
 modulate = Color( 1, 1, 1, 0.392157 )
 margin_top = 47.0
-margin_right = 1148.0
+margin_right = 776.0
 margin_bottom = 55.0
 
 [node name="Body" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
 margin_top = 63.0
-margin_right = 1148.0
+margin_right = 776.0
 margin_bottom = 291.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -517,7 +522,7 @@ align = 0
 
 [node name="Right" type="MarginContainer" parent="Popup/Settings/Margin/VBox/Body"]
 margin_left = 172.0
-margin_right = 1148.0
+margin_right = 776.0
 margin_bottom = 228.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 3
@@ -525,7 +530,7 @@ size_flags_vertical = 3
 
 [node name="General" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
-margin_right = 976.0
+margin_right = 604.0
 margin_bottom = 228.0
 custom_constants/vseparation = -8
 columns = 2
@@ -576,7 +581,7 @@ margin_bottom = 128.0
 
 [node name="Background" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
-margin_right = 976.0
+margin_right = 604.0
 margin_bottom = 228.0
 columns = 3
 
@@ -671,13 +676,13 @@ __meta__ = {
 
 [node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
 margin_top = 299.0
-margin_right = 1148.0
+margin_right = 776.0
 margin_bottom = 336.0
 alignment = 2
 
 [node name="ButClose" type="Button" parent="Popup/Settings/Margin/VBox/Accept"]
-margin_left = 1075.0
-margin_right = 1148.0
+margin_left = 703.0
+margin_right = 776.0
 margin_bottom = 37.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 9 )

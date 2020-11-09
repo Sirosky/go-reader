@@ -42,11 +42,8 @@ func source_load(dir): #Loads and sorts all the source images. Page = page to st
 		Streamer.page_first_load = 1
 	else:
 		Streamer.tex_jump(start)
-		
-#	Streamer.tex_thread_start(1)
-#	Streamer.tex_thread_start(2)
-#	Streamer.tex_thread_start(3)
-#	Streamer.tex_thread_start(4)
+	
+	global.Mes.message_send("load complete")
 
 #---------- IMPORT EBOOKS
 func source_import_zip_start(source, target, first_run):
@@ -92,6 +89,7 @@ func source_import_zip_finished(arr):
 		source_import_zip_start(arr[0], arr[1], 0)
 	else: #We are done
 		UI.ProgressBar_toggle() #Done! Hide PB again
+		global.Mes.message_send("import complete")
 
 #---------- IMPORT LOOSE MANGA/COMICS
 func source_import_start(source, target): #Beginning of thread for importing
@@ -148,6 +146,6 @@ func source_import_load(arr): #arr = [source, target, folders]
 	call_deferred("source_import_finished", arr)
 
 func source_import_finished(arr):
-	
+	global.Mes.message_send("import complete")
 	thread.wait_to_finish()
 	UI.ProgressBar_toggle() #Done! Hide PB again

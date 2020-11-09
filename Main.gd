@@ -1,6 +1,6 @@
 extends Control
 
-onready var MenuContext = get_node("MenuContext")
+onready var MenuContext = get_node("Popup/MenuContext")
 onready var SourceLoader = get_node("Core/SourceLoader")
 onready var Streamer = get_node("Core/Streamer")
 onready var Debug = get_node("/root/Main/UI/Debug")
@@ -19,6 +19,7 @@ var read_pages = 1
 func _ready():
 	settings_load()
 
+
 func _input(event):
 	#Next page
 #	if event is InputEventMouseButton and event.button_index == BUTTON_MIDDLE and event.pressed and not event.is_echo():
@@ -36,6 +37,8 @@ func _input(event):
 		var a = OS.is_window_fullscreen()
 		a = !a
 		OS.set_window_fullscreen(a)
+	if event.is_action_pressed("ui_load"):
+		MenuContext._on_ButLoad_pressed()
 
 func reset():
 	if TexAll.get_child_count() > 0: #If there's anything loaded prior, reset everything
@@ -83,7 +86,6 @@ func settings_load():
 		settings_save()
 
 func settings_save():
-	
 	global.json_write(global.settings_path, global.settings)
 	
 func settings_save_page():

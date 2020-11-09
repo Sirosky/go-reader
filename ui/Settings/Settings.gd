@@ -47,7 +47,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if modulate == Color(1, 1, 1, 0):
+	if modulate == Color(1, 1, 1, 0) and visible == true:
 		visible = false
 	
 	if Background.visible == true:
@@ -114,3 +114,4 @@ func show():
 func hide():
 	global.Tween.interpolate_property(self, "modulate",Color(1, 1, 1, 0.9), Color(1, 1, 1, 0), .5, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 	global.Tween.start()
+	global.Mes.message_send("settings saved")

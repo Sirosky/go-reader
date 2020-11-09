@@ -12,6 +12,7 @@ onready var root = get_node("/root")
 onready var Camera = get_node("/root/Main/Camera2D")
 onready var Main = get_node("/root/Main")
 onready var Tween = get_node("/root/Main/Core/Tween")
+onready var Mes = get_node("/root/Main/UI/Messenger")
 
 #Settings
 var settings_path = "res://settings/settings.json"

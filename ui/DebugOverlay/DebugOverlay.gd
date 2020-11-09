@@ -80,6 +80,6 @@ func Jump_toggle():
 			Jump.SpinBox.max_value = 0
 		
 	else: #Reset progress bar, make it go away
-		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, .8), Color(1, 1, 1, 0), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
+		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, .9), Color(1, 1, 1, 0), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 		global.Tween.start()
 		Jump.SpinBox.value = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.gd" type="Script" id=2]
@@ -21,6 +21,10 @@
 [ext_resource path="res://ui/Settings/Settings.gd" type="Script" id=19]
 [ext_resource path="res://ui/themes/icons/ico_settings.png" type="Texture" id=20]
 [ext_resource path="res://ui/Messenger/Messenger.gd" type="Script" id=21]
+[ext_resource path="res://ui/themes/icons/ico_about.png" type="Texture" id=22]
+[ext_resource path="res://ui/themes/sb_panel.tres" type="StyleBox" id=23]
+[ext_resource path="res://ui/About/About.gd" type="Script" id=26]
+[ext_resource path="res://ui/themes/icons/ico_ebook.png" type="Texture" id=27]
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -54,6 +58,7 @@ script = ExtResource( 7 )
 script = ExtResource( 21 )
 
 [node name="Debug" type="VBoxContainer" parent="UI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -198,7 +203,7 @@ text = "Cancel"
 [node name="Starter" type="Control" parent="UI"]
 visible = false
 margin_right = 640.0
-margin_bottom = 272.0
+margin_bottom = 472.0
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -206,7 +211,7 @@ __meta__ = {
 
 [node name="Panel" type="Panel" parent="UI/Starter"]
 margin_right = 640.0
-margin_bottom = 272.0
+margin_bottom = 472.0
 theme = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -214,7 +219,7 @@ __meta__ = {
 
 [node name="Margin" type="MarginContainer" parent="UI/Starter"]
 margin_right = 640.0
-margin_bottom = 264.0
+margin_bottom = 472.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 custom_constants/margin_right = 12
@@ -229,7 +234,7 @@ __meta__ = {
 margin_left = 12.0
 margin_top = 12.0
 margin_right = 628.0
-margin_bottom = 260.0
+margin_bottom = 460.0
 size_flags_horizontal = 5
 size_flags_vertical = 5
 custom_constants/separation = 16
@@ -298,12 +303,12 @@ margin_left = 396.0
 margin_right = 548.0
 margin_bottom = 173.0
 
-[node name="ButSettings" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
+[node name="ButImportZIP" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
 margin_right = 152.0
 margin_bottom = 140.0
 rect_min_size = Vector2( 128, 128 )
 theme = ExtResource( 15 )
-icon = ExtResource( 20 )
+icon = ExtResource( 27 )
 
 [node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
 modulate = Color( 1, 1, 1, 0.784314 )
@@ -311,7 +316,57 @@ margin_top = 148.0
 margin_right = 152.0
 margin_bottom = 173.0
 custom_fonts/font = ExtResource( 9 )
+text = "import ebook"
+align = 1
+valign = 1
+
+[node name="HBox2" type="HBoxContainer" parent="UI/Starter/Margin/VBox"]
+margin_top = 264.0
+margin_right = 616.0
+margin_bottom = 437.0
+alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox2"]
+margin_left = 152.0
+margin_right = 304.0
+margin_bottom = 173.0
+
+[node name="ButSettings" type="Button" parent="UI/Starter/Margin/VBox/HBox2/VBox"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 20 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox2/VBox"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
 text = "change settings"
+align = 1
+valign = 1
+
+[node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox2"]
+margin_left = 312.0
+margin_right = 464.0
+margin_bottom = 173.0
+
+[node name="ButAbout" type="Button" parent="UI/Starter/Margin/VBox/HBox2/VBox2"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 22 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox2/VBox2"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "about"
 align = 1
 valign = 1
 
@@ -394,7 +449,7 @@ margin_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 14 )
-text = "Import to Library"
+text = "Import images folder to Library"
 align = 0
 
 [node name="ButDirectory" type="Button" parent="Popup/MenuContext/Margin/VBox"]
@@ -687,3 +742,367 @@ margin_bottom = 37.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 9 )
 text = "Close"
+
+[node name="About" type="PanelContainer" parent="Popup"]
+visible = false
+margin_right = 640.0
+margin_bottom = 511.0
+custom_styles/panel = ExtResource( 23 )
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/About"]
+margin_right = 640.0
+margin_bottom = 511.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="Popup/About/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 636.0
+margin_bottom = 507.0
+
+[node name="Top" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox"]
+margin_right = 632.0
+margin_bottom = 55.0
+custom_constants/separation = -6
+
+[node name="About" type="Label" parent="Popup/About/MarginContainer/VBox/Top"]
+margin_right = 632.0
+margin_bottom = 39.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 17 )
+text = "About"
+align = 1
+
+[node name="Version" type="Label" parent="Popup/About/MarginContainer/VBox/Top"]
+margin_top = 33.0
+margin_right = 632.0
+margin_bottom = 55.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 18 )
+text = "v. 1.1-Ardent"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Popup/About/MarginContainer/VBox"]
+visible = false
+margin_top = 56.0
+margin_right = 532.0
+margin_bottom = 64.0
+
+[node name="Body" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox"]
+margin_top = 63.0
+margin_right = 632.0
+margin_bottom = 458.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Popup/About/MarginContainer/VBox/Body"]
+margin_right = 632.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 9 )
+text = "go·reader is a minimalistic comic and manga reading application designed using Godot game engine.
+
+Created by Sirosky. A big thanks to willnationsdev for his invaluable GDScript help throughout the project."
+scroll_active = false
+
+[node name="LabelDefault" type="Label" parent="Popup/About/MarginContainer/VBox/Body"]
+margin_top = 146.0
+margin_right = 632.0
+margin_bottom = 176.0
+custom_fonts/font = ExtResource( 13 )
+text = "Default Controls"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox/Body"]
+margin_top = 184.0
+margin_right = 632.0
+margin_bottom = 395.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Popup/About/MarginContainer/VBox/Body/VBoxContainer"]
+margin_right = 632.0
+margin_bottom = 211.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan camera: WASD, left mouse button, or arrow keys
+Scroll camera: Scroll wheel
+Zoom camera: Ctrl + scroll wheel
+Load comic or manga: L
+Fullscreen F
+Jump to page: J
+Exit: Esc"
+
+[node name="GridContainer" type="GridContainer" parent="Popup/About/MarginContainer/VBox/Body"]
+visible = false
+margin_top = 201.0
+margin_right = 632.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 8
+columns = 2
+
+[node name="Label" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_right = 234.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan Camera: WASD | LMB"
+align = 1
+valign = 1
+
+[node name="Label7" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 242.0
+margin_right = 484.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Scroll Camera: WASD | LMB"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 33.0
+margin_right = 234.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Zoom Camera: Ctrl + Scroll"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 242.0
+margin_top = 33.0
+margin_right = 484.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Fullscreen: F"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 66.0
+margin_right = 234.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 9 )
+text = "Debug overlay: E"
+align = 1
+valign = 1
+
+[node name="Label5" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 242.0
+margin_top = 66.0
+margin_right = 484.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 9 )
+text = "Jump to page: J"
+align = 1
+valign = 1
+
+[node name="Label6" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 99.0
+margin_right = 234.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 9 )
+text = "Load a comic or manga: L"
+align = 1
+valign = 1
+
+[node name="ButClose" type="Button" parent="Popup/About/MarginContainer/VBox"]
+margin_left = 282.0
+margin_top = 466.0
+margin_right = 350.0
+margin_bottom = 503.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 9 )
+text = "close"
+
+[node name="Welcome" type="PanelContainer" parent="Popup"]
+visible = false
+margin_right = 800.0
+margin_bottom = 480.0
+custom_styles/panel = ExtResource( 23 )
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/Welcome"]
+margin_right = 800.0
+margin_bottom = 593.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="Popup/Welcome/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 796.0
+margin_bottom = 589.0
+
+[node name="Top" type="VBoxContainer" parent="Popup/Welcome/MarginContainer/VBox"]
+margin_right = 792.0
+margin_bottom = 55.0
+custom_constants/separation = -6
+
+[node name="About" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Top"]
+margin_right = 792.0
+margin_bottom = 39.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 17 )
+text = "Welcome to go·reader!"
+align = 1
+
+[node name="Version" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Top"]
+margin_top = 33.0
+margin_right = 792.0
+margin_bottom = 55.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 18 )
+text = "let's get you started"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Popup/Welcome/MarginContainer/VBox"]
+visible = false
+margin_top = 56.0
+margin_right = 532.0
+margin_bottom = 64.0
+
+[node name="Body" type="VBoxContainer" parent="Popup/Welcome/MarginContainer/VBox"]
+margin_top = 63.0
+margin_right = 792.0
+margin_bottom = 540.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+margin_right = 792.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 220 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 9 )
+bbcode_enabled = true
+text = "go·reader allows you to read comics & manga that have been imported to the Library. Once you have imported a series into your Library, simply right click anywhere, and select Load.
+
+If your files are in CBZ, CBR, ZIP, etc.: 1) right click 2) select \"Import eBook folder to Library\" 3) select directory with files.
+
+If your files are loose images, ie individual JPGs or PNGs: 1) right click 2) select \"Import images folder to Library\" 3) select directory with files."
+scroll_active = false
+
+[node name="LabelDefault" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+margin_top = 228.0
+margin_right = 792.0
+margin_bottom = 258.0
+custom_fonts/font = ExtResource( 13 )
+text = "Default Controls"
+align = 1
+valign = 1
+
+[node name="GridContainer" type="GridContainer" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+visible = false
+margin_top = 266.0
+margin_right = 792.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 8
+columns = 3
+
+[node name="Label" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_right = 227.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan Camera: WASD | LMB"
+align = 1
+valign = 1
+
+[node name="Label7" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 235.0
+margin_right = 467.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Scroll Camera: Scroll wheel"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 475.0
+margin_right = 709.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Zoom Camera: Ctrl + Scroll"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 33.0
+margin_right = 227.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Fullscreen: F"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 235.0
+margin_top = 33.0
+margin_right = 467.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Debug overlay: E"
+align = 1
+valign = 1
+
+[node name="Label5" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 475.0
+margin_top = 33.0
+margin_right = 709.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Jump to page: J"
+align = 1
+valign = 1
+
+[node name="Label6" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 66.0
+margin_right = 227.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 9 )
+text = "Load a comic or manga: L"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+margin_top = 266.0
+margin_right = 792.0
+margin_bottom = 477.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan camera: WASD, left mouse button, or arrow keys
+Scroll camera: Scroll wheel
+Zoom camera: Ctrl + scroll wheel
+Load comic or manga: L
+Fullscreen F
+Jump to page: J
+Exit: Esc"
+
+[node name="ButClose" type="Button" parent="Popup/Welcome/MarginContainer/VBox"]
+margin_left = 362.0
+margin_top = 548.0
+margin_right = 430.0
+margin_bottom = 585.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 9 )
+text = "close"

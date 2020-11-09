@@ -8,6 +8,7 @@ onready var UI = get_node("UI")
 onready var TexAll = get_node("TexAll")
 onready var Camera2D = get_node("Camera2D")
 onready var Starter = get_node("UI/Starter")
+onready var Welcome = get_node("/root/Main/Popup/Welcome")
 
 var Dir = Directory.new()
 var cur_dir = "" #Current directory manga is loaded from
@@ -62,9 +63,9 @@ func settings_reset():
 	global.settings["History"] = {}
 	global.settings["BG"] = {}
 	global.settings["BG"]["color"] = {}
-	global.settings["BG"]["color"]["h"] = 0
-	global.settings["BG"]["color"]["s"] = 0
-	global.settings["BG"]["color"]["v"] = 0
+	global.settings["BG"]["color"]["h"] = float(226)/float(360)
+	global.settings["BG"]["color"]["s"] = float(60)/float(360)
+	global.settings["BG"]["color"]["v"] = float(20)/float(360)
 
 func settings_load():
 	var file_temp = File.new()
@@ -84,6 +85,8 @@ func settings_load():
 	else: #new start
 		settings_reset()
 		settings_save()
+		Welcome.toggle()
+		global.settings["General"]["first_start"] = false
 
 func settings_save():
 	global.json_write(global.settings_path, global.settings)

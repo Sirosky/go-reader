@@ -1,10 +1,11 @@
-[gd_resource type="Theme" load_steps=4 format=2]
+[gd_resource type="Theme" load_steps=5 format=2]
 
 [ext_resource path="res://ui/themes/LL20.tres" type="DynamicFont" id=1]
+[ext_resource path="res://ui/themes/sb_panel.tres" type="StyleBox" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -168,14 +169,14 @@ ItemList/styles/cursor = null
 ItemList/styles/cursor_unfocused = null
 ItemList/styles/selected = null
 ItemList/styles/selected_focus = null
-Label/colors/font_color = Color( 1, 1, 1, 1 )
+Label/colors/font_color = Color( 1, 1, 1, 0 )
 Label/colors/font_color_shadow = Color( 1, 1, 1, 1 )
 Label/colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 Label/constants/line_spacing = 6
 Label/constants/shadow_as_outline = 0
 Label/constants/shadow_offset_x = 2
 Label/constants/shadow_offset_y = 2
-Label/fonts/font = null
+Label/fonts/font = ExtResource( 1 )
 Label/styles/normal = null
 LineEdit/colors/clear_button_color = Color( 1, 1, 1, 1 )
 LineEdit/colors/clear_button_color_pressed = Color( 0.0470588, 0.00392157, 0.00392157, 1 )
@@ -224,8 +225,8 @@ OptionButton/styles/focus = null
 OptionButton/styles/hover = null
 OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
-Panel/styles/panel = SubResource( 2 )
-PanelContainer/styles/panel = null
+Panel/styles/panel = ExtResource( 2 )
+PanelContainer/styles/panel = SubResource( 3 )
 PopupDialog/styles/panel = null
 PopupMenu/colors/font_color = Color( 1, 1, 1, 1 )
 PopupMenu/colors/font_color_accel = Color( 1, 1, 1, 1 )
@@ -265,7 +266,7 @@ RichTextLabel/fonts/bold_font = null
 RichTextLabel/fonts/bold_italics_font = null
 RichTextLabel/fonts/italics_font = null
 RichTextLabel/fonts/mono_font = null
-RichTextLabel/fonts/normal_font = null
+RichTextLabel/fonts/normal_font = ExtResource( 1 )
 RichTextLabel/styles/focus = null
 RichTextLabel/styles/normal = null
 ScrollContainer/styles/bg = null

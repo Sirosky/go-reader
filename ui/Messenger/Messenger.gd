@@ -25,7 +25,7 @@ func message_send(text):
 	add_child(temp) #load button into the right container
 	var node_path = NodePath(get_path_to(temp)) #locate the newly created button
 	temp = get_node(node_path) #get button
-	
+
 	var tween_dur = 1
 	temp.rect_position.x = window_width - temp.rect_size.x - 1
 	temp.rect_position.y = window_height + 16
@@ -36,10 +36,10 @@ func message_send(text):
 	temp.countdown_initial = tween_dur * 60
 	temp.text = str(text)
 	temp.init()
-	
+
 	var tar_x = temp.rect_position.x
 	var tar_y = window_height - temp.rect_size.y - message_gap - message_offset_y
-	
+
 	message_sort()
 	global.Tween.interpolate_property(temp, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, message_alpha), tween_dur, global.Tween.TRANS_SINE, global.Tween.EASE_OUT)
 	global.Tween.interpolate_property(temp, "rect_position", Vector2(temp.rect_position.x, temp.rect_position.y), Vector2(tar_x,tar_y), tween_dur, global.Tween.TRANS_SINE, global.Tween.EASE_OUT)

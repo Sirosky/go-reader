@@ -8,12 +8,12 @@ var destroy_emitted = 0 #Destroy signal emitted
 
 signal destroy_me
 
-onready var Bar = get_node("HBoxContainer/ProgressBar")
+onready var Bar = get_node("VBox/ProgressBar")
 
 # Called when the node enters the scene tree for the first time.
 func init():
-	get_node("HBoxContainer/MarginContainer/RichTextLabel").bbcode_text = text
-	get_node("HBoxContainer/ProgressBar").max_value = time
+	get_node("VBox/MarginContainer/RichTextLabel").bbcode_text = text
+	Bar.max_value = time
 	Bar.value = time
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

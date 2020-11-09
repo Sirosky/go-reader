@@ -54,9 +54,6 @@ script = ExtResource( 4 )
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
-[node name="Messenger" type="Node" parent="UI"]
-script = ExtResource( 21 )
-
 [node name="Debug" type="VBoxContainer" parent="UI"]
 visible = false
 margin_right = 40.0
@@ -383,6 +380,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Messenger" type="Node" parent="UI"]
+script = ExtResource( 21 )
+
 [node name="Popup" type="CanvasLayer" parent="."]
 
 [node name="MenuContext" type="MarginContainer" parent="Popup"]
@@ -401,7 +401,7 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="Popup/MenuContext"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 273.0
+margin_right = 278.0
 margin_bottom = 206.0
 mouse_filter = 2
 theme = ExtResource( 15 )
@@ -409,7 +409,7 @@ theme = ExtResource( 15 )
 [node name="Margin" type="MarginContainer" parent="Popup/MenuContext"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 273.0
+margin_right = 278.0
 margin_bottom = 206.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
@@ -419,7 +419,7 @@ custom_constants/margin_bottom = 4
 [node name="VBox" type="VBoxContainer" parent="Popup/MenuContext/Margin"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 265.0
+margin_right = 270.0
 margin_bottom = 198.0
 custom_constants/separation = 6
 

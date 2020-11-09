@@ -27,6 +27,7 @@ boot_splash/image="res://ui/splash/go·reader_splash.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.08, 0.11, 0.2, 1 )
 config/icon="res://ui/splash/go·reader_icon.png"
+config/windows_native_icon="res://ui/splash/go·reader_icon.ico"
 
 [autoload]
 

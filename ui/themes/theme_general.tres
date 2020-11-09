@@ -5,7 +5,7 @@
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.14902, 0.14902, 0.14902, 1 )
 corner_radius_top_left = 8
 corner_radius_top_right = 8
@@ -226,7 +226,7 @@ OptionButton/styles/hover = null
 OptionButton/styles/normal = null
 OptionButton/styles/pressed = null
 Panel/styles/panel = ExtResource( 2 )
-PanelContainer/styles/panel = SubResource( 3 )
+PanelContainer/styles/panel = SubResource( 2 )
 PopupDialog/styles/panel = null
 PopupMenu/colors/font_color = Color( 1, 1, 1, 1 )
 PopupMenu/colors/font_color_accel = Color( 1, 1, 1, 1 )

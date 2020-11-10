@@ -73,10 +73,15 @@ func source_import_zip_start(source, target, first_run):
 			thread.start( self, "source_import_zip_load", [importing_zips, target])
 
 func source_import_zip_load(arr): #importing_zips, target
-	var out_path = ProjectSettings.globalize_path(str(arr[1] + "/" + importing_zips[0].get_file()))
-	OS.execute("7z.exe", ["e", importing_zips[0], "-r", "-y", "-o" + str(out_path)], 1, ["complete"])
+	var zip_path = str(OS.get_executable_path().get_base_dir() + "\\7z\\7z.exe") #This probably won't work in editor mode
 	
-	call_deferred("source_import_zip_finished", arr)
+	var out_path = ProjectSettings.globalize_path(str(arr[1] + "/" + importing_zips[0].get_file()))
+	out_path = out_path.rstrip("." + out_path.get_extension())
+	print(out_path)
+
+#	OS.execute(zip_path, ["e", importing_zips[0], "-r", "-y", "-o" + str(out_path)], 1, ["complete"])
+	
+#	call_deferred("source_import_zip_finished", arr)
 
 func source_import_zip_finished(arr):
 	thread.wait_to_finish()

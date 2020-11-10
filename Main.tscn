@@ -273,31 +273,9 @@ text = "load from library"
 align = 1
 valign = 1
 
-[node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+[node name="VBox3" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
 margin_left = 232.0
 margin_right = 384.0
-margin_bottom = 173.0
-
-[node name="ButImport" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
-margin_right = 152.0
-margin_bottom = 140.0
-rect_min_size = Vector2( 128, 128 )
-theme = ExtResource( 15 )
-icon = ExtResource( 12 )
-
-[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
-modulate = Color( 1, 1, 1, 0.784314 )
-margin_top = 148.0
-margin_right = 152.0
-margin_bottom = 173.0
-custom_fonts/font = ExtResource( 9 )
-text = "import to library"
-align = 1
-valign = 1
-
-[node name="VBox3" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
-margin_left = 396.0
-margin_right = 548.0
 margin_bottom = 173.0
 
 [node name="ButImportZIP" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
@@ -314,6 +292,28 @@ margin_right = 152.0
 margin_bottom = 173.0
 custom_fonts/font = ExtResource( 9 )
 text = "import ebook"
+align = 1
+valign = 1
+
+[node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 396.0
+margin_right = 548.0
+margin_bottom = 173.0
+
+[node name="ButImport" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "import to library"
 align = 1
 valign = 1
 

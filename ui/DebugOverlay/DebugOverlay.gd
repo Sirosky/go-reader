@@ -15,9 +15,9 @@ func _ready():
 	for i in $Debug.get_children():
 		Lab.append(i)
 	ProgressBar.rect_position.x = 0
-	ProgressBar.rect_position.y = global.window_height - ProgressBar.rect_size.y
-	LabelPage.rect_position.x = global.window_width - LabelPage.rect_size.x - 8
-	LabelPage.rect_position.y = global.window_height - LabelPage.rect_size.y - 8
+	ProgressBar.rect_position.y = OS.get_screen_size().y - ProgressBar.rect_size.y
+	LabelPage.rect_position.x = OS.get_screen_size().x - LabelPage.rect_size.x - 8
+	LabelPage.rect_position.y = OS.get_screen_size().y - LabelPage.rect_size.y - 8
 	global.Tween.interpolate_property(LabelPage, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .8), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 	global.Tween.start()
 	
@@ -44,7 +44,7 @@ func _process(delta):
 	if Jump.modulate == Color(1, 1, 1, 0): #Make it invisible
 		Jump.visible = false
 	
-	LabelPage.rect_position.x = global.window_width - LabelPage.rect_size.x - 8
+	LabelPage.rect_position.x = OS.get_screen_size().x - LabelPage.rect_size.x - 8
 	if Main.cur_dir != "":
 		LabelPage.text = str(str(Streamer.page_cur + 1) + " of " + str(SourceLoader.tex_sorted.size()))
 	else:
@@ -69,8 +69,8 @@ func Jump_toggle():
 	
 	if vis == true:
 		Jump.visible = true
-		Jump.rect_position.x = global.window_width/2 - Jump.rect_size.x/2
-		Jump.rect_position.y = global.window_height/2 - Jump.rect_size.y/2
+		Jump.rect_position.x = OS.get_screen_size().x/2 - Jump.rect_size.x/2
+		Jump.rect_position.y = OS.get_screen_size().y/2 - Jump.rect_size.y/2
 		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .9), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 		global.Tween.start()
 		

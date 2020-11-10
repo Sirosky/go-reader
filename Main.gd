@@ -44,7 +44,7 @@ func _input(event):
 func reset():
 	if TexAll.get_child_count() > 0: #If there's anything loaded prior, reset everything
 		Camera2D.position.x = 0
-		Camera2D.position.y = global.window_height/2
+		Camera2D.position.y = OS.get_screen_size().y/2
 		Camera2D.camera_limit_y1 = -24
 		#Save our progress
 		settings_save_page()

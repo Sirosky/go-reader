@@ -16,8 +16,8 @@ func toggle():
 	
 	if vis == true:
 		visible = true
-		rect_position.x = global.window_width/2 - rect_size.x/2
-		rect_position.y = global.window_height/2 - rect_size.y/2
+		rect_position.x = OS.get_screen_size().x/2 - rect_size.x/2
+		rect_position.y = OS.get_screen_size().y/2 - rect_size.y/2
 		global.Tween.interpolate_property(self, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .9), .5, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 		global.Tween.start()
 	else: #Reset progress bar, make it go away

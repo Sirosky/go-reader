@@ -150,5 +150,5 @@ func mouse_in_rect(x1, y1, x2, y2):
 
 func FileDiag_show():
 	FileDiag.popup()
-	FileDiag.rect_position.x = global.window_width/2 - FileDiag.rect_size.x/2
-	FileDiag.rect_position.y = global.window_height/2 - FileDiag.rect_size.y/2
+	FileDiag.rect_position.x = OS.get_screen_size().x/2 - FileDiag.rect_size.x/2
+	FileDiag.rect_position.y = OS.get_screen_size().y/2 - FileDiag.rect_size.y/2

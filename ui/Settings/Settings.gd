@@ -106,8 +106,8 @@ func show():
 	SliderV.value = global.settings["BG"]["color"]["v"]
 	
 	
-	rect_position.x = global.window_width/2 - rect_size.x/2
-	rect_position.y = global.window_height/2 - rect_size.y/2
+	rect_position.x = OS.get_screen_size().x/2 - rect_size.x/2
+	rect_position.y = OS.get_screen_size().y/2 - rect_size.y/2
 	General.visible = true
 	Background.visible = false
 

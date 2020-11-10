@@ -55,7 +55,6 @@ func source_import_zip_start(source, target, first_run):
 		
 		if !Dir.dir_exists(target): #Create a new folder for the base library
 			Dir.make_dir(target)
-
 	
 		#Find zips
 		var search = file_search.search_regex_full_path(filter_regex_zip, source, 1)
@@ -64,7 +63,7 @@ func source_import_zip_start(source, target, first_run):
 			
 			if !thread.is_active():
 				UI.ProgressBar_toggle()
-				UI.ProgressBar.max_value = importing_zips.size() - 1
+				UI.ProgressBar.max_value = importing_zips.size()
 				thread.start( self, "source_import_zip_load", [importing_zips, target])
 			else:
 				print("Can't start import. Thread occupied.")
@@ -75,7 +74,7 @@ func source_import_zip_start(source, target, first_run):
 
 func source_import_zip_load(arr): #importing_zips, target
 	var out_path = ProjectSettings.globalize_path(str(arr[1] + "/" + importing_zips[0].get_file()))
-	OS.execute("7za.exe", ["e", importing_zips[0], "-r", "-y", "-o" + str(out_path)], 1, ["complete"])
+	OS.execute("7z.exe", ["e", importing_zips[0], "-r", "-y", "-o" + str(out_path)], 1, ["complete"])
 	
 	call_deferred("source_import_zip_finished", arr)
 

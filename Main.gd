@@ -20,7 +20,6 @@ var read_pages = 1
 func _ready():
 	settings_load()
 
-
 func _input(event):
 	#Next page
 #	if event is InputEventMouseButton and event.button_index == BUTTON_MIDDLE and event.pressed and not event.is_echo():

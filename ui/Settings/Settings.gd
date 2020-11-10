@@ -4,6 +4,7 @@ onready var Main = get_node("/root/Main")
 
 onready var General = get_node("Margin/VBox/Body/Right/General")
 onready var Background = get_node("Margin/VBox/Body/Right/Background")
+onready var Floater = get_node("Floater")
 
 #Left submenu
 onready var ButGeneral = get_node("Margin/VBox/Body/Left/ButGeneral")
@@ -44,6 +45,7 @@ func _ready():
 	SliderH.connect("value_changed", self, "_on_BGColor_updated", [SliderH])
 	SliderS.connect("value_changed", self, "_on_BGColor_updated", [SliderS])
 	SliderV.connect("value_changed", self, "_on_BGColor_updated", [SliderV])
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

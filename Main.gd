@@ -77,7 +77,6 @@ func settings_load():
 		set_bg_color(global.settings["BG"]["color"]["h"], global.settings["BG"]["color"]["s"], global.settings["BG"]["color"]["v"])
 		
 		if global.settings["General"]["autoload"] == true and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
-			var page
 			Starter.queue_free()
 			SourceLoader.source_load(global.settings["General"]["autoload_source"])
 		

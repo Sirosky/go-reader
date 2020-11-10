@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.gd" type="Script" id=2]
@@ -25,6 +25,9 @@
 [ext_resource path="res://ui/themes/sb_panel.tres" type="StyleBox" id=23]
 [ext_resource path="res://ui/About/About.gd" type="Script" id=26]
 [ext_resource path="res://ui/themes/icons/ico_ebook.png" type="Texture" id=27]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.156863, 0.305882, 0.529412, 1 )
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -742,6 +745,16 @@ margin_bottom = 37.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 9 )
 text = "Close"
+
+[node name="Floater" type="Panel" parent="Popup/Settings"]
+visible = false
+margin_right = 8.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 8, 25 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="About" type="PanelContainer" parent="Popup"]
 visible = false

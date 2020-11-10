@@ -87,8 +87,9 @@ func settings_load():
 		global.settings["General"]["first_start"] = false
 
 func settings_save():
-	var settings_path = OS.get_executable_path().get_base_dir() + "\\settings"
-	print(settings_path)
+	var settings_path = OS.get_executable_path().get_base_dir() + "\\settings" #Only works when exported.
+	#ProjecSettings.globalize_path doesn't work when exported for some dumb reason, so this is the workaround.
+	
 	if !Dir.dir_exists(settings_path): #Create a new folder for the base library
 			Dir.make_dir(settings_path)
 

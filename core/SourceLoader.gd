@@ -13,6 +13,7 @@ onready var Tex = get_node("/root/Main/Tex")
 onready var Main = get_node("/root/Main")
 onready var Streamer = get_node("../Streamer")
 onready var UI = get_node("/root/Main/UI")
+onready var Messenger = get_node("/root/Main/UI/Messenger")
 
 var thread = Thread.new()
 
@@ -77,9 +78,10 @@ func source_import_zip_load(arr): #importing_zips, target
 	
 	var out_path = ProjectSettings.globalize_path(str(arr[1] + "/" + importing_zips[0].get_file()))
 	out_path = out_path.rstrip("." + out_path.get_extension())
+	out_path = ProjectSettings.globalize_path(str(arr[1]))
 #	print(out_path)
 
-	OS.execute(zip_path, ["e", importing_zips[0], "-r", "-y", "-o" + str(out_path)], 1, ["complete"])
+	OS.execute(zip_path, ["x", importing_zips[0], "-r", "-y", "-o" + str(out_path)], 1, ["complete"])
 	call_deferred("source_import_zip_finished", arr)
 
 func source_import_zip_finished(arr):
@@ -93,7 +95,7 @@ func source_import_zip_finished(arr):
 		source_import_zip_start(arr[0], arr[1], 0)
 	else: #We are done
 		UI.ProgressBar_toggle() #Done! Hide PB again
-		global.Mes.message_send("import complete")
+		Messenger.message_send("import complete")
 
 #---------- IMPORT LOOSE MANGA/COMICS
 func source_import_start(source, target): #Beginning of thread for importing

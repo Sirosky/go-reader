@@ -100,6 +100,7 @@ ui_load={
 
 [rendering]
 
+quality/shadows/filter_mode=0
 environment/default_clear_color=Color( 0.0784314, 0.109804, 0.2, 1 )
 quality/filters/msaa=4
 environment/default_environment="res://default_env.tres"

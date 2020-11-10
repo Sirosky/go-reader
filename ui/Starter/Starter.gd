@@ -21,6 +21,7 @@ func _ready():
 func _process(delta):
 	if modulate == Color(1, 1, 1, 0) and visible == true:
 		visible = false
+		queue_free()
 	
 	if TexAll.get_children().size() == 0 and visible == false:
 		show()

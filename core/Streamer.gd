@@ -137,7 +137,7 @@ func _process(delta):
 		#Exit just_jumped mode once we can
 		if jump_buffer_greater.size() + jump_buffer_lesser.size() == 0 and jump_buffer_removed.size() > 1:
 			just_jumped = 0
-#			print("Exiting just_jumped mode")
+			print("Exiting just_jumped mode")
 	
 
 

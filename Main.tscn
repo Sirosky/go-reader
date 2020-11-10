@@ -52,6 +52,7 @@ script = ExtResource( 2 )
 position = Vector2( 0, 540 )
 current = true
 limit_smoothed = true
+smoothing_speed = -1.0
 script = ExtResource( 4 )
 
 [node name="UI" type="CanvasLayer" parent="."]

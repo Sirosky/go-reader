@@ -148,9 +148,11 @@ func _unhandled_input( event ):
 			
 			# Scrolling
 			if event.button_index == BUTTON_WHEEL_UP and !event.control:
-				camera_movement.y -= camera_scroll_speed
+				position.y = position.y -  camera_scroll_speed
+#				camera_movement.y -= camera_scroll_speed
 			if event.button_index == BUTTON_WHEEL_DOWN and !event.control:
-				camera_movement.y += camera_scroll_speed
+				position.y += camera_scroll_speed
+#				camera_movement.y += camera_scroll_speed
 			
 				
 		

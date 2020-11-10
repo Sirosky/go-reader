@@ -87,8 +87,10 @@ func settings_load():
 		global.settings["General"]["first_start"] = false
 
 func settings_save():
-	if !Dir.dir_exists("res://settings"): #Create a new folder for the base library
-			Dir.make_dir("res://settings")
+	var settings_path = OS.get_executable_path().get_base_dir() + "\\settings"
+	print(settings_path)
+	if !Dir.dir_exists(settings_path): #Create a new folder for the base library
+			Dir.make_dir(settings_path)
 
 	global.json_write(global.settings_path, global.settings)
 	

@@ -77,7 +77,7 @@ func source_import_zip_load(arr): #importing_zips, target
 	var zip_path = str(OS.get_executable_path().get_base_dir() + "\\7z\\7z.exe") #This probably won't work in editor mode
 	
 	var out_path = ProjectSettings.globalize_path(str(arr[1] + "/" + importing_zips[0].get_file()))
-	out_path = out_path.rstrip("." + out_path.get_extension())
+#	out_path = out_path.rstrip("." + out_path.get_extension())
 	out_path = ProjectSettings.globalize_path(str(arr[1]))
 #	print(out_path)
 

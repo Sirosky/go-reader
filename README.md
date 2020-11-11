@@ -14,6 +14,16 @@ go·reader is powered by Godot game engine. In fact, that's why it's called go·
 - The ability to jump from page 0 to page 420 of *Berserk* instantly
 - An easy-to-use interface that allows you to focus on the comic or manga
 
+------------------------
+
+## Quick Start
+
+1. Grab the latest version from the [releases page](https://github.com/Sirosky/go-reader/releases).
+2. Unzip it into the directory of your choice.
+3. Right click anywhere to import the folder containing the eBooks (CBZ, CBR, ZIP etc). A good idea would be to keep all the chapters of a series inside a single folder, and select that folder for importing. Due to limitations of Godot game engine, go·reader can only read a series after you import it. If you have issues with this step, take a look at the full guide below.
+4. Right click or press L to load the series you just imported.
+5. Start reading!
+
 ---------------------------
 
 ## Screenshots
@@ -27,16 +37,6 @@ go·reader is powered by Godot game engine. In fact, that's why it's called go·
 ## Philosophy
 
 go·reader's sole purpose is to deliver a smooth reading experience-- that is to do one thing, and do it well. Thus it is not intended to be a replacement for the likes of Calibre or YACReader. I came up with the idea of go·reader after being mildly inconvenienced by how CDisplayEx handled loading-- it took a few extra seconds more than I would've liked. So I spent dozens of hours programming go·reader. Yes, I'm that petty.
-
-------------------------
-
-## Quick Start
-
-1. Grab the latest version from the [releases page](https://github.com/Sirosky/go-reader/releases).
-2. Unzip it into the directory of your choice.
-3. Right click anywhere to import the folder containing the eBooks (CBZ, CBR, ZIP etc). A good idea would be to keep all the chapters of a series inside a single folder, and select that folder for importing. Due to limitations of Godot game engine, go·reader can only read a series after you import it. If you have issues with this step, take a look at the full guide below.
-4. Right click or press L to load the series you just imported.
-5. Start reading!
 
 -----------
 

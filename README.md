@@ -32,7 +32,7 @@ go·reader's sole purpose is to deliver a smooth reading experience-- that is to
 
 ## Quick Start
 
-1. Grab the latest version from the releases page.
+1. Grab the latest version from the [releases page](https://github.com/Sirosky/go-reader/releases).
 2. Unzip it into the directory of your choice.
 3. Right click anywhere to import the folder containing the eBooks (CBZ, CBR, ZIP etc). A good idea would be to keep all the chapters of a series inside a single folder, and select that folder for importing. Due to limitations of Godot game engine, go·reader can only read a series after you import it. If you have issues with this step, take a look at the full guide below.
 4. Right click or press L to load the series you just imported.
@@ -77,6 +77,7 @@ In the scenario where the import fails for whatever reason, you can still manual
 1. **Can I change the location of the library?** Unfortunately not. This is a limitation set by Godot. Similarly comics and manga must first be imported before they can be read.
 2. **Is there/ will there be support for double-page mode?** No. There are several reasons for this: 1) I need a looooong break from working on the infinite scroll code, 2) CDisplayEx supports double-page mode and does a pretty good job of it already, and 3) double page mode isn't as suitable for infinite scroll.
 3. **Can I use this on Mac or Linux?** go·reader is designed for Windows only. However you are free to compile the project using Godot on your Mac or Linux device. It *should* work for the most part. However, you will likely need to import manually.
+4. **Is there/ will there be support for PDFs?** No. PDFs are a completely different beast compared to CBZs/ CBRs/ other typical comic and manga formats. But if anyone knows of a portable, command line software that can extract PDF pages as images and also allows for redistribution, do let me know.
 
 ----------
 

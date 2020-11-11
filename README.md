@@ -1,6 +1,6 @@
 ![](https://i.imgur.com/x6YjwNe.png)
 
-go·reader is a minimalistic comic & manga reader which provides a seamless and buttery smooth reading experience. With [go·reader's infinite scroll](https://imgur.com/x6YjwNe), read through hundreds (or thousands) of pages in a single sitting-- without any loading screens or having to load the next file! And if you don't finish the 40 volumes of *Berserk* in a single sitting, go·reader will resume where you left off when you open the app again.
+go·reader is a minimalistic comic & manga reader which provides a seamless and buttery smooth reading experience. With [go·reader's infinite scroll](https://i.imgur.com/Xdb2Fgc.mp4), read through hundreds (or thousands) of pages in a single sitting-- without any loading screens or having to load the next file! And if you don't finish the 40 volumes of *Berserk* in a single sitting, go·reader will resume where you left off when you open the app again.
 
 go·reader is powered by Godot game engine. In fact, that's why it's called go·reader. go(dot)reader. Heh.
 

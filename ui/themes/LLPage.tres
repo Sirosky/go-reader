@@ -1,0 +1,9 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[ext_resource path="res://ui/themes/Lato-Light.ttf" type="DynamicFontData" id=1]
+
+[resource]
+size = 28
+outline_size = 2
+outline_color = Color( 0.00784314, 0.0117647, 0.105882, 1 )
+font_data = ExtResource( 1 )

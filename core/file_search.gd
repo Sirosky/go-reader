@@ -113,7 +113,7 @@ class FilesThatExtendResource:
 
 ##### CONSTANTS #####
 
-const SELF_PATH: String = "res://utility/file_search.gd"
+const SELF_PATH: String = "res://core/file_search.gd"
 
 ##### NOTIFICATIONS #####
 
@@ -318,7 +318,6 @@ static func _search_iterate_folder(p_from_dir: String = "res://", p_recursive: b
 					
 						if not data.has(a_path): #and file_name.get_extension() == "": has issues with periods in folder names
 							data.append(a_path)
-							global.load_status = str(a_path)
 							#data.append(file_name) ~get file name instead of file path
 					
 				# Move on to the next file in this directory

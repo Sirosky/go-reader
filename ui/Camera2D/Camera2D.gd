@@ -16,11 +16,11 @@ export (bool) var edge = false
 export (bool) var wheel = true
 export (bool) var active = true
 
-export (int) var zoom_out_limit = 2
+export (int) var zoom_out_limit = 4
 export (int) var zoom_in_limit = .8
 
 # Camera speed in px/s.
-export (int) var camera_speed = 700 
+export (int) var camera_speed = 1200
 export (int) var camera_scroll_speed = 150
 
 # Initial zoom value taken from Editor.
@@ -47,9 +47,9 @@ var _zoom
 
 var camera_origin = Vector2() #Top left of camera
 #Limits of camera
-var camera_limit_x1 = -2000
-var camera_limit_y1 = -2000
-var camera_limit_x2 = 9999
+var camera_limit_x1 = -4000
+var camera_limit_y1 = -24
+var camera_limit_x2 = 4000
 var camera_limit_y2 = 999999
 
 signal camera_moved
@@ -66,12 +66,14 @@ func _ready():
 	set_v_drag_enabled(false)
 	set_enable_follow_smoothing(true)
 	set_follow_smoothing(10)
+	position.x = 0
+	position.y = OS.get_screen_size().y/2
 	
 func _physics_process(delta):
 	if active == true:
 		#Calculate camera origin
-		camera_origin.x = position.x - global.window_width/2
-		camera_origin.y = position.y - global.window_height/2
+		camera_origin.x = position.x - OS.get_screen_size().x/2
+		camera_origin.y = position.y - OS.get_screen_size().y/2
 	
 		# Move camera by keys defined in InputMap (ui_left/top/right/bottom).
 		if key:
@@ -89,8 +91,22 @@ func _physics_process(delta):
 		if drag and __rmbk:
 			camera_movement = _prev_mouse_pos - get_local_mouse_position()
 		
+		#Bind camera to limits. Not 100% perfect but good enough here.
+		if position.x - OS.get_screen_size().x/2 - camera_movement.x < camera_limit_x1 and camera_movement.x < 0:
+#			print(position.x - OS.get_screen_size().x/2 - camera_movement.x)
+#			print("stop")
+			camera_movement.x = 0
+		if position.y - OS.get_screen_size().y/2 - camera_movement.y < camera_limit_y1 and camera_movement.y < 0:
+			camera_movement.y = 0
+		if position.x + OS.get_screen_size().x/2 + camera_movement.x > camera_limit_x2 and camera_movement.x > 0:
+			camera_movement.x = 0
+		if position.y + OS.get_screen_size().y/2 + camera_movement.y > camera_limit_y2 and camera_movement.y > 0:
+			camera_movement.y = 0
+			
+#		print("camera_movement.x: " + str(camera_movement.x))
+
 		# Update position of the camera.
-		if camera_movement.y != 0: #Only checking y, because X doesn't matter for infinite scroll
+		if camera_movement.y != 0 or camera_movement.x != 0: #Only checking y, because X doesn't matter for infinite scroll
 			position += camera_movement * get_zoom()
 			emit_signal("camera_moved")
 		
@@ -101,11 +117,7 @@ func _physics_process(delta):
 		#Limits
 #		camera_limit_y2 = Tex.rect_size.y
 		
-		#Bind camera to limits
-		if camera_origin.x < camera_limit_x1: position.x = camera_limit_x1 + global.window_width/2
-		if camera_origin.y < camera_limit_y1: position.y = camera_limit_y1 + global.window_height/2
-		if camera_origin.x + global.window_width/2 > camera_limit_x2: position.x = camera_limit_x2 - global.window_width/2
-		if camera_origin.y + global.window_height/2 > camera_limit_y2: position.y = camera_limit_y2 - global.window_height/2
+		
 
 func _unhandled_input( event ):
 	if active == true:
@@ -136,11 +148,9 @@ func _unhandled_input( event ):
 			
 			# Scrolling
 			if event.button_index == BUTTON_WHEEL_UP and !event.control:
-				if camera_origin.y - camera_scroll_speed >= camera_limit_y1: #Not out of bounds
-					camera_movement.y -= camera_scroll_speed
+				camera_movement.y -= camera_scroll_speed
 			if event.button_index == BUTTON_WHEEL_DOWN and !event.control:
-				if camera_origin.y + camera_scroll_speed <= camera_limit_y2:
-					camera_movement.y += camera_scroll_speed
+				camera_movement.y += camera_scroll_speed
 			
 				
 		

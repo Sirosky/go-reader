@@ -3,6 +3,7 @@ extends TextureRect
 
 onready var Vis = get_node("VisibilityNotifier2D")
 onready var Streamer = get_node("/root/Main/Core/Streamer")
+onready var Camera2D = get_node("/root/Main/Camera2D")
 
 var page = 0 #The page this texture is loaded for
 
@@ -18,10 +19,26 @@ func _process(delta):
 		texture = null
 #		print(str(page) + " unloaded")
 
+	#Fallback in case a page failed to load. Emergency loading!
+	if Vis.is_on_screen() and texture == null and !Streamer.thread_queue.has(page) and !Streamer.thread_processing.has(page):
+		Streamer.tex_thread_start(page)
+#		print("emergency load: " + str(page))
+	
+	if !Vis.is_on_screen() and Streamer.pages_tracking.has(page): #Remove us from tracking
+		if abs(Streamer.page_cur - page) > Camera2D.camera_scroll_speed/10:
+			Streamer.pages_tracking.remove(Streamer.pages_tracking.find(page))
+
 func _on_screen_exited():
 	pass
 
 func _on_screen_entered():
+	#Fancy fade in
+	global.Tween.interpolate_property(self, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, 1), .5, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
+	global.Tween.start()
+	
+	if !Streamer.pages_tracking.has(self):
+		Streamer.pages_tracking.append(self)
 	Streamer.page_new(self)
+#	Streamer.page_cur = page
 
 

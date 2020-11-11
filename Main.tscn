@@ -1,12 +1,33 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
+[ext_resource path="res://core/Streamer.gd" type="Script" id=2]
 [ext_resource path="res://ui/MenuContext/MenuContext.gd" type="Script" id=3]
 [ext_resource path="res://ui/Camera2D/Camera2D.gd" type="Script" id=4]
 [ext_resource path="res://core/SourceLoader.gd" type="Script" id=5]
-[ext_resource path="res://icon.png" type="Texture" id=6]
+[ext_resource path="res://ui/Jump.gd" type="Script" id=6]
 [ext_resource path="res://ui/DebugOverlay/DebugOverlay.gd" type="Script" id=7]
-[ext_resource path="res://core/Streamer.gd" type="Script" id=8]
+[ext_resource path="res://ui/themes/LL48.tres" type="DynamicFont" id=8]
+[ext_resource path="res://ui/themes/LL20.tres" type="DynamicFont" id=9]
+[ext_resource path="res://ui/Starter/Starter.gd" type="Script" id=10]
+[ext_resource path="res://ui/themes/icons/ico_load.png" type="Texture" id=11]
+[ext_resource path="res://ui/themes/icons/ico_import.png" type="Texture" id=12]
+[ext_resource path="res://ui/themes/LL24.tres" type="DynamicFont" id=13]
+[ext_resource path="res://ui/themes/theme_context.tres" type="Theme" id=14]
+[ext_resource path="res://ui/themes/theme_general.tres" type="Theme" id=15]
+[ext_resource path="res://ui/themes/LLPage.tres" type="DynamicFont" id=16]
+[ext_resource path="res://ui/themes/LL32.tres" type="DynamicFont" id=17]
+[ext_resource path="res://ui/themes/LL18.tres" type="DynamicFont" id=18]
+[ext_resource path="res://ui/Settings/Settings.gd" type="Script" id=19]
+[ext_resource path="res://ui/themes/icons/ico_settings.png" type="Texture" id=20]
+[ext_resource path="res://ui/Messenger/Messenger.gd" type="Script" id=21]
+[ext_resource path="res://ui/themes/icons/ico_about.png" type="Texture" id=22]
+[ext_resource path="res://ui/themes/sb_panel.tres" type="StyleBox" id=23]
+[ext_resource path="res://ui/About/About.gd" type="Script" id=26]
+[ext_resource path="res://ui/themes/icons/ico_ebook.png" type="Texture" id=27]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.156863, 0.305882, 0.529412, 1 )
 
 [node name="Main" type="Control"]
 mouse_filter = 2
@@ -21,100 +42,1081 @@ __meta__ = {
 script = ExtResource( 5 )
 
 [node name="Streamer" type="Node" parent="Core"]
-script = ExtResource( 8 )
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="Core"]
 
 [node name="TexAll" type="Node" parent="."]
-
-[node name="Popup" type="CanvasLayer" parent="."]
-
-[node name="MenuContext" type="VBoxContainer" parent="Popup"]
-visible = false
-margin_right = 128.0
-margin_bottom = 37.0
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ButLoad" type="Button" parent="Popup/MenuContext"]
-margin_right = 128.0
-margin_bottom = 37.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Load"
-
-[node name="FileDialog" type="FileDialog" parent="Popup"]
-margin_left = 154.0
-margin_top = 95.0
-margin_right = 943.0
-margin_bottom = 702.0
-window_title = "Open a Directory"
-resizable = true
-mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, 540 )
 current = true
 limit_smoothed = true
+smoothing_speed = -1.0
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 6 )
-
-[node name="DebugOverlay" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugOverlay"]
+[node name="Debug" type="VBoxContainer" parent="UI"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/Debug"]
 margin_right = 40.0
-margin_bottom = 25.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label2" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 33.0
+[node name="Label2" type="Label" parent="UI/Debug"]
+margin_top = 38.0
 margin_right = 40.0
-margin_bottom = 58.0
+margin_bottom = 68.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label3" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 66.0
+[node name="Label3" type="Label" parent="UI/Debug"]
+margin_top = 76.0
 margin_right = 40.0
-margin_bottom = 91.0
+margin_bottom = 106.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label4" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 99.0
+[node name="Label4" type="Label" parent="UI/Debug"]
+margin_top = 114.0
 margin_right = 40.0
-margin_bottom = 124.0
+margin_bottom = 144.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label5" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 132.0
+[node name="Label5" type="Label" parent="UI/Debug"]
+margin_top = 152.0
 margin_right = 40.0
-margin_bottom = 157.0
+margin_bottom = 182.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label6" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 165.0
+[node name="Label6" type="Label" parent="UI/Debug"]
+margin_top = 190.0
 margin_right = 40.0
-margin_bottom = 190.0
+margin_bottom = 220.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label7" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 198.0
+[node name="Label7" type="Label" parent="UI/Debug"]
+margin_top = 228.0
 margin_right = 40.0
-margin_bottom = 223.0
+margin_bottom = 258.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label8" type="Label" parent="DebugOverlay/VBoxContainer"]
-margin_top = 231.0
+[node name="Label8" type="Label" parent="UI/Debug"]
+margin_top = 266.0
 margin_right = 40.0
-margin_bottom = 256.0
+margin_bottom = 296.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
 
-[node name="Label9" type="Label" parent="DebugOverlay/VBoxContainer"]
+[node name="Label9" type="Label" parent="UI/Debug"]
+margin_top = 304.0
+margin_right = 40.0
+margin_bottom = 334.0
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 0, 0.47451, 1, 1 )
+
+[node name="ProgressBar" type="ProgressBar" parent="UI"]
+visible = false
+margin_left = -957.503
+margin_top = 1048.66
+margin_right = -717.503
+margin_bottom = 1096.66
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 13 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Jump" type="Control" parent="UI"]
+visible = false
+margin_right = 400.0
+margin_bottom = 120.0
+theme = ExtResource( 15 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/Jump"]
+margin_right = 400.0
+margin_bottom = 120.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="UI/Jump"]
+margin_right = 400.0
+margin_bottom = 120.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Jump/Margin"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 388.0
+margin_bottom = 108.0
+
+[node name="SpinBox" type="SpinBox" parent="UI/Jump/Margin/VBoxContainer"]
+margin_right = 376.0
+margin_bottom = 45.0
+align = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Jump/Margin/VBoxContainer"]
+margin_top = 53.0
+margin_right = 376.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+
+[node name="ButJump" type="Button" parent="UI/Jump/Margin/VBoxContainer/HBoxContainer"]
+margin_right = 184.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Jump"
+
+[node name="ButCancel" type="Button" parent="UI/Jump/Margin/VBoxContainer/HBoxContainer"]
+margin_left = 192.0
+margin_right = 376.0
+margin_bottom = 37.0
+size_flags_horizontal = 3
+text = "Cancel"
+
+[node name="Starter" type="Control" parent="UI"]
+visible = false
+margin_right = 640.0
+margin_bottom = 472.0
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/Starter"]
+margin_right = 640.0
+margin_bottom = 472.0
+theme = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="UI/Starter"]
+margin_right = 640.0
+margin_bottom = 472.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="UI/Starter/Margin"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 628.0
+margin_bottom = 460.0
+size_flags_horizontal = 5
+size_flags_vertical = 5
+custom_constants/separation = 16
+
+[node name="LabelTitle" type="Label" parent="UI/Starter/Margin/VBox"]
+modulate = Color( 1, 1, 1, 0.490196 )
+margin_right = 616.0
+margin_bottom = 59.0
+custom_fonts/font = ExtResource( 8 )
+text = "get started"
+align = 1
+
+[node name="HBox" type="HBoxContainer" parent="UI/Starter/Margin/VBox"]
+margin_top = 75.0
+margin_right = 616.0
+margin_bottom = 248.0
+custom_constants/separation = 12
+alignment = 1
+
+[node name="VBox1" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 68.0
+margin_right = 220.0
+margin_bottom = 173.0
+
+[node name="ButLoad" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox1"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox1"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "load from library"
+align = 1
+valign = 1
+
+[node name="VBox3" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 232.0
+margin_right = 384.0
+margin_bottom = 173.0
+
+[node name="ButImportZIP" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 27 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox3"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "import ebook"
+align = 1
+valign = 1
+
+[node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox"]
+margin_left = 396.0
+margin_right = 548.0
+margin_bottom = 173.0
+
+[node name="ButImport" type="Button" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 12 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox/VBox2"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "import to library"
+align = 1
+valign = 1
+
+[node name="HBox2" type="HBoxContainer" parent="UI/Starter/Margin/VBox"]
 margin_top = 264.0
-margin_right = 40.0
-margin_bottom = 289.0
+margin_right = 616.0
+margin_bottom = 437.0
+alignment = 1
+
+[node name="VBox" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox2"]
+margin_left = 152.0
+margin_right = 304.0
+margin_bottom = 173.0
+
+[node name="ButSettings" type="Button" parent="UI/Starter/Margin/VBox/HBox2/VBox"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 20 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox2/VBox"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "change settings"
+align = 1
+valign = 1
+
+[node name="VBox2" type="VBoxContainer" parent="UI/Starter/Margin/VBox/HBox2"]
+margin_left = 312.0
+margin_right = 464.0
+margin_bottom = 173.0
+
+[node name="ButAbout" type="Button" parent="UI/Starter/Margin/VBox/HBox2/VBox2"]
+margin_right = 152.0
+margin_bottom = 140.0
+rect_min_size = Vector2( 128, 128 )
+theme = ExtResource( 15 )
+icon = ExtResource( 22 )
+
+[node name="Label" type="Label" parent="UI/Starter/Margin/VBox/HBox2/VBox2"]
+modulate = Color( 1, 1, 1, 0.784314 )
+margin_top = 148.0
+margin_right = 152.0
+margin_bottom = 173.0
+custom_fonts/font = ExtResource( 9 )
+text = "about"
+align = 1
+valign = 1
+
+[node name="LabelPage" type="Label" parent="UI"]
+margin_left = 747.135
+margin_top = 1039.0
+margin_right = 960.135
+margin_bottom = 1078.0
+custom_fonts/font = ExtResource( 16 )
+text = "24 | 4934"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Messenger" type="Node" parent="UI"]
+script = ExtResource( 21 )
+
+[node name="Popup" type="CanvasLayer" parent="."]
+
+[node name="MenuContext" type="MarginContainer" parent="Popup"]
+visible = false
+margin_right = 228.0
+margin_bottom = 90.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Popup/MenuContext"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 278.0
+margin_bottom = 206.0
+mouse_filter = 2
+theme = ExtResource( 15 )
+
+[node name="Margin" type="MarginContainer" parent="Popup/MenuContext"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 278.0
+margin_bottom = 206.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="Popup/MenuContext/Margin"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 270.0
+margin_bottom = 198.0
+custom_constants/separation = 6
+
+[node name="ButLoad" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_right = 220.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Load from Library"
+align = 0
+
+[node name="ButImportZIP" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 62.0
+margin_right = 220.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Import eBook folder to Library"
+align = 0
+
+[node name="ButImport" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 31.0
+margin_right = 220.0
+margin_bottom = 56.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Import images folder to Library"
+align = 0
+
+[node name="ButDirectory" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 93.0
+margin_right = 220.0
+margin_bottom = 118.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Open Library in Windows"
+align = 0
+
+[node name="ButSettings" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 124.0
+margin_right = 220.0
+margin_bottom = 149.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Settings"
+align = 0
+
+[node name="HSeparator" type="HSeparator" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 155.0
+margin_right = 220.0
+margin_bottom = 163.0
+
+[node name="ButJump" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 169.0
+margin_right = 220.0
+margin_bottom = 194.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Jump to page"
+align = 0
+
+[node name="FileDialog" type="FileDialog" parent="Popup"]
+margin_left = -341.178
+margin_top = 188.58
+margin_right = 558.822
+margin_bottom = 788.58
+window_title = "Open a Directory"
+resizable = true
+mode_overrides_title = false
+mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Control" parent="Popup"]
+visible = false
+margin_right = 800.0
+margin_bottom = 360.0
+script = ExtResource( 19 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Popup/Settings"]
+margin_right = 800.0
+margin_bottom = 360.0
+theme = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin" type="MarginContainer" parent="Popup/Settings"]
+margin_right = 800.0
+margin_bottom = 360.0
+custom_constants/margin_right = 12
+custom_constants/margin_top = 12
+custom_constants/margin_left = 12
+custom_constants/margin_bottom = 12
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="Popup/Settings/Margin"]
+margin_left = 12.0
+margin_top = 12.0
+margin_right = 788.0
+margin_bottom = 348.0
+
+[node name="Title" type="Label" parent="Popup/Settings/Margin/VBox"]
+margin_right = 776.0
+margin_bottom = 39.0
+custom_fonts/font = ExtResource( 17 )
+text = "Settings"
+
+[node name="HSeparator" type="HSeparator" parent="Popup/Settings/Margin/VBox"]
+modulate = Color( 1, 1, 1, 0.392157 )
+margin_top = 47.0
+margin_right = 776.0
+margin_bottom = 55.0
+
+[node name="Body" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
+margin_top = 63.0
+margin_right = 776.0
+margin_bottom = 291.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 12
+
+[node name="Left" type="VBoxContainer" parent="Popup/Settings/Margin/VBox/Body"]
+margin_right = 160.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_vertical = 3
+
+[node name="ButGeneral" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_right = 160.0
+margin_bottom = 25.0
+theme = ExtResource( 14 )
+text = "General"
+align = 0
+
+[node name="ButBG" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_top = 33.0
+margin_right = 160.0
+margin_bottom = 58.0
+theme = ExtResource( 14 )
+text = "Background"
+align = 0
+
+[node name="Right" type="MarginContainer" parent="Popup/Settings/Margin/VBox/Body"]
+margin_left = 172.0
+margin_right = 776.0
+margin_bottom = 228.0
+rect_min_size = Vector2( 160, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="General" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
+margin_right = 604.0
+margin_bottom = 228.0
+custom_constants/vseparation = -8
+columns = 2
+
+[node name="Autoload" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 13.0
+margin_right = 266.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 18 )
+text = "autoload last read series on startup"
+
+[node name="CheckAuto" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 274.0
+margin_right = 322.0
+margin_bottom = 48.0
+
+[node name="Full" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 53.0
+margin_right = 266.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 18 )
+text = "fullscreen mode"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 274.0
+margin_top = 40.0
+margin_right = 322.0
+margin_bottom = 88.0
+
+[node name="Debug" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 93.0
+margin_right = 266.0
+margin_bottom = 115.0
+custom_fonts/font = ExtResource( 18 )
+text = "debug overlay"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckDebug" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 274.0
+margin_top = 80.0
+margin_right = 322.0
+margin_bottom = 128.0
+
+[node name="Background" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
+margin_right = 604.0
+margin_bottom = 228.0
+columns = 3
+
+[node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_top = 5.0
+margin_right = 83.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "hue:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 91.0
+margin_right = 411.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="H3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 419.0
+margin_top = 5.0
+margin_right = 429.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_top = 45.0
+margin_right = 83.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "saturation:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 91.0
+margin_top = 40.0
+margin_right = 411.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="S3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 419.0
+margin_top = 45.0
+margin_right = 429.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_top = 85.0
+margin_right = 83.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 18 )
+text = "value:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 91.0
+margin_top = 80.0
+margin_right = 411.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="V3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
+margin_left = 419.0
+margin_top = 85.0
+margin_right = 429.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
+margin_top = 299.0
+margin_right = 776.0
+margin_bottom = 336.0
+alignment = 2
+
+[node name="ButClose" type="Button" parent="Popup/Settings/Margin/VBox/Accept"]
+margin_left = 703.0
+margin_right = 776.0
+margin_bottom = 37.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 9 )
+text = "Close"
+
+[node name="Floater" type="Panel" parent="Popup/Settings"]
+visible = false
+margin_right = 8.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 8, 25 )
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="About" type="PanelContainer" parent="Popup"]
+visible = false
+margin_right = 640.0
+margin_bottom = 511.0
+custom_styles/panel = ExtResource( 23 )
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/About"]
+margin_right = 640.0
+margin_bottom = 511.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="Popup/About/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 636.0
+margin_bottom = 507.0
+
+[node name="Top" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox"]
+margin_right = 632.0
+margin_bottom = 55.0
+custom_constants/separation = -6
+
+[node name="About" type="Label" parent="Popup/About/MarginContainer/VBox/Top"]
+margin_right = 632.0
+margin_bottom = 39.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 17 )
+text = "About"
+align = 1
+
+[node name="Version" type="Label" parent="Popup/About/MarginContainer/VBox/Top"]
+margin_top = 33.0
+margin_right = 632.0
+margin_bottom = 55.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 18 )
+text = "v. 1.1-Ardent"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Popup/About/MarginContainer/VBox"]
+visible = false
+margin_top = 56.0
+margin_right = 532.0
+margin_bottom = 64.0
+
+[node name="Body" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox"]
+margin_top = 63.0
+margin_right = 632.0
+margin_bottom = 458.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Popup/About/MarginContainer/VBox/Body"]
+margin_right = 632.0
+margin_bottom = 138.0
+rect_min_size = Vector2( 0, 40 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 9 )
+text = "go·reader is a minimalistic comic and manga reading application designed using Godot game engine.
+
+Created by Sirosky. A big thanks to willnationsdev for his invaluable GDScript help throughout the project."
+scroll_active = false
+
+[node name="LabelDefault" type="Label" parent="Popup/About/MarginContainer/VBox/Body"]
+margin_top = 146.0
+margin_right = 632.0
+margin_bottom = 176.0
+custom_fonts/font = ExtResource( 13 )
+text = "Default Controls"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox/Body"]
+margin_top = 184.0
+margin_right = 632.0
+margin_bottom = 395.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Popup/About/MarginContainer/VBox/Body/VBoxContainer"]
+margin_right = 632.0
+margin_bottom = 211.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan camera: WASD, left mouse button, or arrow keys
+Scroll camera: Scroll wheel
+Zoom camera: Ctrl + scroll wheel
+Load comic or manga: L
+Fullscreen F
+Jump to page: J
+Exit: Esc"
+
+[node name="GridContainer" type="GridContainer" parent="Popup/About/MarginContainer/VBox/Body"]
+visible = false
+margin_top = 201.0
+margin_right = 632.0
+margin_bottom = 356.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 8
+columns = 2
+
+[node name="Label" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_right = 234.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan Camera: WASD | LMB"
+align = 1
+valign = 1
+
+[node name="Label7" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 242.0
+margin_right = 484.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Scroll Camera: WASD | LMB"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 33.0
+margin_right = 234.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Zoom Camera: Ctrl + Scroll"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 242.0
+margin_top = 33.0
+margin_right = 484.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Fullscreen: F"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 66.0
+margin_right = 234.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 9 )
+text = "Debug overlay: E"
+align = 1
+valign = 1
+
+[node name="Label5" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 242.0
+margin_top = 66.0
+margin_right = 484.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 9 )
+text = "Jump to page: J"
+align = 1
+valign = 1
+
+[node name="Label6" type="Label" parent="Popup/About/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 99.0
+margin_right = 234.0
+margin_bottom = 124.0
+custom_fonts/font = ExtResource( 9 )
+text = "Load a comic or manga: L"
+align = 1
+valign = 1
+
+[node name="ButClose" type="Button" parent="Popup/About/MarginContainer/VBox"]
+margin_left = 282.0
+margin_top = 466.0
+margin_right = 350.0
+margin_bottom = 503.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 9 )
+text = "close"
+
+[node name="Welcome" type="PanelContainer" parent="Popup"]
+visible = false
+margin_right = 800.0
+margin_bottom = 480.0
+custom_styles/panel = ExtResource( 23 )
+script = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Popup/Welcome"]
+margin_right = 800.0
+margin_bottom = 593.0
+custom_constants/margin_right = 4
+custom_constants/margin_top = 4
+custom_constants/margin_left = 4
+custom_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="Popup/Welcome/MarginContainer"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 796.0
+margin_bottom = 589.0
+
+[node name="Top" type="VBoxContainer" parent="Popup/Welcome/MarginContainer/VBox"]
+margin_right = 792.0
+margin_bottom = 55.0
+custom_constants/separation = -6
+
+[node name="About" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Top"]
+margin_right = 792.0
+margin_bottom = 39.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 17 )
+text = "Welcome to go·reader!"
+align = 1
+
+[node name="Version" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Top"]
+margin_top = 33.0
+margin_right = 792.0
+margin_bottom = 55.0
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 18 )
+text = "let's get you started"
+align = 1
+
+[node name="HSeparator" type="HSeparator" parent="Popup/Welcome/MarginContainer/VBox"]
+visible = false
+margin_top = 56.0
+margin_right = 532.0
+margin_bottom = 64.0
+
+[node name="Body" type="VBoxContainer" parent="Popup/Welcome/MarginContainer/VBox"]
+margin_top = 63.0
+margin_right = 792.0
+margin_bottom = 540.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+margin_right = 792.0
+margin_bottom = 220.0
+rect_min_size = Vector2( 0, 220 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/normal_font = ExtResource( 9 )
+bbcode_enabled = true
+text = "go·reader allows you to read comics & manga that have been imported to the Library. Once you have imported a series into your Library, simply right click anywhere, and select Load.
+
+If your files are in CBZ, CBR, ZIP, etc.: 1) right click 2) select \"Import eBook folder to Library\" 3) select directory with files.
+
+If your files are loose images, ie individual JPGs or PNGs: 1) right click 2) select \"Import images folder to Library\" 3) select directory with files."
+scroll_active = false
+
+[node name="LabelDefault" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+margin_top = 228.0
+margin_right = 792.0
+margin_bottom = 258.0
+custom_fonts/font = ExtResource( 13 )
+text = "Default Controls"
+align = 1
+valign = 1
+
+[node name="GridContainer" type="GridContainer" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+visible = false
+margin_top = 266.0
+margin_right = 792.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/hseparation = 8
+columns = 3
+
+[node name="Label" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_right = 227.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan Camera: WASD | LMB"
+align = 1
+valign = 1
+
+[node name="Label7" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 235.0
+margin_right = 467.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Scroll Camera: Scroll wheel"
+align = 1
+valign = 1
+
+[node name="Label2" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 475.0
+margin_right = 709.0
+margin_bottom = 25.0
+custom_fonts/font = ExtResource( 9 )
+text = "Zoom Camera: Ctrl + Scroll"
+align = 1
+valign = 1
+
+[node name="Label3" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 33.0
+margin_right = 227.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Fullscreen: F"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 235.0
+margin_top = 33.0
+margin_right = 467.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Debug overlay: E"
+align = 1
+valign = 1
+
+[node name="Label5" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_left = 475.0
+margin_top = 33.0
+margin_right = 709.0
+margin_bottom = 58.0
+custom_fonts/font = ExtResource( 9 )
+text = "Jump to page: J"
+align = 1
+valign = 1
+
+[node name="Label6" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body/GridContainer"]
+margin_top = 66.0
+margin_right = 227.0
+margin_bottom = 91.0
+custom_fonts/font = ExtResource( 9 )
+text = "Load a comic or manga: L"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body"]
+margin_top = 266.0
+margin_right = 792.0
+margin_bottom = 477.0
+custom_fonts/font = ExtResource( 9 )
+text = "Pan camera: WASD, left mouse button, or arrow keys
+Scroll camera: Scroll wheel
+Zoom camera: Ctrl + scroll wheel
+Load comic or manga: L
+Fullscreen F
+Jump to page: J
+Exit: Esc"
+
+[node name="ButClose" type="Button" parent="Popup/Welcome/MarginContainer/VBox"]
+margin_left = 362.0
+margin_top = 548.0
+margin_right = 430.0
+margin_bottom = 585.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource( 15 )
+custom_fonts/font = ExtResource( 9 )
+text = "close"

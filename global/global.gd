@@ -7,11 +7,16 @@ var mouse_x = 1
 var mouse_y = 1
 var rng = RandomNumberGenerator.new()
 
-
 #Nodes for reference
 onready var root = get_node("/root")
 onready var Camera = get_node("/root/Main/Camera2D")
 onready var Main = get_node("/root/Main")
+onready var Tween = get_node("/root/Main/Core/Tween")
+onready var Mes = get_node("/root/Main/UI/Messenger")
+
+#Settings
+var settings_path = "res://settings/settings.json"
+var settings = {}
 
 func _ready():
 	rng.randomize()
@@ -62,3 +67,35 @@ func directory_list(path):
 			files.append(file)
 	return files
 	
+#-----JSON 
+
+func json_read(json_path):
+	#Open, read, and load JSON
+	#PathJSON e.g. "res://data/test.json"
+	var data_file = File.new()
+	if data_file.open(json_path, File.READ) != OK:
+		print("read error: " + str(json_path))
+		return
+	var data_text = data_file.get_as_text()
+	data_file.close()
+	var data_parse = JSON.parse(data_text)
+	if data_parse.error != OK:
+		print("parse error: " + str(json_path))
+		return
+	print("parse successful: " + str(json_path))
+	#print(data_parse.result)
+	
+	return data_parse.result
+
+func json_write(json_path, dic):
+	#Open, read, and load JSON
+	#dic- dictionary to be stored in json
+	#PathJSON e.g. "res://data/test.json"
+	var data_file = File.new()
+	if data_file.open(json_path, File.WRITE) != OK:
+		print("read error: " + str(json_path))
+		return
+	
+	data_file.store_line(to_json(dic))
+	data_file.close()
+	print("write success: " + str(json_path))

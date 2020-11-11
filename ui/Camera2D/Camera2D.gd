@@ -20,7 +20,7 @@ export (int) var zoom_out_limit = 4
 export (int) var zoom_in_limit = .8
 
 # Camera speed in px/s.
-export (int) var camera_speed = 8000
+export (int) var camera_speed = 1200 #1200 is the normal
 export (int) var camera_scroll_speed = 150
 
 # Initial zoom value taken from Editor.

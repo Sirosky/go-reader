@@ -800,7 +800,7 @@ margin_right = 632.0
 margin_bottom = 55.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 18 )
-text = "v. 1.1-Ardent"
+text = "v. 1.2-Bellicose"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Popup/About/MarginContainer/VBox"]

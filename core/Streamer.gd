@@ -51,13 +51,13 @@ func _process(delta):
 				var skip = 0 #Stop iterating if we encounter an unloaded page
 				
 				if i <= tex_obj.size() -1 :
-					if tex_obj[i] == Core and !pages_loaded.has(i): #If we jumped and this page had never been initiated
+					if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i): #If we jumped and this page had never been initiated
 						tex_thread_start(i) #Properly load it now
-						print("page down Core: " + str(i))
+#						print("page down Core: " + str(i))
 						skip = 1
-				elif !pages_loaded.has(i):
+				elif !pages_loaded.has(i) and !thread_processing.has(i):
 					skip = 1
-					print("page down new: " + str(i))
+#					print("page down new: " + str(i))
 					tex_thread_start(i)
 				
 				i += 1

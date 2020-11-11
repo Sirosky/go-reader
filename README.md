@@ -78,6 +78,7 @@ In the scenario where the import fails for whatever reason, you can still manual
 2. **Is there/ will there be support for double-page mode?** No. There are several reasons for this: 1) I need a looooong break from working on the infinite scroll code, 2) CDisplayEx supports double-page mode and does a pretty good job of it already, and 3) double page mode isn't as suitable for infinite scroll.
 3. **Can I use this on Mac or Linux?** go·reader is designed for Windows only. However you are free to compile the project using Godot on your Mac or Linux device. It *should* work for the most part. However, you will likely need to import manually.
 4. **Is there/ will there be support for PDFs?** No. PDFs are a completely different beast compared to CBZs/ CBRs/ other typical comic and manga formats. But if anyone knows of a portable, command line software that can extract PDF pages as images and also allows for redistribution, do let me know.
+5. **Screentones blur when I scroll, making it uncomfortable to read.** Make sure your monitor refresh rate is set to at least 60hz-- but the higher the smoother it will be.
 
 ----------
 

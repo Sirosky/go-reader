@@ -1,6 +1,6 @@
 extends Node
 
-onready var Message = preload("res://ui/messenger/Message.tscn")
+onready var Message = preload("res://ui/Messenger/Message.tscn")
 onready var Tween = get_node("/root/Main/Tween") #This is a dependency.
 
 var message_queue: Array #Current displayed messages

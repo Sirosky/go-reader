@@ -4,3 +4,4 @@
 *.json
 *.json
 settings/settings.json
+export_presets.cfg

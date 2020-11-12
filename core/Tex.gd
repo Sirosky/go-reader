@@ -4,6 +4,7 @@ extends TextureRect
 onready var Vis = get_node("VisibilityNotifier2D")
 onready var Streamer = get_node("/root/Main/Core/Streamer")
 onready var Camera2D = get_node("/root/Main/Camera2D")
+onready var Core = get_node("/root/Main/Core")
 
 var page = 0 #The page this texture is loaded for
 
@@ -13,10 +14,16 @@ func _ready():
 	Vis.connect("screen_entered", self, "_on_screen_entered")
 
 func _process(delta):
+	
 	Vis.rect = Rect2( 0, 0, rect_size.x, rect_size.y)
 	
 	if abs(Streamer.page_cur - page) > Streamer.page_buffer_unload and texture != null: #Unload ourself
-		texture = null
+		Streamer.tex_obj[page] = Core
+		if Streamer.pages_tracking.has(self):
+			Streamer.pages_tracking.erase(self)
+		if Streamer.pages_loaded.has(page):
+			Streamer.pages_loaded.erase(page)
+		self.queue_free()
 #		print(str(page) + " unloaded")
 
 	#Fallback in case a page failed to load. Emergency loading!

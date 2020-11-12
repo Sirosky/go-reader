@@ -59,6 +59,17 @@ script = ExtResource( 4 )
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 
+[node name="ColorRect" type="ColorRect" parent="UI"]
+visible = false
+margin_right = 684.0
+margin_bottom = 517.0
+mouse_filter = 2
+color = Color( 0.301961, 0.258824, 0.054902, 0.470588 )
+script = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Debug" type="VBoxContainer" parent="UI"]
 visible = false
 margin_right = 40.0
@@ -537,7 +548,7 @@ __meta__ = {
 margin_left = 12.0
 margin_top = 12.0
 margin_right = 788.0
-margin_bottom = 384.0
+margin_bottom = 348.0
 
 [node name="Title" type="Label" parent="Popup/Settings/Margin/VBox"]
 margin_right = 776.0
@@ -1267,14 +1278,3 @@ size_flags_vertical = 4
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 9 )
 text = "close"
-
-[node name="ColorRect" type="ColorRect" parent="Popup"]
-visible = false
-margin_right = 684.0
-margin_bottom = 517.0
-mouse_filter = 2
-color = Color( 0.301961, 0.258824, 0.054902, 0.470588 )
-script = ExtResource( 24 )
-__meta__ = {
-"_edit_use_anchors_": false
-}

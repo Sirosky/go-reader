@@ -9,7 +9,7 @@ onready var TexAll = get_node("TexAll")
 onready var Camera2D = get_node("Camera2D")
 onready var Starter = get_node("UI/Starter")
 onready var Welcome = get_node("/root/Main/Popup/Welcome")
-onready var ColorRect = get_node("Popup/ColorRect")
+onready var ColorRect = get_node("UI/ColorRect")
 onready var Settings = get_node("Popup/Settings")
 
 var Dir = Directory.new()

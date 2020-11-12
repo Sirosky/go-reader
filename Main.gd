@@ -120,5 +120,8 @@ func set_fullscreen():
 func set_bg_color(h, s, v):
 	VisualServer.set_default_clear_color(Color.from_hsv(h, s, v, 1))
 
+func set_filter():
+	ColorRect.visible = global.settings["Filter"]["on"]
+
 func set_filter_color(h, s, v, a):
 	ColorRect.color = Color.from_hsv(h, s, v, a)

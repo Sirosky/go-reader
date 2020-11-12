@@ -26,7 +26,7 @@ onready var LabelV = get_node("Margin/VBox/Body/Right/Background/V3")
 onready var SliderV = get_node("Margin/VBox/Body/Right/Background/V2")
 
 #Filter
-onready var CheckFilter = get_node("Margin/VBox/Body/Right/General/CheckDebug")
+onready var CheckFilter = get_node("Margin/VBox/Body/Right/Filter/CheckFilter")
 onready var FLabelH = get_node("Margin/VBox/Body/Right/Filter/H3")
 onready var FSliderH = get_node("Margin/VBox/Body/Right/Filter/H2")
 onready var FLabelS = get_node("Margin/VBox/Body/Right/Filter/S3")
@@ -52,6 +52,7 @@ func _ready():
 	CheckAuto.connect("pressed", self, "_on_CheckAuto_updated")
 	CheckFull.connect("pressed", self, "_on_CheckFull_updated")
 	CheckDebug.connect("pressed", self, "_on_CheckDebug_updated")
+	CheckFilter.connect("pressed", self, "_on_CheckFilter_updated")
 	ButGeneral.connect("pressed", self, "_on_Left_updated", [0])
 	ButBG.connect("pressed", self, "_on_Left_updated", [1])
 	ButFilter.connect("pressed", self, "_on_Left_updated", [2])
@@ -87,6 +88,11 @@ func _on_CheckFull_updated():
 func _on_CheckDebug_updated():
 	global.settings["General"]["debug_overlay"] = !global.settings["General"]["debug_overlay"]
 	Main.set_debug_overlay()
+	Main.settings_save()
+
+func _on_CheckFilter_updated():
+	global.settings["Filter"]["on"] = !global.settings["Filter"]["on"]
+	Main.set_filter()
 	Main.settings_save()
 
 func _on_BGColor_updated(value , obj):

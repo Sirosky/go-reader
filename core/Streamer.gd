@@ -42,6 +42,7 @@ func _process(delta):
 	
 	if just_jumped == 0 and tex_obj.size() > 0:
 		
+<<<<<<< Updated upstream
 		#Check down
 		var i = page_max + 1 
 		if i < page_cur + page_buffer and !thread_processing.has(i) and i <= SourceLoader.tex_sorted.size() - 1:
@@ -49,6 +50,17 @@ func _process(delta):
 				while i < page_cur + page_buffer:
 					var skip = 0 #Stop iterating if we encounter an unloaded page
 					if tex_obj[i] == Core: #If we jumped and this page had never been initiated
+=======
+		#-- DOWN
+		var i = min(page_cur + 1, SourceLoader.tex_sorted.size() - 1)
+		UI.Lab[8].text = str(i)
+		if !thread_queue.has(i) and !thread_processing.has(i):
+			while i <= page_cur + page_buffer:
+				var skip = 0 #Stop iterating if we encounter an unloaded page
+				
+				if i <= tex_obj.size() -1 :
+					if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i): #If we jumped and this page had never been initiated
+>>>>>>> Stashed changes
 						tex_thread_start(i) #Properly load it now
 	#					print("page down: " + str(i))
 						skip = 1
@@ -66,7 +78,7 @@ func _process(delta):
 			else:
 				tex_thread_start(i)
 		
-		#Check up
+		#-- UP
 		if page_cur - page_buffer >= 0: #Don't drop below 0
 			i = max(page_cur - 1, 0)
 			
@@ -309,7 +321,7 @@ func tex_thread_load(arr): #value 0 = index, 1 = thread ID
 func tex_thread_finish(arr): #This takes place on the main thread
 	var texture = thread[arr[1]].wait_to_finish()
 	
-	#-------- CASE A- there has been no jump
+	#-------- CASE A- there has been no jump (might not be necessary anymore, can probably remove)
 	if !tex_obj.has(Core):
 		page_max = tex_coord.size() - 1 #Check if a Tex for this page exists already
 		

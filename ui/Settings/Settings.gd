@@ -4,11 +4,13 @@ onready var Main = get_node("/root/Main")
 
 onready var General = get_node("Margin/VBox/Body/Right/General")
 onready var Background = get_node("Margin/VBox/Body/Right/Background")
+onready var Filter = get_node("Margin/VBox/Body/Right/Filter")
 onready var Floater = get_node("Floater")
 
 #Left submenu
 onready var ButGeneral = get_node("Margin/VBox/Body/Left/ButGeneral")
 onready var ButBG = get_node("Margin/VBox/Body/Left/ButBG")
+onready var ButFilter = get_node("Margin/VBox/Body/Left/ButFilter")
 
 #General
 onready var CheckAuto = get_node("Margin/VBox/Body/Right/General/CheckAuto")
@@ -22,6 +24,17 @@ onready var LabelS = get_node("Margin/VBox/Body/Right/Background/S3")
 onready var SliderS = get_node("Margin/VBox/Body/Right/Background/S2")
 onready var LabelV = get_node("Margin/VBox/Body/Right/Background/V3")
 onready var SliderV = get_node("Margin/VBox/Body/Right/Background/V2")
+
+#Filter
+onready var CheckFilter = get_node("Margin/VBox/Body/Right/General/CheckDebug")
+onready var FLabelH = get_node("Margin/VBox/Body/Right/Filter/H3")
+onready var FSliderH = get_node("Margin/VBox/Body/Right/Filter/H2")
+onready var FLabelS = get_node("Margin/VBox/Body/Right/Filter/S3")
+onready var FSliderS = get_node("Margin/VBox/Body/Right/Filter/S2")
+onready var FLabelV = get_node("Margin/VBox/Body/Right/Filter/V3")
+onready var FSliderV = get_node("Margin/VBox/Body/Right/Filter/V2")
+onready var FLabelA = get_node("Margin/VBox/Body/Right/Filter/A3")
+onready var FSliderA = get_node("Margin/VBox/Body/Right/Filter/A2")
 
 onready var ButClose = get_node("Margin/VBox/Accept/ButClose")
 
@@ -41,10 +54,15 @@ func _ready():
 	CheckDebug.connect("pressed", self, "_on_CheckDebug_updated")
 	ButGeneral.connect("pressed", self, "_on_Left_updated", [0])
 	ButBG.connect("pressed", self, "_on_Left_updated", [1])
+	ButFilter.connect("pressed", self, "_on_Left_updated", [2])
 	ButClose.connect("pressed", self, "hide")
 	SliderH.connect("value_changed", self, "_on_BGColor_updated", [SliderH])
 	SliderS.connect("value_changed", self, "_on_BGColor_updated", [SliderS])
 	SliderV.connect("value_changed", self, "_on_BGColor_updated", [SliderV])
+	FSliderH.connect("value_changed", self, "_on_FilterColor_updated", [FSliderH])
+	FSliderS.connect("value_changed", self, "_on_FilterColor_updated", [FSliderS])
+	FSliderV.connect("value_changed", self, "_on_FilterColor_updated", [FSliderV])
+	FSliderA.connect("value_changed", self, "_on_FilterColor_updated", [FSliderA])
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -83,16 +101,33 @@ func _on_BGColor_updated(value , obj):
 	Main.set_bg_color(SliderH.value, SliderS.value, SliderV.value)
 	Main.settings_save()
 
+func _on_FilterColor_updated(value, obj):
+	match obj:
+		FSliderH:
+			global.settings["Filter"]["color"]["h"] = FSliderH.value
+		FSliderS:
+			global.settings["Filter"]["color"]["s"] = FSliderS.value
+		FSliderV:
+			global.settings["Filter"]["color"]["v"] = FSliderV.value
+		FSliderA:
+			global.settings["Filter"]["color"]["a"] = FSliderA.value
+	
+	Main.set_filter_color(FSliderH.value, FSliderS.value, FSliderV.value, FSliderA.value)
+	Main.settings_save()
+
 
 func _on_Left_updated(arr): #Left hand tab menu
 	General.visible = false
 	Background.visible = false
+	Filter.visible = false
 	
 	match arr:
 		0:
 			General.visible = true
 		1:
 			Background.visible = true
+		3:
+			Filter.visible = true
 
 func show():
 	visible = true

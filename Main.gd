@@ -9,6 +9,7 @@ onready var TexAll = get_node("TexAll")
 onready var Camera2D = get_node("Camera2D")
 onready var Starter = get_node("UI/Starter")
 onready var Welcome = get_node("/root/Main/Popup/Welcome")
+onready var ColorRect = get_node("Popup/ColorRect")
 
 var Dir = Directory.new()
 var cur_dir = "" #Current directory manga is loaded from
@@ -65,6 +66,13 @@ func settings_reset():
 	global.settings["BG"]["color"]["h"] = float(226)/float(360)
 	global.settings["BG"]["color"]["s"] = float(60)/float(360)
 	global.settings["BG"]["color"]["v"] = float(20)/float(360)
+	global.settings["Filter"] = {}
+	global.settings["Filter"]["on"] = true
+	global.settings["Filter"]["color"] = {}
+	global.settings["Filter"]["color"]["h"] = float(226)/float(360)
+	global.settings["Filter"]["color"]["s"] = float(60)/float(360)
+	global.settings["Filter"]["color"]["v"] = float(20)/float(360)
+	global.settings["Filter"]["color"]["a"] = float(20)/float(360)
 
 func settings_load():
 	var file_temp = File.new()
@@ -111,4 +119,6 @@ func set_fullscreen():
 
 func set_bg_color(h, s, v):
 	VisualServer.set_default_clear_color(Color.from_hsv(h, s, v, 1))
-#	ProjectSettings.set_setting("rendering/environment/default_clear_color", color)
+
+func set_filter_color(h, s, v, a):
+	ColorRect.color = Color.from_hsv(h, s, v, a)

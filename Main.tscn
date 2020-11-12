@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.gd" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://ui/Messenger/Messenger.gd" type="Script" id=21]
 [ext_resource path="res://ui/themes/icons/ico_about.png" type="Texture" id=22]
 [ext_resource path="res://ui/themes/sb_panel.tres" type="StyleBox" id=23]
+[ext_resource path="res://ui/ColorRect/ColorRect.gd" type="Script" id=24]
 [ext_resource path="res://ui/About/About.gd" type="Script" id=26]
 [ext_resource path="res://ui/themes/icons/ico_ebook.png" type="Texture" id=27]
 
@@ -505,7 +506,6 @@ __meta__ = {
 }
 
 [node name="Settings" type="Control" parent="Popup"]
-visible = false
 margin_right = 800.0
 margin_bottom = 360.0
 script = ExtResource( 19 )
@@ -579,6 +579,14 @@ theme = ExtResource( 14 )
 text = "Background"
 align = 0
 
+[node name="ButFilter" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_top = 66.0
+margin_right = 160.0
+margin_bottom = 91.0
+theme = ExtResource( 14 )
+text = "Filter"
+align = 0
+
 [node name="Right" type="MarginContainer" parent="Popup/Settings/Margin/VBox/Body"]
 margin_left = 172.0
 margin_right = 776.0
@@ -594,38 +602,15 @@ margin_bottom = 228.0
 custom_constants/vseparation = -8
 columns = 2
 
-[node name="Autoload" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 13.0
-margin_right = 266.0
-margin_bottom = 35.0
-custom_fonts/font = ExtResource( 18 )
-text = "autoload last read series on startup"
-
-[node name="CheckAuto" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_left = 274.0
-margin_right = 322.0
+[node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_right = 48.0
 margin_bottom = 48.0
 
-[node name="Full" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 53.0
-margin_right = 266.0
-margin_bottom = 75.0
-custom_fonts/font = ExtResource( 18 )
-text = "fullscreen mode"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_left = 274.0
-margin_top = 40.0
-margin_right = 322.0
-margin_bottom = 88.0
-
 [node name="Debug" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 93.0
-margin_right = 266.0
-margin_bottom = 115.0
+margin_left = 56.0
+margin_top = 13.0
+margin_right = 164.0
+margin_bottom = 35.0
 custom_fonts/font = ExtResource( 18 )
 text = "debug overlay"
 __meta__ = {
@@ -633,10 +618,9 @@ __meta__ = {
 }
 
 [node name="CheckDebug" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_left = 274.0
-margin_top = 80.0
-margin_right = 322.0
-margin_bottom = 128.0
+margin_top = 40.0
+margin_right = 48.0
+margin_bottom = 88.0
 
 [node name="Background" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
@@ -733,6 +717,145 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Filter" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+margin_right = 604.0
+margin_bottom = 228.0
+columns = 3
+
+[node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_top = 5.0
+margin_right = 83.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "hue:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="H2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 91.0
+margin_right = 411.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="H3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 419.0
+margin_top = 5.0
+margin_right = 429.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_top = 45.0
+margin_right = 83.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "saturation:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="S2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 91.0
+margin_top = 40.0
+margin_right = 411.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="S3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 419.0
+margin_top = 45.0
+margin_right = 429.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_top = 85.0
+margin_right = 83.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 18 )
+text = "value:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 91.0
+margin_top = 80.0
+margin_right = 411.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="V3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 419.0
+margin_top = 85.0
+margin_right = 429.0
+margin_bottom = 107.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_top = 125.0
+margin_right = 83.0
+margin_bottom = 147.0
+custom_fonts/font = ExtResource( 18 )
+text = "alpha:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="A2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 91.0
+margin_top = 120.0
+margin_right = 411.0
+margin_bottom = 152.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 1.0
+step = 0.01
+
+[node name="A3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 419.0
+margin_top = 125.0
+margin_right = 429.0
+margin_bottom = 147.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelFilter" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_top = 173.0
+margin_right = 83.0
+margin_bottom = 195.0
+custom_fonts/font = ExtResource( 18 )
+text = "use filter"
+
+[node name="CheckFilter" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
+margin_left = 91.0
+margin_top = 160.0
+margin_right = 139.0
+margin_bottom = 208.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
 [node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
 margin_top = 299.0
 margin_right = 776.0
@@ -800,7 +923,7 @@ margin_right = 632.0
 margin_bottom = 55.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 18 )
-text = "v. 1.1-Ardent"
+text = "v. 1.2-Bellicose"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Popup/About/MarginContainer/VBox"]
@@ -1120,3 +1243,14 @@ size_flags_vertical = 4
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 9 )
 text = "close"
+
+[node name="ColorRect" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 684.0
+margin_bottom = 517.0
+mouse_filter = 2
+color = Color( 0.301961, 0.258824, 0.054902, 0.470588 )
+script = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

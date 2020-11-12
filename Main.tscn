@@ -506,6 +506,7 @@ __meta__ = {
 }
 
 [node name="Settings" type="Control" parent="Popup"]
+visible = false
 margin_right = 800.0
 margin_bottom = 360.0
 script = ExtResource( 19 )
@@ -536,7 +537,7 @@ __meta__ = {
 margin_left = 12.0
 margin_top = 12.0
 margin_right = 788.0
-margin_bottom = 348.0
+margin_bottom = 384.0
 
 [node name="Title" type="Label" parent="Popup/Settings/Margin/VBox"]
 margin_right = 776.0
@@ -553,14 +554,14 @@ margin_bottom = 55.0
 [node name="Body" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
 margin_top = 63.0
 margin_right = 776.0
-margin_bottom = 291.0
+margin_bottom = 327.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 12
 
 [node name="Left" type="VBoxContainer" parent="Popup/Settings/Margin/VBox/Body"]
 margin_right = 160.0
-margin_bottom = 228.0
+margin_bottom = 264.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_vertical = 3
 
@@ -590,27 +591,48 @@ align = 0
 [node name="Right" type="MarginContainer" parent="Popup/Settings/Margin/VBox/Body"]
 margin_left = 172.0
 margin_right = 776.0
-margin_bottom = 228.0
+margin_bottom = 264.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="General" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
-visible = false
 margin_right = 604.0
-margin_bottom = 228.0
+margin_bottom = 264.0
 custom_constants/vseparation = -8
 columns = 2
 
-[node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_right = 48.0
+[node name="LabelAuto" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 13.0
+margin_right = 218.0
+margin_bottom = 35.0
+custom_fonts/font = ExtResource( 18 )
+text = "autoload last read on startup"
+
+[node name="CheckAuto" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 226.0
+margin_right = 274.0
 margin_bottom = 48.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="LabelFull" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_top = 53.0
+margin_right = 218.0
+margin_bottom = 75.0
+custom_fonts/font = ExtResource( 18 )
+text = "fullscreen mode"
+
+[node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
+margin_left = 226.0
+margin_top = 40.0
+margin_right = 274.0
+margin_bottom = 88.0
 
 [node name="Debug" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_left = 56.0
-margin_top = 13.0
-margin_right = 164.0
-margin_bottom = 35.0
+margin_top = 93.0
+margin_right = 218.0
+margin_bottom = 115.0
 custom_fonts/font = ExtResource( 18 )
 text = "debug overlay"
 __meta__ = {
@@ -618,14 +640,15 @@ __meta__ = {
 }
 
 [node name="CheckDebug" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 40.0
-margin_right = 48.0
-margin_bottom = 88.0
+margin_left = 226.0
+margin_top = 80.0
+margin_right = 274.0
+margin_bottom = 128.0
 
 [node name="Background" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
 margin_right = 604.0
-margin_bottom = 228.0
+margin_bottom = 264.0
 columns = 3
 
 [node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
@@ -718,8 +741,9 @@ __meta__ = {
 }
 
 [node name="Filter" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
 margin_right = 604.0
-margin_bottom = 228.0
+margin_bottom = 264.0
 columns = 3
 
 [node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
@@ -857,9 +881,9 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
-margin_top = 299.0
+margin_top = 335.0
 margin_right = 776.0
-margin_bottom = 336.0
+margin_bottom = 372.0
 alignment = 2
 
 [node name="ButClose" type="Button" parent="Popup/Settings/Margin/VBox/Accept"]

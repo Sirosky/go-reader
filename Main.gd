@@ -10,6 +10,7 @@ onready var Camera2D = get_node("Camera2D")
 onready var Starter = get_node("UI/Starter")
 onready var Welcome = get_node("/root/Main/Popup/Welcome")
 onready var ColorRect = get_node("Popup/ColorRect")
+onready var Settings = get_node("Popup/Settings")
 
 var Dir = Directory.new()
 var cur_dir = "" #Current directory manga is loaded from
@@ -67,12 +68,12 @@ func settings_reset():
 	global.settings["BG"]["color"]["s"] = float(60)/float(360)
 	global.settings["BG"]["color"]["v"] = float(20)/float(360)
 	global.settings["Filter"] = {}
-	global.settings["Filter"]["on"] = true
+	global.settings["Filter"]["on"] = false
 	global.settings["Filter"]["color"] = {}
-	global.settings["Filter"]["color"]["h"] = float(226)/float(360)
-	global.settings["Filter"]["color"]["s"] = float(60)/float(360)
-	global.settings["Filter"]["color"]["v"] = float(20)/float(360)
-	global.settings["Filter"]["color"]["a"] = float(20)/float(360)
+	global.settings["Filter"]["color"]["h"] = float(50)/float(360)
+	global.settings["Filter"]["color"]["s"] = float(82)/float(360)
+	global.settings["Filter"]["color"]["v"] = float(30)/float(360)
+	global.settings["Filter"]["color"]["a"] = float(120)/float(360)
 
 func settings_load():
 	var file_temp = File.new()
@@ -80,10 +81,14 @@ func settings_load():
 	if file_temp.file_exists(global.settings_path): #Existing setting
 		global.settings = global.json_read(global.settings_path)
 		
+		settings_reconcile()
+		
 		set_debug_overlay()
 		set_fullscreen()
 		set_bg_color(global.settings["BG"]["color"]["h"], global.settings["BG"]["color"]["s"], global.settings["BG"]["color"]["v"])
-		
+		set_filter()
+		set_filter_color(global.settings["Filter"]["color"]["h"], global.settings["Filter"]["color"]["s"], global.settings["Filter"]["color"]["v"], global.settings["Filter"]["color"]["a"])
+				
 		if global.settings["General"]["autoload"] == true and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
 			Starter.queue_free()
 			SourceLoader.source_load(global.settings["General"]["autoload_source"])
@@ -97,17 +102,29 @@ func settings_load():
 func settings_save():
 	var settings_path = OS.get_executable_path().get_base_dir() + "\\settings" #Only works when exported.
 	#ProjecSettings.globalize_path doesn't work when exported for some dumb reason, so this is the workaround.
+#	settings_path = ProjectSettings.globalize_path("res://settings") #Use this while launching from editor
 	
 	if !Dir.dir_exists(settings_path): #Create a new folder for the base library
 			Dir.make_dir(settings_path)
 
 	global.json_write(global.settings_path, global.settings)
 	
-func settings_save_page():
+func settings_save_page(): #Saves for autoload
 	if cur_dir != "":
 		global.settings["History"][cur_dir] = Streamer.page_cur
 		global.settings["General"]["autoload_source"] = cur_dir
 		settings_save()
+
+func settings_reconcile(): #Reconciles settings.json with older versions
+	if !global.settings.has("Filter"):
+		global.settings["Filter"] = {}
+		global.settings["Filter"]["on"] = false
+		global.settings["Filter"]["color"] = {}
+		global.settings["Filter"]["color"]["h"] = float(50)/float(360)
+		global.settings["Filter"]["color"]["s"] = float(82)/float(360)
+		global.settings["Filter"]["color"]["v"] = float(30)/float(360)
+		global.settings["Filter"]["color"]["a"] = float(120)/float(360)
+		global.Mes.message_send("settings reconciled")
 
 #set settings
 

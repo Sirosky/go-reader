@@ -48,11 +48,15 @@ func _ready():
 	CheckDebug.rect_scale.x = .8
 	CheckDebug.rect_scale.y = .8
 	CheckDebug.rect_position.y += 4
+	CheckFilter.rect_scale.x = .8
+	CheckFilter.rect_scale.y = .8
+	CheckFilter.rect_position.y += 4
 	
 	CheckAuto.connect("pressed", self, "_on_CheckAuto_updated")
 	CheckFull.connect("pressed", self, "_on_CheckFull_updated")
 	CheckDebug.connect("pressed", self, "_on_CheckDebug_updated")
 	CheckFilter.connect("pressed", self, "_on_CheckFilter_updated")
+	
 	ButGeneral.connect("pressed", self, "_on_Left_updated", [0])
 	ButBG.connect("pressed", self, "_on_Left_updated", [1])
 	ButFilter.connect("pressed", self, "_on_Left_updated", [2])
@@ -75,6 +79,12 @@ func _process(delta):
 		LabelH.text = str(SliderH.value)
 		LabelS.text = str(SliderS.value)
 		LabelV.text = str(SliderV.value)
+	
+	if Filter.visible == true:
+		FLabelH.text = str(FSliderH.value)
+		FLabelS.text = str(FSliderS.value)
+		FLabelV.text = str(FSliderV.value)
+		FLabelA.text = str(FSliderA.value)
 
 func _on_CheckAuto_updated():
 	global.settings["General"]["autoload"] = !global.settings["General"]["autoload"]
@@ -126,13 +136,12 @@ func _on_Left_updated(arr): #Left hand tab menu
 	General.visible = false
 	Background.visible = false
 	Filter.visible = false
-	
 	match arr:
 		0:
 			General.visible = true
 		1:
 			Background.visible = true
-		3:
+		2:
 			Filter.visible = true
 
 func show():
@@ -143,10 +152,16 @@ func show():
 	CheckAuto.pressed = global.settings["General"]["autoload"]
 	CheckFull.pressed = global.settings["General"]["fullscreen"]
 	CheckDebug.pressed = global.settings["General"]["debug_overlay"]
+	CheckFilter.pressed = global.settings["Filter"]["on"]
 	
 	SliderH.value = global.settings["BG"]["color"]["h"]
 	SliderS.value = global.settings["BG"]["color"]["s"]
 	SliderV.value = global.settings["BG"]["color"]["v"]
+	
+	FSliderH.value = global.settings["Filter"]["color"]["h"]
+	FSliderS.value = global.settings["Filter"]["color"]["s"]
+	FSliderV.value = global.settings["Filter"]["color"]["v"]
+	FSliderA.value = global.settings["Filter"]["color"]["a"]
 	
 	
 	rect_position.x = OS.get_screen_size().x/2 - rect_size.x/2

@@ -30,12 +30,12 @@ func _process(delta):
 	
 	Lab[3].text = str(str("Pages tracking") + ": " + str(Streamer.pages_tracking))
 	
-#	if Streamer.page_cur <= Streamer.tex_obj.size() and Streamer.tex_obj.size() > 0:
-#		Lab[3].text = str(str("Texture for current page") + ": " + str(Streamer.tex_obj[Streamer.page_cur].texture))
+
+	Lab[3].text = str(str("Current pages loaded") + ": " + str(Streamer.pages_loaded))
 
 	Lab[4].text = str(str("Threads currently processing") + ": " + str(Streamer.thread_processing))
 	Lab[5].text = str(str("Thread 1 busy") + ": " + str(Streamer.thread[0].is_active()))
-	Lab[6].text = str(str("Thread 2 busy") + ": " + str(Streamer.thread[1].is_active()))
+#	Lab[6].text = str(str("Thread 2 busy") + ": " + str(Streamer.thread[1].is_active()))
 	Lab[7].text = str(str("Thread queue") + ": " + str(Streamer.thread_queue))
 	
 	if ProgressBar.modulate == Color(1, 1, 1, 0): #Make it invisible

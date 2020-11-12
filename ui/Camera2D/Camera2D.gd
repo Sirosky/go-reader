@@ -54,6 +54,10 @@ var camera_limit_y2 = 999999
 
 signal camera_moved
 
+#Backup loading
+var camera_dir = 0 #0 up, 1 down
+onready var Timer = get_node("Timer")
+
 # INPUTS
 
 # Right mouse button was or is pressed.

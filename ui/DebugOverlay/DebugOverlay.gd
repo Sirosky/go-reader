@@ -40,7 +40,8 @@ func _process(delta):
 	Lab[4].text = str(str("Threads currently processing") + ": " + str(Streamer.thread_processing))
 	Lab[5].text = str(str("Thread 1 busy") + ": " + str(Streamer.thread[0].is_active()))
 	Lab[6].text = str(str("Thread queue") + ": " + str(Streamer.thread_queue))
-	Lab[7].text = str(str("Current page directory") + ": " + str(SourceLoader.tex_sorted[Streamer.page_cur]))
+	if Main.cur_dir != "":
+		Lab[7].text = str(str("Current page directory") + ": " + str(SourceLoader.tex_sorted[Streamer.page_cur]))
 	
 	if ProgressBar.modulate == Color(1, 1, 1, 0): #Make it invisible
 		ProgressBar.visible = false

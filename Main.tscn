@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.gd" type="Script" id=2]
@@ -27,6 +27,14 @@
 [ext_resource path="res://ui/themes/LL16.tres" type="DynamicFont" id=25]
 [ext_resource path="res://ui/About/About.gd" type="Script" id=26]
 [ext_resource path="res://ui/themes/icons/ico_ebook.png" type="Texture" id=27]
+[ext_resource path="res://ui/themes/icons/ico_eye.png" type="Texture" id=28]
+[ext_resource path="res://ui/themes/icons/ico_up.png" type="Texture" id=29]
+[ext_resource path="res://ui/themes/icons/ico_reload.png" type="Texture" id=30]
+[ext_resource path="res://ui/themes/icons/ico_updown.png" type="Texture" id=31]
+[ext_resource path="res://ui/themes/icons/ico_checkbox_checked.png" type="Texture" id=32]
+[ext_resource path="res://ui/themes/icons/ico_checkbox.png" type="Texture" id=33]
+[ext_resource path="res://ui/themes/icons/ico_grabber.png" type="Texture" id=34]
+[ext_resource path="res://ui/themes/sb_slider.tres" type="StyleBox" id=35]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.156863, 0.305882, 0.529412, 1 )
@@ -203,6 +211,7 @@ margin_bottom = 108.0
 [node name="SpinBox" type="SpinBox" parent="UI/Jump/Margin/VBoxContainer"]
 margin_right = 376.0
 margin_bottom = 45.0
+custom_icons/updown = ExtResource( 31 )
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/Jump/Margin/VBoxContainer"]
@@ -429,7 +438,7 @@ __meta__ = {
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 278.0
-margin_bottom = 206.0
+margin_bottom = 282.0
 mouse_filter = 2
 theme = ExtResource( 15 )
 
@@ -437,7 +446,7 @@ theme = ExtResource( 15 )
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 278.0
-margin_bottom = 206.0
+margin_bottom = 282.0
 custom_constants/margin_right = 4
 custom_constants/margin_top = 4
 custom_constants/margin_left = 4
@@ -447,7 +456,7 @@ custom_constants/margin_bottom = 4
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 270.0
-margin_bottom = 198.0
+margin_bottom = 274.0
 custom_constants/separation = 6
 
 [node name="ButLoad" type="Button" parent="Popup/MenuContext/Margin/VBox"]
@@ -544,6 +553,9 @@ margin_left = -341.178
 margin_top = 188.58
 margin_right = 558.822
 margin_bottom = 788.58
+custom_icons/toggle_hidden = ExtResource( 28 )
+custom_icons/parent_folder = ExtResource( 29 )
+custom_icons/reload = ExtResource( 30 )
 window_title = "Open a Directory"
 resizable = true
 mode_overrides_title = false
@@ -667,36 +679,40 @@ custom_constants/vseparation = -8
 columns = 2
 
 [node name="LabelAuto" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 13.0
+margin_top = 17.0
 margin_right = 218.0
-margin_bottom = 35.0
+margin_bottom = 39.0
 custom_fonts/font = ExtResource( 18 )
 text = "autoload last read on startup"
 
 [node name="CheckAuto" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
 margin_left = 226.0
-margin_right = 274.0
-margin_bottom = 48.0
+margin_right = 282.0
+margin_bottom = 56.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+custom_icons/checked = ExtResource( 32 )
+custom_icons/unchecked = ExtResource( 33 )
 
 [node name="LabelFull" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 53.0
+margin_top = 65.0
 margin_right = 218.0
-margin_bottom = 75.0
+margin_bottom = 87.0
 custom_fonts/font = ExtResource( 18 )
 text = "fullscreen mode"
 
 [node name="CheckFull" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
 margin_left = 226.0
-margin_top = 40.0
-margin_right = 274.0
-margin_bottom = 88.0
+margin_top = 48.0
+margin_right = 282.0
+margin_bottom = 104.0
+custom_icons/checked = ExtResource( 32 )
+custom_icons/unchecked = ExtResource( 33 )
 
 [node name="Debug" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
-margin_top = 93.0
+margin_top = 113.0
 margin_right = 218.0
-margin_bottom = 115.0
+margin_bottom = 135.0
 custom_fonts/font = ExtResource( 18 )
 text = "debug overlay"
 __meta__ = {
@@ -705,9 +721,11 @@ __meta__ = {
 
 [node name="CheckDebug" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/General"]
 margin_left = 226.0
-margin_top = 80.0
-margin_right = 274.0
-margin_bottom = 128.0
+margin_top = 96.0
+margin_right = 282.0
+margin_bottom = 152.0
+custom_icons/checked = ExtResource( 32 )
+custom_icons/unchecked = ExtResource( 33 )
 
 [node name="Perf" type="VBoxContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
@@ -734,6 +752,10 @@ margin_left = 135.0
 margin_right = 455.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 min_value = 3.0
 max_value = 10.0
 value = 3.0
@@ -766,6 +788,10 @@ margin_top = 40.0
 margin_right = 455.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 10.0
 value = 3.0
 
@@ -814,6 +840,10 @@ margin_left = 102.0
 margin_right = 422.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 5000.0
 step = 100.0
 
@@ -844,6 +874,10 @@ margin_top = 40.0
 margin_right = 422.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 500.0
 step = 10.0
 
@@ -865,9 +899,8 @@ margin_bottom = 228.0
 columns = 3
 
 [node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
-margin_top = 5.0
 margin_right = 83.0
-margin_bottom = 27.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 18 )
 text = "hue:"
 __meta__ = {
@@ -877,16 +910,19 @@ __meta__ = {
 [node name="H2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
 margin_left = 91.0
 margin_right = 411.0
-margin_bottom = 32.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="H3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
 margin_left = 419.0
-margin_top = 5.0
 margin_right = 429.0
-margin_bottom = 27.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -894,9 +930,9 @@ __meta__ = {
 }
 
 [node name="S" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
-margin_top = 45.0
+margin_top = 30.0
 margin_right = 83.0
-margin_bottom = 67.0
+margin_bottom = 52.0
 custom_fonts/font = ExtResource( 18 )
 text = "saturation:"
 __meta__ = {
@@ -905,18 +941,22 @@ __meta__ = {
 
 [node name="S2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
 margin_left = 91.0
-margin_top = 40.0
+margin_top = 30.0
 margin_right = 411.0
-margin_bottom = 72.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="S3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
 margin_left = 419.0
-margin_top = 45.0
+margin_top = 30.0
 margin_right = 429.0
-margin_bottom = 67.0
+margin_bottom = 52.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -924,9 +964,9 @@ __meta__ = {
 }
 
 [node name="V" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
-margin_top = 85.0
+margin_top = 60.0
 margin_right = 83.0
-margin_bottom = 107.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 18 )
 text = "value:"
 __meta__ = {
@@ -935,18 +975,22 @@ __meta__ = {
 
 [node name="V2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
 margin_left = 91.0
-margin_top = 80.0
+margin_top = 60.0
 margin_right = 411.0
-margin_bottom = 112.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="V3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
 margin_left = 419.0
-margin_top = 85.0
+margin_top = 60.0
 margin_right = 429.0
-margin_bottom = 107.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -960,9 +1004,8 @@ margin_bottom = 228.0
 columns = 3
 
 [node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
-margin_top = 5.0
 margin_right = 83.0
-margin_bottom = 27.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 18 )
 text = "hue:"
 __meta__ = {
@@ -972,16 +1015,19 @@ __meta__ = {
 [node name="H2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 91.0
 margin_right = 411.0
-margin_bottom = 32.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="H3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 419.0
-margin_top = 5.0
 margin_right = 429.0
-margin_bottom = 27.0
+margin_bottom = 22.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -989,9 +1035,9 @@ __meta__ = {
 }
 
 [node name="S" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
-margin_top = 45.0
+margin_top = 30.0
 margin_right = 83.0
-margin_bottom = 67.0
+margin_bottom = 52.0
 custom_fonts/font = ExtResource( 18 )
 text = "saturation:"
 __meta__ = {
@@ -1000,18 +1046,22 @@ __meta__ = {
 
 [node name="S2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 91.0
-margin_top = 40.0
+margin_top = 30.0
 margin_right = 411.0
-margin_bottom = 72.0
+margin_bottom = 46.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="S3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 419.0
-margin_top = 45.0
+margin_top = 30.0
 margin_right = 429.0
-margin_bottom = 67.0
+margin_bottom = 52.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -1019,9 +1069,9 @@ __meta__ = {
 }
 
 [node name="V" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
-margin_top = 85.0
+margin_top = 60.0
 margin_right = 83.0
-margin_bottom = 107.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 18 )
 text = "value:"
 __meta__ = {
@@ -1030,18 +1080,22 @@ __meta__ = {
 
 [node name="V2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 91.0
-margin_top = 80.0
+margin_top = 60.0
 margin_right = 411.0
-margin_bottom = 112.0
+margin_bottom = 76.0
 rect_min_size = Vector2( 320, 0 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="V3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 419.0
-margin_top = 85.0
+margin_top = 60.0
 margin_right = 429.0
-margin_bottom = 107.0
+margin_bottom = 82.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -1049,9 +1103,9 @@ __meta__ = {
 }
 
 [node name="A" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
-margin_top = 125.0
+margin_top = 91.0
 margin_right = 83.0
-margin_bottom = 147.0
+margin_bottom = 113.0
 custom_fonts/font = ExtResource( 18 )
 text = "alpha:"
 __meta__ = {
@@ -1060,18 +1114,22 @@ __meta__ = {
 
 [node name="A2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 91.0
-margin_top = 120.0
+margin_top = 90.0
 margin_right = 411.0
-margin_bottom = 152.0
-rect_min_size = Vector2( 320, 0 )
+margin_bottom = 114.0
+rect_min_size = Vector2( 320, 24 )
+custom_icons/grabber_highlight = ExtResource( 34 )
+custom_icons/grabber = ExtResource( 34 )
+custom_styles/slider = ExtResource( 35 )
+custom_styles/grabber_area = ExtResource( 35 )
 max_value = 1.0
 step = 0.01
 
 [node name="A3" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 419.0
-margin_top = 125.0
+margin_top = 91.0
 margin_right = 429.0
-margin_bottom = 147.0
+margin_bottom = 113.0
 custom_fonts/font = ExtResource( 18 )
 text = "0"
 __meta__ = {
@@ -1079,19 +1137,21 @@ __meta__ = {
 }
 
 [node name="LabelFilter" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
-margin_top = 173.0
+margin_top = 139.0
 margin_right = 83.0
-margin_bottom = 195.0
+margin_bottom = 161.0
 custom_fonts/font = ExtResource( 18 )
 text = "use filter"
 
 [node name="CheckFilter" type="CheckBox" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
 margin_left = 91.0
-margin_top = 160.0
-margin_right = 139.0
-margin_bottom = 208.0
+margin_top = 122.0
+margin_right = 147.0
+margin_bottom = 178.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
+custom_icons/checked = ExtResource( 32 )
+custom_icons/unchecked = ExtResource( 33 )
 
 [node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
 margin_top = 299.0

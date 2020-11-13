@@ -41,6 +41,8 @@ func _input(event):
 		OS.set_window_fullscreen(a)
 	if event.is_action_pressed("ui_load"):
 		MenuContext._on_ButLoad_pressed()
+	if event.is_action_pressed("ui_center"):
+		Camera2D.position.x = 0
 
 func reset():
 	if TexAll.get_child_count() > 0: #If there's anything loaded prior, reset everything
@@ -74,6 +76,10 @@ func settings_reset():
 	global.settings["Filter"]["color"]["s"] = float(82)/float(360)
 	global.settings["Filter"]["color"]["v"] = float(30)/float(360)
 	global.settings["Filter"]["color"]["a"] = float(120)/float(360)
+	global.settings["Performance"] = {}
+	global.settings["Performance"]["page_buffer"] = 5
+	global.settings["Performance"]["page_buffer_sec"] = 5
+	
 
 func settings_load():
 	var file_temp = File.new()
@@ -88,6 +94,7 @@ func settings_load():
 		set_bg_color(global.settings["BG"]["color"]["h"], global.settings["BG"]["color"]["s"], global.settings["BG"]["color"]["v"])
 		set_filter()
 		set_filter_color(global.settings["Filter"]["color"]["h"], global.settings["Filter"]["color"]["s"], global.settings["Filter"]["color"]["v"], global.settings["Filter"]["color"]["a"])
+		set_page_buffer()
 				
 		if global.settings["General"]["autoload"] == true and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
 			Starter.queue_free()
@@ -125,6 +132,14 @@ func settings_reconcile(): #Reconciles settings.json with older versions
 		global.settings["Filter"]["color"]["v"] = float(30)/float(360)
 		global.settings["Filter"]["color"]["a"] = float(120)/float(360)
 		global.Mes.message_send("settings reconciled")
+		settings_save()
+	
+	if !global.settings.has("Performance"):
+		global.settings["Performance"] = {}
+		global.settings["Performance"]["page_buffer"] = 5
+		global.settings["Performance"]["page_buffer_sec"] = 5
+		global.Mes.message_send("settings reconciled")
+		settings_save()
 
 #set settings
 
@@ -142,3 +157,11 @@ func set_filter():
 
 func set_filter_color(h, s, v, a):
 	ColorRect.color = Color.from_hsv(h, s, v, a)
+
+func set_page_buffer():
+	Streamer.page_buffer = global.settings["Performance"]["page_buffer"]
+	Streamer.page_buffer_sec = global.settings["Performance"]["page_buffer_sec"]
+	
+	if Streamer.page_buffer_sec + Streamer.page_buffer > Streamer.page_buffer_unload - 2:
+		Streamer.page_buffer_unload = Streamer.page_buffer_sec + Streamer.page_buffer + 2
+	

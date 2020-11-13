@@ -5,12 +5,14 @@ onready var Main = get_node("/root/Main")
 onready var General = get_node("Margin/VBox/Body/Right/General")
 onready var Background = get_node("Margin/VBox/Body/Right/Background")
 onready var Filter = get_node("Margin/VBox/Body/Right/Filter")
+onready var Perf = get_node("Margin/VBox/Body/Right/Perf")
 onready var Floater = get_node("Floater")
 
 #Left submenu
 onready var ButGeneral = get_node("Margin/VBox/Body/Left/ButGeneral")
 onready var ButBG = get_node("Margin/VBox/Body/Left/ButBG")
 onready var ButFilter = get_node("Margin/VBox/Body/Left/ButFilter")
+onready var ButPerf = get_node("Margin/VBox/Body/Left/ButPerf")
 
 #General
 onready var CheckAuto = get_node("Margin/VBox/Body/Right/General/CheckAuto")
@@ -36,6 +38,13 @@ onready var FSliderV = get_node("Margin/VBox/Body/Right/Filter/V2")
 onready var FLabelA = get_node("Margin/VBox/Body/Right/Filter/A3")
 onready var FSliderA = get_node("Margin/VBox/Body/Right/Filter/A2")
 
+#Perf
+
+onready var SBuffer1 = get_node("Margin/VBox/Body/Right/Perf/Grid/SBuffer1")
+onready var LBuffer1Val = get_node("Margin/VBox/Body/Right/Perf/Grid/LBuffer1Val")
+onready var SBuffer2 = get_node("Margin/VBox/Body/Right/Perf/Grid/SBuffer2")
+onready var LBuffer2Val = get_node("Margin/VBox/Body/Right/Perf/Grid/LBuffer2Val")
+
 onready var ButClose = get_node("Margin/VBox/Accept/ButClose")
 
 func _ready():
@@ -60,6 +69,7 @@ func _ready():
 	ButGeneral.connect("pressed", self, "_on_Left_updated", [0])
 	ButBG.connect("pressed", self, "_on_Left_updated", [1])
 	ButFilter.connect("pressed", self, "_on_Left_updated", [2])
+	ButPerf.connect("pressed", self, "_on_Left_updated", [3])
 	ButClose.connect("pressed", self, "hide")
 	SliderH.connect("value_changed", self, "_on_BGColor_updated", [SliderH])
 	SliderS.connect("value_changed", self, "_on_BGColor_updated", [SliderS])
@@ -68,6 +78,8 @@ func _ready():
 	FSliderS.connect("value_changed", self, "_on_FilterColor_updated", [FSliderS])
 	FSliderV.connect("value_changed", self, "_on_FilterColor_updated", [FSliderV])
 	FSliderA.connect("value_changed", self, "_on_FilterColor_updated", [FSliderA])
+	SBuffer1.connect("value_changed", self, "_on_Buffer_updated", [SBuffer1])
+	SBuffer2.connect("value_changed", self, "_on_Buffer_updated", [SBuffer2])
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -85,6 +97,10 @@ func _process(delta):
 		FLabelS.text = str(FSliderS.value)
 		FLabelV.text = str(FSliderV.value)
 		FLabelA.text = str(FSliderA.value)
+	
+	if Perf.visible == true:
+		LBuffer1Val.text = str(SBuffer1.value)
+		LBuffer2Val.text = str(SBuffer2.value)
 
 func _on_CheckAuto_updated():
 	global.settings["General"]["autoload"] = !global.settings["General"]["autoload"]
@@ -131,11 +147,22 @@ func _on_FilterColor_updated(value, obj):
 	Main.set_filter_color(FSliderH.value, FSliderS.value, FSliderV.value, FSliderA.value)
 	Main.settings_save()
 
+func _on_Buffer_updated(value, obj):
+	match obj:
+		SBuffer1:
+			global.settings["Performance"]["page_buffer"] = SBuffer1.value
+		SBuffer2:
+			global.settings["Performance"]["page_buffer_sec"] = SBuffer2.value
+	
+	Main.set_page_buffer()
+	Main.settings_save()
 
 func _on_Left_updated(arr): #Left hand tab menu
 	General.visible = false
 	Background.visible = false
 	Filter.visible = false
+	Perf.visible = false
+	
 	match arr:
 		0:
 			General.visible = true
@@ -143,6 +170,8 @@ func _on_Left_updated(arr): #Left hand tab menu
 			Background.visible = true
 		2:
 			Filter.visible = true
+		3:
+			Perf.visible = true
 
 func show():
 	visible = true
@@ -163,6 +192,8 @@ func show():
 	FSliderV.value = global.settings["Filter"]["color"]["v"]
 	FSliderA.value = global.settings["Filter"]["color"]["a"]
 	
+	SBuffer1.value = global.settings["Performance"]["page_buffer"]
+	SBuffer2.value = global.settings["Performance"]["page_buffer_sec"]
 	
 	rect_position.x = OS.get_screen_size().x/2 - rect_size.x/2
 	rect_position.y = OS.get_screen_size().y/2 - rect_size.y/2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://core/Streamer.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://ui/themes/icons/ico_about.png" type="Texture" id=22]
 [ext_resource path="res://ui/themes/sb_panel.tres" type="StyleBox" id=23]
 [ext_resource path="res://ui/ColorRect/ColorRect.gd" type="Script" id=24]
+[ext_resource path="res://ui/themes/LL16.tres" type="DynamicFont" id=25]
 [ext_resource path="res://ui/About/About.gd" type="Script" id=26]
 [ext_resource path="res://ui/themes/icons/ico_ebook.png" type="Texture" id=27]
 
@@ -57,6 +58,9 @@ smoothing_speed = -1.0
 script = ExtResource( 4 )
 
 [node name="Timer" type="Timer" parent="Camera2D"]
+process_mode = 0
+wait_time = 1.5
+one_shot = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
@@ -536,7 +540,7 @@ __meta__ = {
 }
 
 [node name="Margin" type="MarginContainer" parent="Popup/Settings"]
-margin_right = 800.0
+margin_right = 801.0
 margin_bottom = 360.0
 custom_constants/margin_right = 12
 custom_constants/margin_top = 12
@@ -549,11 +553,11 @@ __meta__ = {
 [node name="VBox" type="VBoxContainer" parent="Popup/Settings/Margin"]
 margin_left = 12.0
 margin_top = 12.0
-margin_right = 788.0
+margin_right = 789.0
 margin_bottom = 348.0
 
 [node name="Title" type="Label" parent="Popup/Settings/Margin/VBox"]
-margin_right = 776.0
+margin_right = 777.0
 margin_bottom = 39.0
 custom_fonts/font = ExtResource( 17 )
 text = "Settings"
@@ -561,20 +565,20 @@ text = "Settings"
 [node name="HSeparator" type="HSeparator" parent="Popup/Settings/Margin/VBox"]
 modulate = Color( 1, 1, 1, 0.392157 )
 margin_top = 47.0
-margin_right = 776.0
+margin_right = 777.0
 margin_bottom = 55.0
 
 [node name="Body" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
 margin_top = 63.0
-margin_right = 776.0
-margin_bottom = 327.0
+margin_right = 777.0
+margin_bottom = 291.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 12
 
 [node name="Left" type="VBoxContainer" parent="Popup/Settings/Margin/VBox/Body"]
 margin_right = 160.0
-margin_bottom = 264.0
+margin_bottom = 228.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_vertical = 3
 
@@ -585,33 +589,42 @@ theme = ExtResource( 14 )
 text = "General"
 align = 0
 
-[node name="ButBG" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+[node name="ButPerf" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
 margin_top = 33.0
 margin_right = 160.0
 margin_bottom = 58.0
+theme = ExtResource( 14 )
+text = "Performance"
+align = 0
+
+[node name="ButBG" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_top = 66.0
+margin_right = 160.0
+margin_bottom = 91.0
 theme = ExtResource( 14 )
 text = "Background"
 align = 0
 
 [node name="ButFilter" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
-margin_top = 66.0
+margin_top = 99.0
 margin_right = 160.0
-margin_bottom = 91.0
+margin_bottom = 124.0
 theme = ExtResource( 14 )
 text = "Filter"
 align = 0
 
 [node name="Right" type="MarginContainer" parent="Popup/Settings/Margin/VBox/Body"]
 margin_left = 172.0
-margin_right = 776.0
-margin_bottom = 264.0
+margin_right = 777.0
+margin_bottom = 228.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="General" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
-margin_right = 604.0
-margin_bottom = 264.0
+visible = false
+margin_right = 605.0
+margin_bottom = 228.0
 custom_constants/vseparation = -8
 columns = 2
 
@@ -658,10 +671,96 @@ margin_top = 80.0
 margin_right = 274.0
 margin_bottom = 128.0
 
+[node name="Perf" type="VBoxContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
+margin_right = 605.0
+margin_bottom = 228.0
+
+[node name="Grid" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right/Perf"]
+margin_right = 605.0
+margin_bottom = 72.0
+columns = 3
+
+[node name="LBuffer1" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
+margin_top = 5.0
+margin_right = 127.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "new page buffer:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SBuffer1" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
+margin_left = 135.0
+margin_right = 455.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 320, 0 )
+min_value = 3.0
+max_value = 10.0
+step = 1.0
+value = 3.0
+
+[node name="LBuffer1Val" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
+margin_left = 463.0
+margin_top = 5.0
+margin_right = 473.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LBuffer2" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
+margin_top = 45.0
+margin_right = 82.0
+margin_bottom = 67.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 18 )
+text = "idle buffer:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SBuffer2" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
+margin_left = 135.0
+margin_top = 40.0
+margin_right = 455.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 10.0
+step = 1.0
+value = 3.0
+
+[node name="LBuffer2Val" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
+margin_left = 463.0
+margin_top = 45.0
+margin_right = 473.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PerfInfo" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf"]
+margin_top = 80.0
+margin_right = 605.0
+margin_bottom = 152.0
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 25 )
+text = "buffer is the amount of pages to load ahead of your current page.
+new page buffer is the buffer to maintain whenever you scroll to a new page. [3-10 pages]
+idle buffer allows for the \"smart\" loading of pages when you're reading. [0-10 pages]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Background" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
-margin_right = 604.0
-margin_bottom = 264.0
+margin_right = 605.0
+margin_bottom = 228.0
 columns = 3
 
 [node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Background"]
@@ -755,8 +854,8 @@ __meta__ = {
 
 [node name="Filter" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
 visible = false
-margin_right = 604.0
-margin_bottom = 264.0
+margin_right = 605.0
+margin_bottom = 228.0
 columns = 3
 
 [node name="H" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Filter"]
@@ -894,14 +993,14 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="Accept" type="HBoxContainer" parent="Popup/Settings/Margin/VBox"]
-margin_top = 335.0
-margin_right = 776.0
-margin_bottom = 372.0
+margin_top = 299.0
+margin_right = 777.0
+margin_bottom = 336.0
 alignment = 2
 
 [node name="ButClose" type="Button" parent="Popup/Settings/Margin/VBox/Accept"]
-margin_left = 703.0
-margin_right = 776.0
+margin_left = 704.0
+margin_right = 777.0
 margin_bottom = 37.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 9 )
@@ -960,7 +1059,7 @@ margin_right = 632.0
 margin_bottom = 55.0
 theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 18 )
-text = "v. 1.3-Cnut"
+text = "v. 1.3.1-Cnut"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="Popup/About/MarginContainer/VBox"]

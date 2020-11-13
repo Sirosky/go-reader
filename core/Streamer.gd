@@ -17,7 +17,7 @@ var tex_coord = [] #y coordinate
 var page_max = 0 #Most recently loaded page. Pretty much irrelevant if there's a page jump.
 var page_cur = 0 #Current page we're looking at
 var page_buffer = 5 # How many extra pages to have loaded
-var pages_buffer_2 = 5 # Second layer of buffer pages
+var page_buffer_sec = 5 # Secondary layer of buffer pages. Loaded while user is idle.
 var page_buffer_unload = 15 #How many pages before we start unloading their textures. Should be greater than page_buffer + pages_buffer_2
 var pages_tracking = [] #Current 
 var pages_tracking_temp = []
@@ -89,7 +89,6 @@ func _process(delta):
 			tex_thread_start(page_cur + 1)
 			page_max = 1
 	
-	#Background loading
 	#Check if thread has more work to do
 	if thread_queue.size() > 0:
 		
@@ -97,11 +96,12 @@ func _process(delta):
 	
 		for i in range(thread.size()):
 			thread_status.append(int(thread[i].is_active()))
-			
-		if thread_status.has(0): #Have at least one free thread
-#			print("Starting from queue")
-			tex_thread_start(thread_queue[0])
-			thread_queue.remove(0) #Remove from queue
+		
+		var val = thread_queue[0]
+		if !thread[0].is_active(): #Have at least one free thread
+			print(str("Starting from queue")+ ": " + str(val))
+			tex_thread_start(val)
+			thread_queue.erase(val) #Remove from queue
 	
 	#---- POST BUFFER JUMP LOADING
 	var remove = -1
@@ -171,6 +171,34 @@ func _on_camera_moved():
 
 		page_cur = result
 
+func _on_Timer_timeout(): #"Smart" loading for the secondary buffer
+	if just_jumped == 1: #Don't interfere with jumping
+		return
+		
+	var i = page_cur
+	
+	if Camera2D.camera_dir == 1: #Down
+		while i < page_cur + page_buffer + page_buffer_sec:
+			if i <= tex_obj.size() - 1:
+				if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i): #If we jumped and this page had never been initiated
+					thread_queue.append(i)
+#					print("2nd page down Core: " + str(i))
+			elif !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i):
+#				print("2nd page down new: " + str(i))
+				thread_queue.append(i)
+				
+			i += 1
+	
+	if Camera2D.camera_dir == 0: #Up
+		while i > page_cur - page_buffer - page_buffer_sec:
+			if i >= 0:
+				if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i): #If we jumped and this page had never been initiated
+					thread_queue.append(i)
+#					print("2nd page up Core: " + str(i))
+			i -= 1
+	
+	if thread_queue.size() > 0:
+		print(thread_queue)
 
 	
 func tex_jump(page): #Used to jump to a specific page
@@ -233,7 +261,7 @@ func tex_thread_start(index):
 #					print("canceled tex_obj[index]: " + str(tex_obj[index].texture))
 					return
 #			print("thread selected: " + str(i))
-			print("thread start processing page: " + str(index))
+			print("Thread start processing page: " + str(index))
 #			print(str(index) + " " + str(SourceLoader.tex_sorted[index]))
 			#Start the thread
 			thread[i].start( self, "tex_thread_load", [index, i])

@@ -2,6 +2,7 @@
 extends Camera2D
 
 onready var Main = get_node("/root/Main")
+onready var Streamer = get_node("/root/Main/Core/Streamer")
 
 
 # Camera control settings:
@@ -56,6 +57,7 @@ signal camera_moved
 
 #Backup loading
 var camera_dir = 0 #0 up, 1 down
+var camera_timer_check = 1 #How long load timer should be set after movement
 onready var Timer = get_node("Timer")
 
 # INPUTS
@@ -70,6 +72,7 @@ func _ready():
 	set_v_drag_enabled(false)
 	set_enable_follow_smoothing(true)
 	set_follow_smoothing(10)
+	Timer.connect("timeout", Streamer, "_on_Timer_timeout")
 	position.x = 0
 	position.y = OS.get_screen_size().y/2
 	
@@ -113,6 +116,13 @@ func _physics_process(delta):
 		if camera_movement.y != 0 or camera_movement.x != 0: #Only checking y, because X doesn't matter for infinite scroll
 			position += camera_movement * get_zoom()
 			emit_signal("camera_moved")
+			
+			#For 2nd buffer loading
+			if camera_movement.y > 0: camera_dir = 1
+			if camera_movement.y < 0: camera_dir = 0
+			
+			Timer.start(camera_timer_check)
+			
 		
 		# Set camera movement to zero, update old mouse position.
 		camera_movement = Vector2(0,0)

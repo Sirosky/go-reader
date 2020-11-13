@@ -251,27 +251,23 @@ func tex_thread_start(index):
 	for i in range(thread.size()):
 		thread_status.append(int(thread[i].is_active()))
 	
-	#Pick a thread if one is available.
-	for i in range(thread_status.size()): 
-		if thread_status[i] == 0: #Not busy
-			
-			#Filter out stuff that is loaded
-			if index <= tex_obj.size() - 1:
-				if tex_obj[index] != Core:
-#					print("canceled tex_obj[index]: " + str(tex_obj[index].texture))
-					return
-#			print("thread selected: " + str(i))
-			print("Thread start processing page: " + str(index))
-#			print(str(index) + " " + str(SourceLoader.tex_sorted[index]))
-			#Start the thread
-			thread[i].start( self, "tex_thread_load", [index, i])
-			thread_processing.append(index)
-			pages_loaded.append(index)
-			var loc = thread_queue.find(index)
-			if loc != -1:
-				thread_queue.remove(loc)
-			return
-			
+	if !thread[0].is_active():
+		#Filter out stuff that is loaded
+		if index <= tex_obj.size() - 1:
+			if tex_obj[index] != Core:
+#				print("canceled tex_obj[index]: " + str(tex_obj[index].texture))
+				return
+		print("Thread start processing page: " + str(index))
+		thread[0].start( self, "tex_thread_load", [index])
+		thread_processing.append(index)
+		pages_loaded.append(index)
+		var loc = thread_queue.find(index)
+		
+		if loc != -1:
+			thread_queue.remove(loc)
+		
+		return
+
 	
 	#No eligible threads? Add into queue. Thank you, come again
 	if !thread_queue.has(index):
@@ -279,7 +275,7 @@ func tex_thread_start(index):
 #		print(thread_queue)
 		
 
-func tex_thread_load(arr): #value 0 = index, 1 = thread ID
+func tex_thread_load(arr): #value 0 = index
 	var image = Image.new()
 	var err = image.load(SourceLoader.tex_sorted[arr[0]])
 	
@@ -297,7 +293,7 @@ func tex_thread_load(arr): #value 0 = index, 1 = thread ID
 	return texture
 
 func tex_thread_finish(arr): #This takes place on the main thread
-	var texture = thread[arr[1]].wait_to_finish()
+	var texture = thread[0].wait_to_finish()
 	
 	#-------- CASE A- there has been no jump (might not be necessary anymore, can probably remove)
 	if !tex_obj.has(Core):

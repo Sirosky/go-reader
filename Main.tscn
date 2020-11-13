@@ -62,6 +62,11 @@ process_mode = 0
 wait_time = 1.5
 one_shot = true
 
+[node name="TimerMouse" type="Timer" parent="Camera2D"]
+process_mode = 0
+wait_time = 1.5
+autostart = true
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 7 )
 

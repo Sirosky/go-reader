@@ -3,6 +3,7 @@ extends Camera2D
 
 onready var Main = get_node("/root/Main")
 onready var Streamer = get_node("/root/Main/Core/Streamer")
+onready var TimerMouse = get_node("TimerMouse")
 
 
 # Camera control settings:
@@ -73,6 +74,7 @@ func _ready():
 	set_enable_follow_smoothing(true)
 	set_follow_smoothing(10)
 	Timer.connect("timeout", Streamer, "_on_Timer_timeout")
+	TimerMouse.connect("timeout", self, "_on_Timer_timeout")
 	position.x = 0
 	position.y = OS.get_screen_size().y/2
 	
@@ -135,6 +137,10 @@ func _physics_process(delta):
 
 func _unhandled_input( event ):
 	if active == true:
+		if event is InputEventMouseMotion: #is moving, reset hiding timer
+			TimerMouse.start(2.5)
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			
 		if event is InputEventMouseButton:
 			
 			#Dragging
@@ -191,3 +197,8 @@ func pos_in_bounds(x, y): #Check if the proposed position is within camera bound
 		return true
 	else:
 		return false
+
+func _on_Timer_timeout():
+	print("Time out")
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	

@@ -514,6 +514,31 @@ theme = ExtResource( 14 )
 text = "Jump to page"
 align = 0
 
+[node name="ButCenter" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 169.0
+margin_right = 220.0
+margin_bottom = 194.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Center page"
+align = 0
+
+[node name="HSeparator2" type="HSeparator" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 155.0
+margin_right = 220.0
+margin_bottom = 163.0
+
+[node name="ButExit" type="Button" parent="Popup/MenuContext/Margin/VBox"]
+margin_top = 169.0
+margin_right = 220.0
+margin_bottom = 194.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 14 )
+text = "Exit go·reader"
+align = 0
+
 [node name="FileDialog" type="FileDialog" parent="Popup"]
 margin_left = -341.178
 margin_top = 188.58

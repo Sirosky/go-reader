@@ -6,6 +6,9 @@ onready var ButImportZIP = get_node("Margin/VBox/ButImportZIP")
 onready var ButDirectory = get_node("Margin/VBox/ButDirectory")
 onready var ButSettings = get_node("Margin/VBox/ButSettings")
 onready var ButJump = get_node("Margin/VBox/ButJump")
+onready var ButCenter = get_node("Margin/VBox/ButCenter")
+onready var ButExit = get_node("Margin/VBox/ButExit")
+
 onready var FileDiag = get_node("../FileDialog")
 onready var Core = get_node("/root/Main/Core")
 onready var SourceLoader = get_node("/root/Main/Core/SourceLoader")
@@ -30,6 +33,8 @@ func _ready():
 	ButSettings.connect("pressed",self,"_on_ButSettings_pressed")
 	ButImportZIP.connect("pressed",self,"_on_ButImportZIP_pressed")
 	ButJump.connect("pressed",self,"_on_ButJump_pressed")
+	ButCenter.connect("pressed",self,"_on_ButCenter_pressed")
+	ButExit.connect("pressed",self,"_on_ButExit_pressed")
 	
 	FileDiag.connect("confirmed",self,"_on_confirmed")
 	FileDiag.connect("file_selected",self,"_on_file_selected")
@@ -112,6 +117,16 @@ func _on_ButJump_pressed():
 func _on_ButSettings_pressed():
 	hide()
 	Settings.show()
+
+func _on_ButCenter_pressed():
+	hide()
+	Camera2D.position.x = 0
+
+func _on_ButExit_pressed():
+	hide()
+	Main.settings_save_page()
+	yield(get_tree().create_timer(.1), "timeout") 
+	get_tree().quit()
 
 func _on_confirmed():
 	if FileDiag_mode == 0: #Load new manga from library

@@ -4,7 +4,9 @@ extends Camera2D
 onready var Main = get_node("/root/Main")
 onready var Streamer = get_node("/root/Main/Core/Streamer")
 onready var TimerMouse = get_node("TimerMouse")
-
+onready var Popup = get_node("../Popup")
+onready var Jump = get_node("/root/Main/UI/Jump")
+onready var Starter = get_node("/root/Main/UI/Starter")
 
 # Camera control settings:
 # key - by keyboard
@@ -138,7 +140,7 @@ func _physics_process(delta):
 func _unhandled_input( event ):
 	if active == true:
 		if event is InputEventMouseMotion: #is moving, reset hiding timer
-			TimerMouse.start(2.5)
+			TimerMouse.start(2)
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 			
 		if event is InputEventMouseButton:
@@ -199,6 +201,16 @@ func pos_in_bounds(x, y): #Check if the proposed position is within camera bound
 		return false
 
 func _on_Timer_timeout():
-	print("Time out")
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	var hide = true
+	
+	for i in Popup.get_children():
+		if i.visible == true:
+			hide = false
+			break
+	
+	if Starter.visible == true or Jump.visible == true:
+		hide = false
+	
+	if hide == true:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	

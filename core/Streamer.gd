@@ -49,43 +49,34 @@ func _process(delta):
 		UI.Lab[8].text = str(i)
 		if !thread_queue.has(i) and !thread_processing.has(i):
 			while i <= page_cur + page_buffer:
-				var skip = 0 #Stop iterating if we encounter an unloaded page
-				
-				if i <= tex_obj.size() -1 :
-					if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i): #If we jumped and this page had never been initiated
-						tex_thread_start(i) #Properly load it now
-#						print("page down Core: " + str(i))
-						skip = 1
-				elif !pages_loaded.has(i) and !thread_processing.has(i):
-					skip = 1
-#					print("page down new: " + str(i))
-					tex_thread_start(i)
+				if i <= SourceLoader.tex_sorted.size() - 1:
+					if i <= tex_obj.size() -1 :
+						if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i): #If we jumped and this page had never been initiated
+							tex_thread_start(i) #Properly load it now
+							print("page down Core: " + str(i))
+					elif !pages_loaded.has(i) and !thread_processing.has(i):
+						print("page down new: " + str(i))
+						tex_thread_start(i)
 				
 				i += 1
-#				if skip ==0:
-#					i += 1
-#				else:
-#					i = page_cur + page_buffer + 1
 		
 		#-- UP
 		if page_cur - page_buffer >= 0: #Don't drop below 0
 			i = max(page_cur - 1, 0)
 			
 			while i >= page_cur - page_buffer:
-				var skip = 0 #Stop iterating if we encounter an unloaded page
-			
-				if tex_obj[i] == Core: #If we jumped and this page had never been initiated
-					tex_thread_start(i) #Properly load it now
-#					print("page up: " + str(i))
-					skip = 1
+				if i <= tex_obj.size() -1:
+					if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i): #If we jumped and this page had never been initiated
+						tex_thread_start(i) #Properly load it now
+#						print("page up Core: " + str(i))
+				elif !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i):
+#					print("page up new: " + str(i))
+					tex_thread_start(i)
 				
-				if skip ==0:
-					i -= 1
-				else:
-					i = page_cur - page_buffer - 1
+				i -= 1
 		
 		#First load
-		if page_max == 0 and page_first_load == 1:
+		if page_max == 0 and page_first_load == 1 and page_cur + 1 < SourceLoader.tex_sorted.size() - 1:
 			tex_thread_start(page_cur + 1)
 			page_max = 1
 	
@@ -172,6 +163,7 @@ func _on_camera_moved():
 		page_cur = result
 
 func _on_Timer_timeout(): #"Smart" loading for the secondary buffer
+	
 	if just_jumped == 1: #Don't interfere with jumping
 		return
 		
@@ -179,13 +171,14 @@ func _on_Timer_timeout(): #"Smart" loading for the secondary buffer
 	
 	if Camera2D.camera_dir == 1: #Down
 		while i < page_cur + page_buffer + page_buffer_sec:
-			if i <= tex_obj.size() - 1:
-				if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i): #If we jumped and this page had never been initiated
+			if i <= SourceLoader.tex_sorted.size() - 1:
+				if i <= tex_obj.size() - 1:
+					if tex_obj[i] == Core and !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i): #If we jumped and this page had never been initiated
+						thread_queue.append(i)
+	#					print("2nd page down Core: " + str(i))
+				elif !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i):
+	#				print("2nd page down new: " + str(i))
 					thread_queue.append(i)
-#					print("2nd page down Core: " + str(i))
-			elif !pages_loaded.has(i) and !thread_processing.has(i) and !thread_queue.has(i):
-#				print("2nd page down new: " + str(i))
-				thread_queue.append(i)
 				
 			i += 1
 	
@@ -231,6 +224,7 @@ func tex_jump(page): #Used to jump to a specific page
 		i = page + 1
 		while i < page + 3:
 			if i <= SourceLoader.tex_sorted.size() - 1:
+#				print(i)
 				jump_buffer_greater.append(i)
 #				tex_thread_start(i)
 			i += 1

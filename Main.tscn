@@ -703,7 +703,6 @@ margin_bottom = 32.0
 rect_min_size = Vector2( 320, 0 )
 min_value = 3.0
 max_value = 10.0
-step = 1.0
 value = 3.0
 
 [node name="LBuffer1Val" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]
@@ -735,7 +734,6 @@ margin_right = 455.0
 margin_bottom = 72.0
 rect_min_size = Vector2( 320, 0 )
 max_value = 10.0
-step = 1.0
 value = 3.0
 
 [node name="LBuffer2Val" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Perf/Grid"]

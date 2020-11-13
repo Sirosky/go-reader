@@ -20,6 +20,10 @@ func _ready():
 	LabelPage.rect_position.y = OS.get_screen_size().y - LabelPage.rect_size.y - 8
 	global.Tween.interpolate_property(LabelPage, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .8), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 	global.Tween.start()
+	#Get Jump started
+	Jump.modulate = Color(1, 1, 1, 0)
+	Jump.SpinBox.value = 1
+	Jump.SpinBox.get_line_edit().text = ""
 	
 func _process(delta):
 	#Update debugger
@@ -40,6 +44,7 @@ func _process(delta):
 	
 	if ProgressBar.modulate == Color(1, 1, 1, 0): #Make it invisible
 		ProgressBar.visible = false
+	
 	
 	if Jump.modulate == Color(1, 1, 1, 0): #Make it invisible
 		Jump.visible = false
@@ -67,19 +72,26 @@ func ProgressBar_toggle():
 func Jump_toggle():
 	var vis = !Jump.visible
 	
-	if vis == true:
+	if vis == true and Jump.modulate == Color(1, 1, 1, 0):
 		Jump.visible = true
+		
 		Jump.rect_position.x = OS.get_screen_size().x/2 - Jump.rect_size.x/2
 		Jump.rect_position.y = OS.get_screen_size().y/2 - Jump.rect_size.y/2
-		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .9), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
+		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, 0), Color(1, 1, 1, .9), .5, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 		global.Tween.start()
 		
 		if SourceLoader.tex_sorted.size() > 0:
-			Jump.SpinBox.max_value = SourceLoader.tex_sorted.size() - 1
+			Jump.SpinBox.max_value = SourceLoader.tex_sorted.size()
 		else:
-			Jump.SpinBox.max_value = 0
+			Jump.SpinBox.max_value = 1
 		
-	else: #Reset progress bar, make it go away
-		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, .9), Color(1, 1, 1, 0), 1, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
+		Jump.SpinBox.value = 1
+		yield(get_tree().create_timer(.3), "timeout") 
+		Jump.SpinBox.get_line_edit().text = ""
+		Jump.SpinBox.get_line_edit().grab_focus()
+		
+	else: #Reset, make it go away
+		global.Tween.interpolate_property(Jump, "modulate",Color(1, 1, 1, .9), Color(1, 1, 1, 0), .5, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)
 		global.Tween.start()
-		Jump.SpinBox.value = 0
+		Jump.SpinBox.value = 1
+		Jump.SpinBox.get_line_edit().text = ""

@@ -33,7 +33,7 @@ func _input(event):
 		get_tree().quit()
 	if event.is_action_pressed("ui_debug_overlay"):
 		Debug.visible = !Debug.visible
-	if event.is_action_pressed("ui_jump"):
+	if event.is_action_released("ui_jump"):
 		UI.Jump_toggle()
 	if event.is_action_pressed("ui_fullscreen"):
 		var a = OS.is_window_fullscreen()

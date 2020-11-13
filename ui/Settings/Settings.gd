@@ -6,6 +6,7 @@ onready var General = get_node("Margin/VBox/Body/Right/General")
 onready var Background = get_node("Margin/VBox/Body/Right/Background")
 onready var Filter = get_node("Margin/VBox/Body/Right/Filter")
 onready var Perf = get_node("Margin/VBox/Body/Right/Perf")
+onready var Cam = get_node("Margin/VBox/Body/Right/Cam")
 onready var Floater = get_node("Floater")
 
 #Left submenu
@@ -13,6 +14,7 @@ onready var ButGeneral = get_node("Margin/VBox/Body/Left/ButGeneral")
 onready var ButBG = get_node("Margin/VBox/Body/Left/ButBG")
 onready var ButFilter = get_node("Margin/VBox/Body/Left/ButFilter")
 onready var ButPerf = get_node("Margin/VBox/Body/Left/ButPerf")
+onready var ButCam = get_node("Margin/VBox/Body/Left/ButCam")
 
 #General
 onready var CheckAuto = get_node("Margin/VBox/Body/Right/General/CheckAuto")
@@ -45,6 +47,13 @@ onready var LBuffer1Val = get_node("Margin/VBox/Body/Right/Perf/Grid/LBuffer1Val
 onready var SBuffer2 = get_node("Margin/VBox/Body/Right/Perf/Grid/SBuffer2")
 onready var LBuffer2Val = get_node("Margin/VBox/Body/Right/Perf/Grid/LBuffer2Val")
 
+#Camera
+
+onready var SSpeed = get_node("Margin/VBox/Body/Right/Cam/SSpeed")
+onready var LSpeedV = get_node("Margin/VBox/Body/Right/Cam/LSpeedV")
+onready var SScrollSpeed = get_node("Margin/VBox/Body/Right/Cam/SScrollSpeed")
+onready var LScrollSpeedV = get_node("Margin/VBox/Body/Right/Cam/LScrollSpeedV")
+
 onready var ButClose = get_node("Margin/VBox/Accept/ButClose")
 
 func _ready():
@@ -70,6 +79,7 @@ func _ready():
 	ButBG.connect("pressed", self, "_on_Left_updated", [1])
 	ButFilter.connect("pressed", self, "_on_Left_updated", [2])
 	ButPerf.connect("pressed", self, "_on_Left_updated", [3])
+	ButCam.connect("pressed", self, "_on_Left_updated", [4])
 	ButClose.connect("pressed", self, "hide")
 	SliderH.connect("value_changed", self, "_on_BGColor_updated", [SliderH])
 	SliderS.connect("value_changed", self, "_on_BGColor_updated", [SliderS])
@@ -80,6 +90,8 @@ func _ready():
 	FSliderA.connect("value_changed", self, "_on_FilterColor_updated", [FSliderA])
 	SBuffer1.connect("value_changed", self, "_on_Buffer_updated", [SBuffer1])
 	SBuffer2.connect("value_changed", self, "_on_Buffer_updated", [SBuffer2])
+	SSpeed.connect("value_changed", self, "_on_Camera_updated", [SSpeed])
+	SScrollSpeed.connect("value_changed", self, "_on_Camera_updated", [SScrollSpeed])
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -101,6 +113,10 @@ func _process(delta):
 	if Perf.visible == true:
 		LBuffer1Val.text = str(SBuffer1.value)
 		LBuffer2Val.text = str(SBuffer2.value)
+	
+	if Cam.visible == true:
+		LSpeedV.text = str(SSpeed.value)
+		LScrollSpeedV.text = str(SScrollSpeed.value)
 
 func _on_CheckAuto_updated():
 	global.settings["General"]["autoload"] = !global.settings["General"]["autoload"]
@@ -133,6 +149,17 @@ func _on_BGColor_updated(value , obj):
 	Main.set_bg_color(SliderH.value, SliderS.value, SliderV.value)
 	Main.settings_save()
 
+func _on_Camera_updated(value , obj):
+	match obj:
+		SSpeed:
+			global.settings["Camera"]["camera_speed"] = SSpeed.value
+		SScrollSpeed:
+			global.settings["Camera"]["camera_scroll_speed"] = SScrollSpeed.value
+
+	
+	Main.set_camera()
+	Main.settings_save()
+
 func _on_FilterColor_updated(value, obj):
 	match obj:
 		FSliderH:
@@ -162,6 +189,7 @@ func _on_Left_updated(arr): #Left hand tab menu
 	Background.visible = false
 	Filter.visible = false
 	Perf.visible = false
+	Cam.visible = false
 	
 	match arr:
 		0:
@@ -172,6 +200,8 @@ func _on_Left_updated(arr): #Left hand tab menu
 			Filter.visible = true
 		3:
 			Perf.visible = true
+		4:
+			Cam.visible = true
 
 func show():
 	visible = true
@@ -195,10 +225,16 @@ func show():
 	SBuffer1.value = global.settings["Performance"]["page_buffer"]
 	SBuffer2.value = global.settings["Performance"]["page_buffer_sec"]
 	
+	SSpeed.value = global.settings["Camera"]["camera_speed"]
+	SScrollSpeed.value = global.settings["Camera"]["camera_scroll_speed"]
+	
 	rect_position.x = OS.get_screen_size().x/2 - rect_size.x/2
 	rect_position.y = OS.get_screen_size().y/2 - rect_size.y/2
 	General.visible = true
 	Background.visible = false
+	Filter.visible = false
+	Perf.visible = false
+	Cam.visible = false
 
 func hide():
 	global.Tween.interpolate_property(self, "modulate",Color(1, 1, 1, 0.9), Color(1, 1, 1, 0), .5, global.Tween.TRANS_CUBIC, global.Tween.EASE_OUT)

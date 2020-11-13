@@ -79,6 +79,9 @@ func settings_reset():
 	global.settings["Performance"] = {}
 	global.settings["Performance"]["page_buffer"] = 5
 	global.settings["Performance"]["page_buffer_sec"] = 5
+	global.settings["Camera"] = {}
+	global.settings["Camera"]["camera_speed"] = 1200
+	global.settings["Camera"]["camera_scroll_speed"] = 150
 	
 
 func settings_load():
@@ -95,7 +98,8 @@ func settings_load():
 		set_filter()
 		set_filter_color(global.settings["Filter"]["color"]["h"], global.settings["Filter"]["color"]["s"], global.settings["Filter"]["color"]["v"], global.settings["Filter"]["color"]["a"])
 		set_page_buffer()
-				
+		set_camera()
+		
 		if global.settings["General"]["autoload"] == true and !global.settings["General"]["autoload_source"] == "" and Dir.dir_exists(global.settings["General"]["autoload_source"]):
 			Starter.queue_free()
 			SourceLoader.source_load(global.settings["General"]["autoload_source"])
@@ -140,6 +144,12 @@ func settings_reconcile(): #Reconciles settings.json with older versions
 		global.settings["Performance"]["page_buffer_sec"] = 5
 		global.Mes.message_send("settings reconciled")
 		settings_save()
+		
+	if !global.settings.has("Camera"):
+		global.settings["Camera"] = {}
+		global.settings["Camera"]["camera_speed"] = 1200
+		global.settings["Camera"]["camera_scroll_speed"] = 150
+		settings_save()
 
 #set settings
 
@@ -164,4 +174,8 @@ func set_page_buffer():
 	
 	if Streamer.page_buffer_sec + Streamer.page_buffer > Streamer.page_buffer_unload - 2:
 		Streamer.page_buffer_unload = Streamer.page_buffer_sec + Streamer.page_buffer + 2
+
+func set_camera():
+	Camera2D.camera_speed = global.settings["Camera"]["camera_speed"]
+	Camera2D.camera_scroll_speed = global.settings["Camera"]["camera_scroll_speed"]
 	

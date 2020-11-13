@@ -610,10 +610,18 @@ theme = ExtResource( 14 )
 text = "Background"
 align = 0
 
-[node name="ButFilter" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+[node name="ButCam" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
 margin_top = 99.0
 margin_right = 160.0
 margin_bottom = 124.0
+theme = ExtResource( 14 )
+text = "Camera"
+align = 0
+
+[node name="ButFilter" type="Button" parent="Popup/Settings/Margin/VBox/Body/Left"]
+margin_top = 132.0
+margin_right = 160.0
+margin_bottom = 157.0
 theme = ExtResource( 14 )
 text = "Filter"
 align = 0
@@ -756,6 +764,71 @@ custom_fonts/font = ExtResource( 25 )
 text = "buffer is the amount of pages to load ahead of your current page.
 new page buffer is the buffer to maintain whenever you scroll to a new page. [3-10 pages]
 idle buffer allows for the \"smart\" loading of pages when you're reading. [0-10 pages]"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cam" type="GridContainer" parent="Popup/Settings/Margin/VBox/Body/Right"]
+visible = false
+margin_right = 605.0
+margin_bottom = 228.0
+columns = 3
+
+[node name="LSpeed" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Cam"]
+margin_top = 5.0
+margin_right = 94.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "pan speed:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SSpeed" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Cam"]
+margin_left = 102.0
+margin_right = 422.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 5000.0
+step = 100.0
+
+[node name="LSpeedV" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Cam"]
+margin_left = 430.0
+margin_top = 5.0
+margin_right = 440.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LScrollSpeed" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Cam"]
+margin_top = 45.0
+margin_right = 94.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "scroll speed:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SScrollSpeed" type="HSlider" parent="Popup/Settings/Margin/VBox/Body/Right/Cam"]
+margin_left = 102.0
+margin_top = 40.0
+margin_right = 422.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 320, 0 )
+max_value = 500.0
+step = 10.0
+
+[node name="LScrollSpeedV" type="Label" parent="Popup/Settings/Margin/VBox/Body/Right/Cam"]
+margin_left = 430.0
+margin_top = 45.0
+margin_right = 440.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 18 )
+text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }

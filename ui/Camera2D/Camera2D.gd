@@ -6,7 +6,6 @@ onready var Streamer = get_node("/root/Main/Core/Streamer")
 onready var TimerMouse = get_node("TimerMouse")
 onready var Popup = get_node("../Popup")
 onready var Jump = get_node("/root/Main/UI/Jump")
-onready var Starter = get_node("/root/Main/UI/Starter")
 
 # Camera control settings:
 # key - by keyboard
@@ -208,7 +207,7 @@ func _on_Timer_timeout():
 			hide = false
 			break
 	
-	if Starter.visible == true or Jump.visible == true:
+	if Jump.visible == true:
 		hide = false
 	
 	if hide == true:

@@ -460,93 +460,229 @@ margin_bottom = 274.0
 custom_constants/separation = 6
 
 [node name="ButLoad" type="Button" parent="Popup/MenuContext/Margin/VBox"]
-margin_right = 220.0
+margin_right = 266.0
 margin_bottom = 25.0
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Load from Library"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButLoad"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 22.0
+margin_bottom = 12.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButImportZIP" type="Button" parent="Popup/MenuContext/Margin/VBox"]
-margin_top = 62.0
-margin_right = 220.0
-margin_bottom = 87.0
-size_flags_horizontal = 3
+margin_top = 31.0
+margin_right = 266.0
+margin_bottom = 56.0
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Import eBook folder to Library"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButImportZIP"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -39.0
+margin_right = 22.0
+margin_bottom = -19.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButImport" type="Button" parent="Popup/MenuContext/Margin/VBox"]
-margin_top = 31.0
-margin_right = 220.0
-margin_bottom = 56.0
-size_flags_horizontal = 3
+margin_top = 62.0
+margin_right = 266.0
+margin_bottom = 87.0
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Import images folder to Library"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButImport"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -70.0
+margin_right = 22.0
+margin_bottom = -50.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButDirectory" type="Button" parent="Popup/MenuContext/Margin/VBox"]
 margin_top = 93.0
-margin_right = 220.0
+margin_right = 266.0
 margin_bottom = 118.0
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Open Library in Windows"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButDirectory"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -101.0
+margin_right = 22.0
+margin_bottom = -81.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButSettings" type="Button" parent="Popup/MenuContext/Margin/VBox"]
 margin_top = 124.0
-margin_right = 220.0
+margin_right = 266.0
 margin_bottom = 149.0
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Settings"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButSettings"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -132.0
+margin_right = 22.0
+margin_bottom = -112.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HSeparator" type="HSeparator" parent="Popup/MenuContext/Margin/VBox"]
 margin_top = 155.0
-margin_right = 220.0
+margin_right = 266.0
 margin_bottom = 163.0
 
 [node name="ButJump" type="Button" parent="Popup/MenuContext/Margin/VBox"]
 margin_top = 169.0
-margin_right = 220.0
+margin_right = 266.0
 margin_bottom = 194.0
-size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Jump to page"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButJump"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -177.0
+margin_right = 22.0
+margin_bottom = -157.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButCenter" type="Button" parent="Popup/MenuContext/Margin/VBox"]
-margin_top = 169.0
-margin_right = 220.0
-margin_bottom = 194.0
-size_flags_horizontal = 3
+margin_top = 200.0
+margin_right = 266.0
+margin_bottom = 225.0
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Center page"
 align = 0
 
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButCenter"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -208.0
+margin_right = 22.0
+margin_bottom = -188.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="HSeparator2" type="HSeparator" parent="Popup/MenuContext/Margin/VBox"]
-margin_top = 155.0
-margin_right = 220.0
-margin_bottom = 163.0
+margin_top = 231.0
+margin_right = 266.0
+margin_bottom = 239.0
 
 [node name="ButExit" type="Button" parent="Popup/MenuContext/Margin/VBox"]
-margin_top = 169.0
-margin_right = 220.0
-margin_bottom = 194.0
-size_flags_horizontal = 3
+margin_top = 245.0
+margin_right = 266.0
+margin_bottom = 270.0
 size_flags_vertical = 3
 theme = ExtResource( 14 )
 text = "Exit go·reader"
 align = 0
+
+[node name="Label" type="Label" parent="Popup/MenuContext/Margin/VBox/ButExit"]
+modulate = Color( 1, 1, 1, 0.705882 )
+margin_left = -8.0
+margin_top = -253.0
+margin_right = 22.0
+margin_bottom = -233.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 25 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+text = "Test"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="FileDialog" type="FileDialog" parent="Popup"]
 margin_left = -341.178
@@ -1238,7 +1374,7 @@ size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Popup/About/MarginContainer/VBox/Body"]
 margin_right = 632.0
-margin_bottom = 107.0
+margin_bottom = 138.0
 rect_min_size = Vector2( 0, 40 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1249,28 +1385,27 @@ Created by Sirosky. A big thanks to willnationsdev for his invaluable GDScript h
 scroll_active = false
 
 [node name="LabelDefault" type="Label" parent="Popup/About/MarginContainer/VBox/Body"]
-margin_top = 115.0
+margin_top = 146.0
 margin_right = 632.0
-margin_bottom = 145.0
+margin_bottom = 176.0
 custom_fonts/font = ExtResource( 13 )
-text = "Default Controls"
+text = "Main Controls"
 align = 1
 valign = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Popup/About/MarginContainer/VBox/Body"]
-margin_top = 153.0
+margin_top = 184.0
 margin_right = 632.0
 margin_bottom = 395.0
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Popup/About/MarginContainer/VBox/Body/VBoxContainer"]
 margin_right = 632.0
-margin_bottom = 242.0
+margin_bottom = 211.0
 custom_fonts/font = ExtResource( 9 )
 text = "Pan camera: WASD, left mouse button, or arrow keys
 Scroll camera: Scroll wheel
 Zoom camera: Ctrl + scroll wheel
-Center camera: C
 Load comic or manga: L
 Fullscreen: F
 Jump to page: J
@@ -1422,7 +1557,7 @@ size_flags_vertical = 3
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Popup/Welcome/MarginContainer/VBox/Body"]
 margin_right = 792.0
-margin_bottom = 220.0
+margin_bottom = 251.0
 rect_min_size = Vector2( 0, 220 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1436,11 +1571,11 @@ If your files are loose images, ie individual JPGs or PNGs: 1) right click 2) se
 scroll_active = false
 
 [node name="LabelDefault" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body"]
-margin_top = 228.0
+margin_top = 259.0
 margin_right = 792.0
-margin_bottom = 258.0
+margin_bottom = 289.0
 custom_fonts/font = ExtResource( 13 )
-text = "Default Controls"
+text = "Basic Controls"
 align = 1
 valign = 1
 
@@ -1519,14 +1654,13 @@ align = 1
 valign = 1
 
 [node name="Label" type="Label" parent="Popup/Welcome/MarginContainer/VBox/Body"]
-margin_top = 266.0
+margin_top = 297.0
 margin_right = 792.0
 margin_bottom = 508.0
 custom_fonts/font = ExtResource( 9 )
 text = "Pan camera: WASD, left mouse button, or arrow keys
 Scroll camera: Scroll wheel
 Zoom camera: Ctrl + scroll wheel
-Center camera: C
 Load comic or manga: L
 Fullscreen: F
 Jump to page: J

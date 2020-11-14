@@ -41,12 +41,53 @@ func _ready():
 	FileDiag.mode = 2 #Open directory mode
 	FileDiag.access = 2 #Can access all directories
 	
+	#Button hotkey hint (same code is in show(), this is just for setup)
+	var LPar = ButLoad
+	var L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_load")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButImportZIP
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_import_zip")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButImport
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_import")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButDirectory
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_directory")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButSettings
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_settings")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButJump
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_jump")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButExit
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_cancel")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButCenter
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_center")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	
 
 func _process(delta):
-	Panel.rect_size.x = rect_size.x
-	Panel.rect_size.y = rect_size.y
-	Panel.rect_position.x = 0
-	Panel.rect_position.y = 0
+	rect_size.x = 300
+	Panel.rect_size = rect_size
+	Panel.rect_position = Vector2(0, 0)
 	
 	if import_timer > 0: #Begin stage 2 of importing
 		import_timer -= 1
@@ -72,14 +113,11 @@ func _input(event):
 	if event is InputEventMouseButton:
 		#Show context menu
 		if event.button_index == BUTTON_RIGHT and event.pressed and not event.is_echo():
-			visible = true
-			rect_position.x = get_viewport().get_mouse_position().x
-			rect_position.y = get_viewport().get_mouse_position().y
+			show()
 		#Hide context menu
 		if event.button_index == BUTTON_LEFT and event.pressed and not event.is_echo() and\
 		mouse_in_rect(rect_position.x, rect_position.y, rect_position.x + rect_size.x, rect_position.y + rect_size.y) == false:
-			
-			visible = false
+			hide()
 
 
 func _on_ButLoad_pressed(): #Prepare to load a manga from our library
@@ -148,7 +186,53 @@ func _on_confirmed():
 
 	if FileDiag_mode == 5: #Select zip import target, begin importing
 		SourceLoader.source_import_zip_start(import_source, ProjectSettings.globalize_path(FileDiag.current_dir), 1)
+
+func show():
+	visible = true
+	rect_position.x = get_viewport().get_mouse_position().x
+	rect_position.y = get_viewport().get_mouse_position().y
 	
+	#Button hotkey hint
+	var LPar = ButLoad
+	var L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_load")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButImportZIP
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_import_zip")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButImport
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_import")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButDirectory
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_directory")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButSettings
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_settings")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButJump
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_jump")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButExit
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_cancel")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
+	LPar = ButCenter
+	L = LPar.get_node("Label")
+	L.text = InputMap.get_action_list("ui_center")[0].as_text()
+	L.rect_position.x = rect_size.x - L.rect_size.x - 16
+	L.rect_position.y = 3
 
 func hide(): #Hides context menu
 	visible = false

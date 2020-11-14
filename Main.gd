@@ -11,6 +11,7 @@ onready var Starter = get_node("UI/Starter")
 onready var Welcome = get_node("/root/Main/Popup/Welcome")
 onready var ColorRect = get_node("UI/ColorRect")
 onready var Settings = get_node("Popup/Settings")
+onready var FileDiag = get_node("/root/Main/Popup/FileDialog")
 
 var Dir = Directory.new()
 var cur_dir = "" #Current directory manga is loaded from
@@ -40,9 +41,23 @@ func _input(event):
 		a = !a
 		OS.set_window_fullscreen(a)
 	if event.is_action_pressed("ui_load"):
-		MenuContext._on_ButLoad_pressed()
+		if FileDiag.visible == false:
+			MenuContext._on_ButLoad_pressed()
 	if event.is_action_pressed("ui_center"):
-		Camera2D.position.x = 0
+		MenuContext._on_ButCenter_pressed()
+	if event.is_action_pressed("ui_import"):
+		if FileDiag.visible == false:
+			MenuContext._on_ButImport_pressed()
+	if event.is_action_pressed("ui_import_zip"):
+		if FileDiag.visible == false:
+			MenuContext._on_ButImportZIP_pressed()
+	if event.is_action_pressed("ui_directory"):
+		MenuContext._on_ButDirectory_pressed()
+	if event.is_action_pressed("ui_settings"):
+		if Settings.visible == false:
+			MenuContext._on_ButSettings_pressed()
+		else:
+			Settings.hide()
 
 func reset():
 	if TexAll.get_child_count() > 0: #If there's anything loaded prior, reset everything

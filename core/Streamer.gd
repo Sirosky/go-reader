@@ -7,6 +7,7 @@ onready var MenuContext = get_node("/root/Main/Popup/MenuContext")
 onready var Main = get_node("/root/Main")
 onready var Core = get_node("/root/Main/Core")
 onready var UI = get_node("/root/Main/UI")
+var tex_fail = load("res://ui/themes/icons/ico_fail.png")
 var Tex = "res://core/Tex.tscn"
 
 #These share the same index
@@ -196,7 +197,7 @@ func _on_Timer_timeout(): #"Smart" loading for the secondary buffer
 	
 func tex_jump(page): #Used to jump to a specific page
 	Main.reset()
-	Camera2D.camera_limit_y1 = -9999999
+	Camera2D.camera_limit_y1 = -999999999
 	
 	if page >= 0 and page <= SourceLoader.tex_sorted.size() - 1:
 		var i = 0
@@ -275,6 +276,8 @@ func tex_thread_load(arr): #value 0 = index
 	
 	if err != OK:
 		print("Error loading thumb- "+ str(err))
+		global.Mes.message_send(str("page " + str(arr[0]) + " load failed =("))
+		arr.append("Failed") #Let tex_thread_finish know that image failed to load properly
 	
 	var image_w = image.get_width()
 	var image_h = image.get_height()
@@ -289,15 +292,22 @@ func tex_thread_load(arr): #value 0 = index
 func tex_thread_finish(arr): #This takes place on the main thread
 	var texture = thread[0].wait_to_finish()
 	
-	#-------- CASE A- there has been no jump (might not be necessary anymore, can probably remove)
+	#-------- CASE A- there has been no jump
 	if !tex_obj.has(Core):
 		page_max = tex_coord.size() - 1 #Check if a Tex for this page exists already
 		
 		if arr[0] >= page_max: #Loading a new page
 			
 			var t = global.scene_load(Tex, TexAll)
-			t.texture = texture
 			t.page = tex_coord.size()
+			
+			if arr.size() == 1:
+				t.texture = texture
+			else: #Image failed to load
+				texture = tex_fail
+				t.texture = tex_fail
+				t._on_failed()
+			
 			
 			if tex_coord.size() == 0: #Completely new stream, page 0
 				t.rect_position.y = 0
@@ -324,8 +334,15 @@ func tex_thread_finish(arr): #This takes place on the main thread
 		
 		if tex_status > 0: #New texture, or not propery initiated
 			var t = global.scene_load(Tex, TexAll)
-			t.texture = texture
 			t.page = arr[0]
+			
+			if arr.size() == 1:
+				t.texture = texture
+			else: #Image failed to load
+				texture = tex_fail
+				t.texture = tex_fail
+				t._on_failed()
+				
 #			print("t.page: " + str(t.page))
 			
 			
@@ -346,6 +363,7 @@ func tex_thread_finish(arr): #This takes place on the main thread
 				t.rect_position.y = tex_obj[arr[0] - 1].rect_position.y + tex_obj[arr[0] - 1].rect_size.y + tex_y_buffer
 			
 			t.rect_position.x = (texture.get_width()/2) * -1
+			
 #			print("y pos: " + str(t.rect_position.y))
 			
 			page_max = tex_coord.size() - 1

@@ -3,10 +3,12 @@ extends TextureRect
 
 onready var Vis = get_node("VisibilityNotifier2D")
 onready var Streamer = get_node("/root/Main/Core/Streamer")
+onready var SourceLoader = get_node("/root/Main/Core/SourceLoader")
 onready var Camera2D = get_node("/root/Main/Camera2D")
 onready var Core = get_node("/root/Main/Core")
 
 var page = 0 #The page this texture is loaded for
+var TexFail = "res://core/TexFail.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -48,4 +50,9 @@ func _on_screen_entered():
 	Streamer.page_new(self)
 #	Streamer.page_cur = page
 
+func _on_failed():
+	var t = global.scene_load(TexFail, self)
+	t.path = SourceLoader.tex_sorted[page]
+	t.rect_position.x = t.rect_size.x/2
+	t.rect_position.y = 220
 

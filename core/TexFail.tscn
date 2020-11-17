@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://ui/themes/LL20.tres" type="DynamicFont" id=1]
+[ext_resource path="res://core/TexFail.gd" type="Script" id=2]
+[ext_resource path="res://ui/themes/theme_default.tres" type="Theme" id=3]
+
+[node name="TexFail" type="HBoxContainer"]
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButOpen" type="Button" parent="."]
+margin_right = 127.0
+margin_bottom = 37.0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+text = "Open image"
+
+[node name="ButOpenDir" type="Button" parent="."]
+margin_left = 135.0
+margin_right = 290.0
+margin_bottom = 37.0
+theme = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
+text = "Open directory"

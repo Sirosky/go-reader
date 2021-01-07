@@ -87,4 +87,4 @@ In the scenario where the import fails for whatever reason, you can still manual
 1. A big thanks to [willnationsdev](https://gist.github.com/willnationsdev) for putting up with my incessant GDScript questions during the odd hours of the day (and night).
 2. Apple aka [whietfegeet](https://www.reddit.com/user/whietfegeet) for serving as my valued beta tester and guinea pig.
 3. The creators and contributors of [Godot game engine](https://godotengine.org/) for creating this superb platform.
-4. The creators and contributors [7-zip](https://www.7-zip.org/), which does all the heavy lifting for go·reader's eBook importation code.
+4. The creators and contributors of [7-zip](https://www.7-zip.org/), which does all the heavy lifting for go·reader's eBook importation code.
